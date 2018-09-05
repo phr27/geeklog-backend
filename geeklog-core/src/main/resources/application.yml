@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    druid:
+      username: ${MYSQL_USER}
+      password: ${MYSQL_PWD}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://${MYSQL_IP}:${MYSQL_PORT}/${DB_NAME}
+logging:
+  level:
+    com.geeklog.mapper: debug

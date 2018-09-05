@@ -1,0 +1,31 @@
+version: "3"
+services:
+  geeklog-db:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    image: geeklog-db
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    container_name: geeklog-db-0
+  geeklog-app:
+    build:
+      context: .
+      dockerfile: ./docker/java/Dockerfile
+    image: geeklog-app
+    ports:
+      - 80:8080
+    links:
+      - geeklog-db
+    depends_on:
+      - geeklog-db
+    environment:
+      MYSQL_IP: geeklog-db-0
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PWD: 123456
+      DB_NAME: geeklog
+    container_name: geeklog-app-0
+
