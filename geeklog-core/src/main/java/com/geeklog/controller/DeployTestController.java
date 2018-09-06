@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 功能：仅用于测试容器编排是否正常，数据库能否正常连接以及数据库是否乱码，正式环境删除
  */
 @RestController
+@CrossOrigin
 public class DeployTestController {
 
     @Autowired
