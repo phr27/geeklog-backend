@@ -31,6 +31,7 @@ CREATE TABLE `article` (
   `modified_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `user_id` int(11) DEFAULT NULL,
   `content` text,
+  `display` bit DEFAULT 1,
   `category_id` int(11) DEFAULT NULL,
   `tags` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`article_id`),
@@ -58,14 +59,14 @@ public class getLocationName {
     return (null==cityName ? "": cityName);
 }
 ```
-', '2', 'Java');
+', 1, '2', 'Java');
 INSERT INTO `article` VALUES ('2', 'Vue总结', '2018-09-06 09:45:34', '2018-09-06 09:45:34', '2', '从代码来看，貌似finally块中的println语句应该会被执行5次。但当程序运行后，你会发现finally块只执行了4次。第5次迭代的时候会触发exit函数的调用，于是这第5次的finally便永远也触发不到了。原因便是——System.exit会挂起所有线程的执行，包括当前线程。即便是try语句后的finally块，只要是执行了exit，便也无力回天了。
 
 在调用System.exit时，JVM会在关闭前执行两个结束任务：
 
 首先，它会执行完所有通过Runtime.addShutdownHook注册进来的终止的钩子程序。这一点**很关键**，因为它会释放JVM外部的资源。
 
-接下来的便是Finalizer了。可能是`System.runFinalizersOnExit`也可能是Runtime.runFinalizersOnExit。finalizer的使用已经被废弃有很长一段时间了。finalizer可以在存活对象上进行调用，即便是这些对象仍在被其它线程所使用。而这会导致不可预期的结果甚至是死锁。', '1', 'Vue');
+接下来的便是Finalizer了。可能是`System.runFinalizersOnExit`也可能是Runtime.runFinalizersOnExit。finalizer的使用已经被废弃有很长一段时间了。finalizer可以在存活对象上进行调用，即便是这些对象仍在被其它线程所使用。而这会导致不可预期的结果甚至是死锁。', 1, '1', 'Vue');
 INSERT INTO `article` VALUES ('3', 'JavaScript技巧', '2018-09-06 09:46:04', '2018-09-06 09:46:04', '3', 'Xms = 最小内存分配
 Xmx = 最大内存分配
 XX:PermSize = JVM启动时的初始大小
@@ -89,7 +90,7 @@ double 8 15
 幂运算
 Java是通过异或操作来进行幂运算的。Java对于幂运算有两种处理方式：
 
-乘积：', '1', 'JavaScript');
+乘积：', 1, '1', 'JavaScript');
 INSERT INTO `article` VALUES ('4', 'Docker使用经验', '2018-09-06 09:46:40', '2018-09-06 09:46:40', '4', '## 使用 Maven 阿里云国内镜像
 修改maven根目录下的conf文件夹中的setting.xml文件，在mirrorms内添加如下内容：
 ```
@@ -99,7 +100,7 @@ INSERT INTO `article` VALUES ('4', 'Docker使用经验', '2018-09-06 09:46:40', 
    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
    <mirrorOf>central</mirrorOf>
 </mirror>
-```', '3', 'Docker');
+```', 1, '3', 'Docker');
 INSERT INTO `article` VALUES ('5', 'Python开发技巧', '2018-09-06 09:46:52', '2018-09-06 09:46:54', '5', '根据Java的接口规范：
 
 FileOutputStream是用于写入原始字节流比如图片流数据。如果是要写入字符流，则应该考虑使用FileWriter。
@@ -139,7 +140,7 @@ SOLID是Robert Martin提出的一套设计准则的简称。根据他的准则�
 避免使用浮点数
 只有当确实有必要的时候才使用浮点数。比方说，使用浮点数来表示卢比或者派萨就很容易产生问题——这种情况应当使用BigDecimal。而浮点数更多地是用于测量。
 学习Java的一些资源
-最后我想给大家推荐一下学习Java的一些相关资料。', '2', 'Python');
+最后我想给大家推荐一下学习Java的一些相关资料。', 1, '2', 'Python');
 INSERT INTO `article` VALUES ('6', 'Jmeter压测总结', '2018-09-06 09:47:18', '2018-09-06 09:47:20', '6', '3.在try catch中要加finally，释放一些特殊的操作
 (1)文件流操作，不释放的话容易导致流溢出。
 
@@ -159,7 +160,7 @@ INSERT INTO `article` VALUES ('6', 'Jmeter压测总结', '2018-09-06 09:47:18', 
 
 从面向对象的角度看，我觉得，如果性能不是瓶颈，领域模型的设计，还有逻辑清晰、容易理解也许更重要。需要视情况而定。
 
-', '4', 'Jmeter');
+', 1, '4', 'Jmeter');
 INSERT INTO `article` VALUES ('7', 'Junit使用技巧', '2018-09-06 09:47:42', '2018-09-06 09:47:43', '6', 'SQL语言的发展
 
 SQL分有（关系型数据库，非关系型数据库）
@@ -206,7 +207,7 @@ Join:
 
 1. join操作的类型--innerjoin
 
-Select from tableA A inner join tableB B on A.key=B.key', '4', 'Junit');
+Select from tableA A inner join tableB B on A.key=B.key', 1, '4', 'Junit');
 INSERT INTO `article` VALUES ('8', 'Hadoop使用', '2018-09-06 09:48:27', '2018-09-06 09:48:27', '7', '1.尽量在合适的场合使用单例
 
 使用单例可以减轻加载的负担，缩短加载的时间，提高加载的效率，但并不是所有地方都适用于单例，简单来说，单例主要适用于以下三个方面：
@@ -225,7 +226,7 @@ INSERT INTO `article` VALUES ('8', 'Hadoop使用', '2018-09-06 09:48:27', '2018-
 
 3. 尽量避免过多过常的创建Java对象
 
-尽量避免在经常调用的方法，循环中new对象，由于系统不仅要花费时间来创建对象，而且还要花时间对这些对象进行垃圾回收和处理，在我们可以控制的范围内，最大限度的重用对象，最好能用基本的数据类型或数组来替代对象。', '6', 'Hadoop');
+尽量避免在经常调用的方法，循环中new对象，由于系统不仅要花费时间来创建对象，而且还要花时间对这些对象进行垃圾回收和处理，在我们可以控制的范围内，最大限度的重用对象，最好能用基本的数据类型或数组来替代对象。', 1, '6', 'Hadoop');
 INSERT INTO `article` VALUES ('9', 'KNN算法的改进', '2018-09-06 09:48:54', '2018-09-06 09:48:58', '8', 'k近邻算法是一种基于实例的算法，即学习过程只是简单的存储已知的训练数据，遇到新的查询实例时，从训练集中取出相似的实例，因此它是一种懒惰(lazy)学习方法。可以为不同的待分类查询实例建立不同的目标函数进行逼近。
 
 k近邻算法原理：
@@ -292,7 +293,7 @@ C是输出的类别数量，P是输入属性A时输出C的条件概率，VDM在�
 
 另外一种非常有效的方法是基于概率的局部分类模型，即结合NB算法，这种算法在数据较小的时候表现很好。有研究者发现保持紧邻k很小将减少对于NB强依赖的机会，然而NB的类别估计概率不可信。
 
-', '5', '机器学习');
+', 1, '5', '机器学习');
 INSERT INTO `article` VALUES ('10', '逻辑回归的另一角度解析', '2018-09-06 09:49:25', '2018-09-06 09:49:27', '9', '1. 什么是逻辑回归？
 许多人对线性回归都比较熟悉，但知道逻辑回归的人可能就要少的多。从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。
 
@@ -304,7 +305,7 @@ INSERT INTO `article` VALUES ('10', '逻辑回归的另一角度解析', '2018-0
 逻辑回归与线性回归的关系
 逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax+b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax+b作为因变量，即y = ax+b，而logistic回归则通过函数S将ax+b对应到一个隐状态p，p = S(ax+b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
 
-将t换成ax+b，可以得到逻辑回归模型的参数形式：', '5', '机器学习');
+将t换成ax+b，可以得到逻辑回归模型的参数形式：', 1, '5', '机器学习');
 
 -- ----------------------------
 -- Table structure for authority
@@ -319,8 +320,8 @@ CREATE TABLE `authority` (
 -- ----------------------------
 -- Records of authority
 -- ----------------------------
-INSERT INTO `authority` VALUES ('1', '发文章');
-INSERT INTO `authority` VALUES ('2', '写评论');
+INSERT INTO `authority` VALUES ('1', 'can_write_article');
+INSERT INTO `authority` VALUES ('2', 'comment');
 
 -- ----------------------------
 -- Table structure for category
@@ -468,7 +469,7 @@ CREATE TABLE `user` (
   `nickname` varchar(20) DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `bio` varchar(255) DEFAULT NULL,
-  `is_admin` tinyint(4) DEFAULT NULL,
+  `is_admin` bit DEFAULT 0,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `ui_username` (`username`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
@@ -476,13 +477,13 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'a123456', '123456', '小啊', null, null, '1');
-INSERT INTO `user` VALUES ('2', 'b123456', '123456', '小波', null, null, '0');
-INSERT INTO `user` VALUES ('3', 'c123456', '123456', '小菜', null, null, '0');
-INSERT INTO `user` VALUES ('4', 'd123456', '123456', '小代', null, null, '0');
-INSERT INTO `user` VALUES ('5', 'e123456', '123456', '小哦', null, null, '0');
-INSERT INTO `user` VALUES ('6', 'f123456', '123456', '小付', null, null, '0');
-INSERT INTO `user` VALUES ('7', 'g123456', '123456', '小高', null, null, '0');
-INSERT INTO `user` VALUES ('8', 'h123456', '123456', '小黄', null, null, '0');
-INSERT INTO `user` VALUES ('9', 'i123456', '123456', '小爱', null, null, '0');
-INSERT INTO `user` VALUES ('10', 'j123456', '123456', '小建', null, null, '0');
+INSERT INTO `user` VALUES ('1', 'a123456', '123456', '小啊', null, null, 1);
+INSERT INTO `user` VALUES ('2', 'b123456', '123456', '小波', null, null, 0);
+INSERT INTO `user` VALUES ('3', 'c123456', '123456', '小菜', null, null, 0);
+INSERT INTO `user` VALUES ('4', 'd123456', '123456', '小代', null, null, 0);
+INSERT INTO `user` VALUES ('5', 'e123456', '123456', '小哦', null, null, 0);
+INSERT INTO `user` VALUES ('6', 'f123456', '123456', '小付', null, null, 0);
+INSERT INTO `user` VALUES ('7', 'g123456', '123456', '小高', null, null, 0);
+INSERT INTO `user` VALUES ('8', 'h123456', '123456', '小黄', null, null, 0);
+INSERT INTO `user` VALUES ('9', 'i123456', '123456', '小爱', null, null, 0);
+INSERT INTO `user` VALUES ('10', 'j123456', '123456', '小建', null, null, 0);
