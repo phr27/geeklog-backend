@@ -1,5 +1,7 @@
 package com.geeklog.common.util;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author 潘浩然
  * 创建时间 2018/09/07
@@ -38,6 +40,9 @@ public class ResponseEntity<T> {
 
     public T getData() {
         return data;
+    }
+
+    private ResponseEntity() {
     }
 
     private ResponseEntity(int code, String message, T data) {
@@ -221,6 +226,7 @@ public class ResponseEntity<T> {
      * 创建时间 2018/09/07
      * 功能：判断响应体的状态码是否是 2xx（是否是一次成功的请求）
      */
+    @JsonIgnore
     public boolean is2xxSuccessful() {
         return code >= 200 && code < 300;
     }
