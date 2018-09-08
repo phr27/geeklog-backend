@@ -9,6 +9,10 @@ logging:
   level:
     com.geeklog.mapper: debug
 
-mybatis_config_file: mybatis-config.xml
-mapper_path: /mapper/**.xml
-entity_package: com.geeklog.domain
+mybatis:
+  configuration:
+    aggressive-lazy-loading: false
+    lazy-loading-enabled: true
+  type-aliases-package: com.geeklog.domain
+  mapper-locations: /mapper/**.xml
+
