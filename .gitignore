@@ -25,5 +25,4 @@ hs_err_pid*
 .idea/
 *.iml
 generatorConfig.xml
-geeklog-core/src/test/
 target/
