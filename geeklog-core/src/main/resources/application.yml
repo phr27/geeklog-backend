@@ -2,9 +2,13 @@ spring:
   datasource:
     druid:
       username: ${MYSQL_USER:root}
-      password: ${MYSQL_PWD:123456}
+      password: ${MYSQL_PWD:admin}
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://${MYSQL_IP:localhost}:${MYSQL_PORT:3306}/${DB_NAME:geeklog}?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      url: jdbc:mysql://${MYSQL_IP:localhost}:${MYSQL_PORT:3306}/${DB_NAME:geeklog}?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
 logging:
   level:
     com.geeklog.mapper: debug
+
+mybatis_config_file: mybatis-config.xml
+mapper_path: /mapper/**.xml
+entity_package: com.geeklog.domain
