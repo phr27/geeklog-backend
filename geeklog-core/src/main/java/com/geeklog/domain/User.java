@@ -1,18 +1,24 @@
 package com.geeklog.domain;
 
+/**
+ *  作者: 朱远飞
+ *  创建时间：2018年9月9日15:11:30
+ *  说明：与数据库表中对应的Uset类，JavaBean
+ */
 public class User {
+    // 用户的ID主键
     private Integer userId;
-
+    // 用户账号
     private String username;
-
+    // 用户密码
     private String password;
-
+    // 用户昵称
     private String nickname;
-
+    // 用户头像（存路径）
     private String avatar;
-
+    // 用户简介
     private String bio;
-
+    // 用户是否为管理员
     private Boolean isAdmin;
 
     public Integer getUserId() {
