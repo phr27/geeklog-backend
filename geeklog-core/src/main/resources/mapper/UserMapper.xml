@@ -14,22 +14,33 @@
     delete from user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.User" >
-    insert into user (user_id, username, password, 
+  <insert id="insert" parameterType="com.geeklog.domain.User" useGeneratedKeys="true" keyProperty="userId">
+    insert into user (username, password,
       nickname, avatar, bio, 
       is_admin)
-    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{nickname,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{bio,jdbcType=VARCHAR}, 
       #{isAdmin,jdbcType=BIT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.geeklog.domain.User" >
     update user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      avatar = #{avatar,jdbcType=VARCHAR},
-      bio = #{bio,jdbcType=VARCHAR},
-      is_admin = #{isAdmin,jdbcType=BIT}
+    <set>
+      <if test="password != null and password != ''">
+        password = #{password},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar},
+      </if>
+      <if test="bio != null">
+        bio = #{bio},
+      </if>
+      <if test="isAdmin != null">
+        is_admin = #{isAdmin},
+      </if>
+    </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

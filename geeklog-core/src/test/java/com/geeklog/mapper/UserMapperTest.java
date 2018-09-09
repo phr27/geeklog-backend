@@ -26,23 +26,37 @@ public class UserMapperTest {
     }
 
     @Test
-    public void queryAreaById() throws Exception {
-
+    public void queryUserById() throws Exception {
+        User user = mapper.selectByPrimaryKey(1);
+        System.out.println(user.getUsername());
     }
 
     @Test
-    public void insertArea() throws Exception {
-
+    public void insertUser() throws Exception {
+        User user = mapper.selectByPrimaryKey(1);
+        user.setUsername("测试2");
+        mapper.insert(user);
+        System.out.println(user.getUserId());
     }
 
     @Test
-    public void updateArea() throws Exception {
-
+    public void updateUser() throws Exception {
+        User user = mapper.selectByPrimaryKey(2);
+        user.setAvatar("测试路径222");
+        user.setPassword("123123");
+        user.setBio("测试Bio");
+        user.setIsAdmin(true);
+        user.setNickname("测试Nickname");
+        mapper.updateByPrimaryKey(user);
     }
 
     @Test
-    public void deleteArea() throws Exception {
-
+    public void deleteUser() throws Exception {
+        User user = mapper.selectByPrimaryKey(1);
+        user.setUsername("测试2");
+        mapper.insert(user);
+        System.out.println(user.getUserId());
+        mapper.deleteByPrimaryKey(user.getUserId());
     }
 
 }
