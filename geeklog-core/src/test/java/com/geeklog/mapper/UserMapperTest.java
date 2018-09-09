@@ -11,6 +11,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * 作者：朱远飞
+ * 创建时间：2018年9月9日15:14:59
+ * 说明：UserMapper 测试类
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserMapperTest {
@@ -72,5 +77,27 @@ public class UserMapperTest {
         }
     }
 
+    @Test
+    public void login() throws Exception {
+        User login = mapper.login("a123456", "1234561");
+        if(login != null){
+            System.out.println(login.getUserId());
+            System.out.println("登录成功");
+        }else{
+            System.out.println("登录失败");
+        }
 
+    }
+
+    @Test
+    public void queryUsername() throws Exception {
+        User user = mapper.queryUsername("a1234561");
+        if(user != null){
+            System.out.println(user.getUserId());
+            System.out.println("已存在该账号");
+        }else{
+            System.out.println("不存在");
+        }
+
+    }
 }

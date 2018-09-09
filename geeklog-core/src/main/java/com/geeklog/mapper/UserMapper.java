@@ -69,8 +69,21 @@ public interface UserMapper {
     List<User> queryPaging(@Param("user") User user, @Param("rowIndex") int rowIndex,
                            @Param("pageSize") int pageSize);
 
+    /**
+     * 用户登录
+     * @param username 用户名
+     * @param password 密码
+     * @return User
+     * 创建时间：2018年9月9日16:31:19
+     */
+    User login(@Param("username") String username, @Param("password") String password);
 
-
-
+    /**
+     * 可能会有这样的需求，前端发AJAX判断，该账号是否已经存在
+     * @param username  账号
+     * @return  User
+     * 创建时间：2018年9月9日16:40:26
+     */
+    User queryUsername(String username);
 
 }

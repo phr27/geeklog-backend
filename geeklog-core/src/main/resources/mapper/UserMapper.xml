@@ -83,5 +83,14 @@
     </where>
     LIMIT #{rowIndex}, #{pageSize}
   </select>
-
+  <select id="login" resultMap="BaseResultMap">
+    SELECT user_id
+    FROM user
+    WHERE username = #{username} and password = #{password}
+  </select>
+  <select id="queryUsername" resultMap="BaseResultMap">
+    SELECT user_id
+    FROM user
+    WHERE username = #{username}
+  </select>
 </mapper>
