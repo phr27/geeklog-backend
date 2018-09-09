@@ -52,4 +52,36 @@
     select user_id, username, password, nickname, avatar, bio, is_admin
     from user
   </select>
+  <select id="queryNumOfUsers" resultType="int">
+    SELECT count(1)
+    FROM user
+    <where>
+      <if test="username != null">
+        and username like concat('%', #{username}, '%')
+      </if>
+      <if test="nickname != null">
+        and nickname like concat('%', #{nickname}, '%')
+      </if>
+      <if test="isAdmin != null">
+        and is_admin = #{isAdmin}
+      </if>
+    </where>
+  </select>
+  <select id="queryPaging" resultMap="BaseResultMap">
+    select user_id, username, password, nickname, avatar, bio, is_admin
+    from user
+    <where>
+      <if test="user.username != null">
+        and username like concat('%', #{user.username}, '%')
+      </if>
+      <if test="user.nickname != null">
+        and nickname like concat('%', #{user.nickname}, '%')
+      </if>
+      <if test="user.isAdmin != null">
+        and is_admin = #{user.isAdmin}
+      </if>
+    </where>
+    LIMIT #{rowIndex}, #{pageSize}
+  </select>
+
 </mapper>

@@ -1,6 +1,8 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.User;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -47,4 +49,28 @@ public interface UserMapper {
      * 创建时间：2018年9月9日15:18:57
      */
     int updateByPrimaryKey(User user);
+
+    /**
+     * 以一个条件来查询用户数量
+     * @param user 查询条件
+     * @return 用户数量
+     * 创建时间：2018年9月9日16:03:34
+     */
+    int queryNumOfUsers(User user);
+
+    /**
+     * 分页查询
+     * @param user 分页查询条件
+     * @param rowIndex  limit第一个参数 起始位置
+     * @param pageSize  limit第二个参数 每页数量
+     * @return 分页查询的用户集合
+     * 创建时间：2018年9月9日16:17:48
+     */
+    List<User> queryPaging(@Param("user") User user, @Param("rowIndex") int rowIndex,
+                           @Param("pageSize") int pageSize);
+
+
+
+
+
 }
