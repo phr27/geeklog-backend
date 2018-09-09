@@ -1,6 +1,7 @@
 package com.geeklog.common.util
 
 import com.geeklog.common.exception.JwtParseException
+import com.geeklog.common.exception.ValidatorException
 import com.geeklog.domain.User
 import io.jsonwebtoken.JwtException
 import spock.lang.Specification
@@ -23,26 +24,34 @@ class JwtUtilSpec extends Specification {
         when: "owner 为 null 时"
         JwtUtil.createJwt(null)
         then:
-        NullPointerException nullPointerException = thrown()
-        nullPointerException.message == "owner cannot be null"
+        ValidatorException validatorException = thrown()
+        with(validatorException) {
+            isInnerError()
+            log == "createJwt(owner cannot be null)"
+        }
 
         when: "owner id 为 null 时"
         JwtUtil.createJwt(testUser)
         then:
-        nullPointerException = thrown()
-        nullPointerException.message == "owner id cannot be null"
+        validatorException = thrown()
+        with(validatorException) {
+            isInnerError()
+            log == "createJwt(owner id cannot be null)"
+        }
 
         when: "要解析的 jwt 为 null"
         JwtUtil.parseJwt(null)
         then:
-        JwtParseException jwtParseException = thrown()
-        jwtParseException.message == "会话无效，请重新登录"
-        IllegalArgumentException.isAssignableFrom(jwtParseException.cause.class)
+        validatorException = thrown()
+        with(validatorException) {
+            isInnerError()
+            log == "parseJwt(jwt cannot be blank)"
+        }
 
         when: "要解析的 jwt 格式错误"
         JwtUtil.parseJwt("123456")
         then:
-        jwtParseException = thrown()
+        JwtParseException jwtParseException = thrown()
         jwtParseException.message == "会话无效，请重新登录"
         JwtException.isAssignableFrom(jwtParseException.cause.class)
 
