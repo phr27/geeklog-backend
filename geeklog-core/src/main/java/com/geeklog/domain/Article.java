@@ -1,24 +1,29 @@
 package com.geeklog.domain;
 
 import java.util.Date;
-
+/**
+ *  @author 朱远飞
+ *  @create_time 2018年9月9日15:11:30
+ *  @describe JavaBean 文章表
+ */
 public class Article {
+    // 主键
     private Integer articleId;
-
+    // 文章标题
     private String title;
-
+    // 创建时间
     private Date createdAt;
-
+    // 最新更改时间
     private Date modifiedAt;
-
+    // 外键->用户表主键
     private Integer userId;
-
+    // 外键->类别表主键
     private Integer categoryId;
-
+    // 标签
     private String tags;
-
+    // 是否显示
     private Boolean display;
-
+    // 文章内容
     private String content;
 
     public Integer getArticleId() {
