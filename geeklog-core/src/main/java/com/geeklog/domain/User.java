@@ -1,9 +1,9 @@
 package com.geeklog.domain;
 
 /**
- *  作者: 朱远飞
- *  创建时间：2018年9月9日15:11:30
- *  说明：与数据库表中对应的Uset类，JavaBean
+ *  @author 朱远飞
+ *  @create_time 2018年9月9日15:11:30
+ *  @describe JavaBean 用户表
  */
 public class User {
     // 用户的ID主键

@@ -1,20 +1,25 @@
 package com.geeklog.domain;
 
 import java.util.Date;
-
+/**
+ *  @author 朱远飞
+ *  @create_time 2018年9月9日15:11:30
+ *  @describe JavaBean 评论表
+ */
 public class Comment {
+    // 主键
     private Integer commentId;
-
+    // 外键->用户表主表
     private Integer userId;
-
+    // 外键->文章表主键
     private Integer articleId;
-
+    // 评论内容
     private String content;
-
+    // 外键->评论表主键
     private Integer parentId;
-
+    // 外键->评论表主键
     private Integer rootId;
-
+    // 评论创建时间
     private Date createdAt;
 
     public Integer getCommentId() {
