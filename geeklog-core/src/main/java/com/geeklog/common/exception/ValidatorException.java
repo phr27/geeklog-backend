@@ -60,4 +60,6 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException USERNAME_OR_PWD_ERROR = new ValidatorException(604, "用户名或密码错误");
 
+    public static final ValidatorException NO_JWT_TOKEN = new ValidatorException(605, "请先登录");
+
 }
