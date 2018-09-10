@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.geeklog.domain.Article" >
     <id column="article_id" property="articleId" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
-    <result column="modified_at" property="modifiedAt" jdbcType="TIMESTAMP" />
+    <result column="created_at" property="createdAt"  />
+    <result column="modified_at" property="modifiedAt" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="tags" property="tags" jdbcType="VARCHAR" />
@@ -21,16 +21,16 @@
       modified_at, user_id, category_id, 
       tags, display, content
       )
-    values (#{articleId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
-      #{modifiedAt,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
+    values (#{articleId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createdAt},
+      #{modifiedAt}, #{userId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER},
       #{tags,jdbcType=VARCHAR}, #{display,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.geeklog.domain.Article" >
     update article
     set title = #{title,jdbcType=VARCHAR},
-      created_at = #{createdAt,jdbcType=TIMESTAMP},
-      modified_at = #{modifiedAt,jdbcType=TIMESTAMP},
+      created_at = #{createdAt},
+      modified_at = #{modifiedAt},
       user_id = #{userId,jdbcType=INTEGER},
       category_id = #{categoryId,jdbcType=INTEGER},
       tags = #{tags,jdbcType=VARCHAR},
