@@ -12,7 +12,7 @@ import spock.lang.Specification
  * 创建时间 2018/09/09
  * 功能：Jwt 工具类单元测试
  */
-class JwtUtilSpec extends Specification {
+class JwtUtilSpec extends BaseUtilSpec {
 
     def "JwtUtil test"() {
         User testUser = new User()
@@ -26,34 +26,19 @@ class JwtUtilSpec extends Specification {
         JwtUtil.createJwt(null)
         then:
         ValidatorException validatorException = thrown()
-        with(validatorException) {
-            code == 500
-            message == HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
-            isInnerError()
-            log == "createJwt(owner cannot be null)"
-        }
+        unexpectedValidatorError(validatorException, "createJwt(owner cannot be null)")
 
         when: "owner id 为 null 时"
         JwtUtil.createJwt(testUser)
         then:
         validatorException = thrown()
-        with(validatorException) {
-            code == 500
-            message == HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
-            isInnerError()
-            log == "createJwt(owner id cannot be null)"
-        }
+        unexpectedValidatorError(validatorException, "createJwt(owner id cannot be null)")
 
         when: "要解析的 jwt 为 null"
         JwtUtil.parseJwt(null)
         then:
         validatorException = thrown()
-        with(validatorException) {
-            code == 500
-            message == HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
-            isInnerError()
-            log == "parseJwt(jwt cannot be blank)"
-        }
+        unexpectedValidatorError(validatorException, "parseJwt(jwt cannot be blank)")
 
         when: "要解析的 jwt 格式错误"
         JwtUtil.parseJwt("123456")

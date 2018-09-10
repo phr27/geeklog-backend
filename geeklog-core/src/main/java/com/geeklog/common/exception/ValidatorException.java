@@ -14,7 +14,7 @@ public class ValidatorException extends CommonException {
      * 创建时间 2018/09/09
      * 功能：是否是未知的参数校验错误
      */
-    private boolean isInnerError;
+    private boolean innerError;
 
     /**
      * @author 潘浩然
@@ -27,14 +27,14 @@ public class ValidatorException extends CommonException {
         super(code, message);
     }
 
-    private ValidatorException(int code, String message, String log, boolean isInnerError) {
+    private ValidatorException(int code, String message, String log, boolean innerError) {
         super(code, message);
         this.log = log;
-        this.isInnerError = isInnerError;
+        this.innerError = innerError;
     }
 
     public boolean isInnerError() {
-        return isInnerError;
+        return innerError;
     }
 
     public String getLog() {
