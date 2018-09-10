@@ -13,7 +13,11 @@ File Encoding         : 65001
 Date: 2018-09-10 15:05:34
 */
 
+SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS=0;
+DROP SCHEMA IF EXISTS geeklog;
+CREATE SCHEMA geeklog DEFAULT CHARACTER SET utf8;
+USE geeklog;
 
 -- ----------------------------
 -- Table structure for article
@@ -219,14 +223,15 @@ CREATE TABLE `user` (
 
 -- ----------------------------
 -- Records of user
+-- 明文密码全部是 123456
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'a123456', '123456', '小啊', null, null, '');
-INSERT INTO `user` VALUES ('2', 'b1234567', '123123', '测试Nickname', '测试路径222', '测试Bio', '');
-INSERT INTO `user` VALUES ('3', 'c123456', '123456', '小菜1', null, null, '\0');
-INSERT INTO `user` VALUES ('4', 'd123456', '123456', '小代1', null, null, '\0');
-INSERT INTO `user` VALUES ('5', 'e123456', '123456', '小哦', null, null, '\0');
-INSERT INTO `user` VALUES ('6', 'f123456', '123456', '小付', null, null, '\0');
-INSERT INTO `user` VALUES ('7', 'g123456', '123456', '小高', null, null, '\0');
-INSERT INTO `user` VALUES ('8', 'h123456', '123456', '小黄', null, null, '\0');
-INSERT INTO `user` VALUES ('9', 'i123456', '123456', '小爱', null, null, '\0');
-INSERT INTO `user` VALUES ('10', 'j123456', '123456', '小建', null, null, '\0');
+INSERT INTO `user` VALUES ('1', 'a123456', '2eab177452a783b2ae54ee6e2af426bc701399', '小啊', null, null, '');
+INSERT INTO `user` VALUES ('2', 'b1234567', 'dd1bbcd4542098e0b53dbc181acb5defe7f64e', '测试Nickname', '测试路径222', '测试Bio', '');
+INSERT INTO `user` VALUES ('3', 'c123456', '43ab3ad45e64a41afd41c3750b0b401d572016', '小菜1', null, null, '\0');
+INSERT INTO `user` VALUES ('4', 'd123456', '61dabd7f9bb66ac6fd5897f1e231bad47b80c7', '小代1', null, null, '\0');
+INSERT INTO `user` VALUES ('5', 'e123456', 'af6915f65a842f478a93fefaa8a07f945ac29f', '小哦', null, null, '\0');
+INSERT INTO `user` VALUES ('6', 'f123456', 'ac002a94355da21b9a2ee00e8ad7036a6d9cd8', '小付', null, null, '\0');
+INSERT INTO `user` VALUES ('7', 'g123456', '3240400fad08b7ceff999283ef1e22c515def5', '小高', null, null, '\0');
+INSERT INTO `user` VALUES ('8', 'h123456', 'b8a3f93528021b4f5cd28dba664d46bfa7792e', '小黄', null, null, '\0');
+INSERT INTO `user` VALUES ('9', 'i123456', '8562d55c027bb6b8fd6de43d1094da3976427b', '小爱', null, null, '\0');
+INSERT INTO `user` VALUES ('10', 'j123456', '9235b87fb4f88e1d829377cb02521773ee3ab0', '小建', null, null, '\0');
