@@ -51,7 +51,7 @@ public class ValidatorException extends CommonException {
         return new ValidatorException(500, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), log, true);
     }
 
-    public static final ValidatorException USERNAME_INVALID = new ValidatorException(601, "用户名最少 6 个字符，由字母数字下划线组成");
+    public static final ValidatorException USERNAME_INVALID = new ValidatorException(601, "用户名最少 6 个字符，最多 20 个字符，由字母数字下划线组成");
 
     public static final ValidatorException PWD_INVALID = new ValidatorException(602,
             "密码最少 6 个字符，包括字母数字下划线，可使用的特殊字符有 ~`!@#$%^&*?,:;()-.+={}[]");

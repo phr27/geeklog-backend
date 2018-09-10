@@ -19,7 +19,7 @@ public class Validator {
      */
     private static final String PASSWORD_PATTERN = "(?:\\w|[~`!@#$%^&*?,:;()\\-.+={}\\[\\]]){6,}";
 
-    private static final String USERNAME_PATTERN = "\\w{6,}";
+    private static final String USERNAME_PATTERN = "\\w{6,20}";
 
     /**
      * @author 潘浩然
@@ -49,7 +49,7 @@ public class Validator {
      * 功能：断言 @param password 符合格式，断言失败就抛出异常
      */
     public static void password(String password) {
-        if (StringUtils.isBlank(password) || Pattern.matches(PASSWORD_PATTERN, password)) {
+        if (StringUtils.isBlank(password) || !Pattern.matches(PASSWORD_PATTERN, password)) {
             throw ValidatorException.PWD_INVALID;
         }
     }
@@ -60,7 +60,7 @@ public class Validator {
      * 功能：断言 @param password 符合格式，断言失败就引发错误
      */
     public static void password(String password, String log) {
-        if (StringUtils.isBlank(password) || Pattern.matches(PASSWORD_PATTERN, password)) {
+        if (StringUtils.isBlank(password) || !Pattern.matches(PASSWORD_PATTERN, password)) {
             throw ValidatorException.unexpected(log);
         }
     }
@@ -71,7 +71,7 @@ public class Validator {
      * 功能：断言 @param username 符合格式，断言失败就抛出异常
      */
     public static void username(String username) {
-        if (StringUtils.isBlank(username) || Pattern.matches(USERNAME_PATTERN, username)) {
+        if (StringUtils.isBlank(username) || !Pattern.matches(USERNAME_PATTERN, username)) {
             throw ValidatorException.USERNAME_INVALID;
         }
     }
@@ -82,7 +82,7 @@ public class Validator {
      * 功能：断言 @param username 符合格式，断言失败就引发错误
      */
     public static void username(String username, String log) {
-        if (StringUtils.isBlank(username) || Pattern.matches(USERNAME_PATTERN, username)) {
+        if (StringUtils.isBlank(username) || !Pattern.matches(USERNAME_PATTERN, username)) {
             throw ValidatorException.unexpected(log);
         }
     }
