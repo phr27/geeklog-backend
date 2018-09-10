@@ -84,12 +84,12 @@
     LIMIT #{rowIndex}, #{pageSize}
   </select>
   <select id="login" resultMap="BaseResultMap">
-    SELECT user_id
+    SELECT user_id, username, password, nickname, avatar, bio, is_admin
     FROM user
     WHERE username = #{username} and password = #{password}
   </select>
   <select id="queryUsername" resultMap="BaseResultMap">
-    SELECT user_id
+    SELECT user_id, username, password, nickname, avatar, bio, is_admin
     FROM user
     WHERE username = #{username}
   </select>
