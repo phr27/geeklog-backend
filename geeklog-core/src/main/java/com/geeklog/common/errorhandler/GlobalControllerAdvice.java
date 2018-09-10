@@ -1,5 +1,6 @@
 package com.geeklog.common.errorhandler;
 
+import com.geeklog.common.exception.SessionException;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.ResponseEntity;
 import org.slf4j.Logger;
@@ -29,5 +30,19 @@ public class GlobalControllerAdvice {
         }
 
         return ResponseEntity.build(validatorException.getCode(), validatorException.getMessage());
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/10
+     * 功能：处理会话异常
+     */
+    @ExceptionHandler(SessionException.class)
+    public ResponseEntity<Object> handleSessionException(SessionException sessionException) {
+        Throwable cause = sessionException.getCause();
+        if (cause != null && logger.isErrorEnabled()) {
+            logger.error("session exception caused by {}: {}", cause.getClass().getSimpleName(), cause.getMessage());
+        }
+        return ResponseEntity.build(sessionException.getCode(), sessionException.getMessage());
     }
 }

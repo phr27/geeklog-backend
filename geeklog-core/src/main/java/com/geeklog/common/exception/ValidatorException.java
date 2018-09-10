@@ -7,19 +7,12 @@ import org.springframework.http.HttpStatus;
  * 创建时间 2018/09/09
  * 功能：数据校验异常
  */
-public class ValidatorException extends RuntimeException {
+public class ValidatorException extends CommonException {
 
     /**
      * @author 潘浩然
      * 创建时间 2018/09/09
-     * 功能：错误代码
-     */
-    private int code;
-
-    /**
-     * @author 潘浩然
-     * 创建时间 2018/09/09
-     * 功能：是否是未知的系统内部错误
+     * 功能：是否是未知的参数校验错误
      */
     private boolean isInnerError;
 
@@ -31,19 +24,13 @@ public class ValidatorException extends RuntimeException {
     private String log;
 
     private ValidatorException(int code, String message) {
-        super(message);
-        this.code = code;
+        super(code, message);
     }
 
     private ValidatorException(int code, String message, String log, boolean isInnerError) {
-        super(message);
-        this.code = code;
+        super(code, message);
         this.log = log;
         this.isInnerError = isInnerError;
-    }
-
-    public int getCode() {
-        return code;
     }
 
     public boolean isInnerError() {

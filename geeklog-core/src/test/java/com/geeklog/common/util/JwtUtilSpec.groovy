@@ -1,9 +1,10 @@
 package com.geeklog.common.util
 
-import com.geeklog.common.exception.JwtParseException
+import com.geeklog.common.exception.SessionException
 import com.geeklog.common.exception.ValidatorException
 import com.geeklog.domain.User
 import io.jsonwebtoken.JwtException
+import org.springframework.http.HttpStatus
 import spock.lang.Specification
 
 /**
@@ -26,6 +27,8 @@ class JwtUtilSpec extends Specification {
         then:
         ValidatorException validatorException = thrown()
         with(validatorException) {
+            code == 500
+            message == HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
             isInnerError()
             log == "createJwt(owner cannot be null)"
         }
@@ -35,6 +38,8 @@ class JwtUtilSpec extends Specification {
         then:
         validatorException = thrown()
         with(validatorException) {
+            code == 500
+            message == HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
             isInnerError()
             log == "createJwt(owner id cannot be null)"
         }
@@ -44,6 +49,8 @@ class JwtUtilSpec extends Specification {
         then:
         validatorException = thrown()
         with(validatorException) {
+            code == 500
+            message == HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
             isInnerError()
             log == "parseJwt(jwt cannot be blank)"
         }
@@ -51,9 +58,12 @@ class JwtUtilSpec extends Specification {
         when: "要解析的 jwt 格式错误"
         JwtUtil.parseJwt("123456")
         then:
-        JwtParseException jwtParseException = thrown()
-        jwtParseException.message == "会话无效，请重新登录"
-        JwtException.isAssignableFrom(jwtParseException.cause.class)
+        SessionException sessionException = thrown()
+        with(sessionException) {
+            code == 630
+            message == "会话无效，请重新登录"
+            JwtException.isAssignableFrom(cause.class)
+        }
 
         when: "正确解析"
         testUser.userId = 1
