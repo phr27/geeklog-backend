@@ -104,7 +104,7 @@ class LoginControllerSpec extends ControllerSpecification {
 
         when: "密码错误"
         authToken.username = "a123456"
-        authToken.password = "123456"
+        authToken.password = "1234567"
         entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
@@ -116,6 +116,22 @@ class LoginControllerSpec extends ControllerSpecification {
             body.code == ValidatorException.USERNAME_OR_PWD_ERROR.code
             body.message == ValidatorException.USERNAME_OR_PWD_ERROR.message
             body.data == null
+        }
+
+        when: "登录成功"
+        authToken.username = "a123456"
+        authToken.password = "123456"
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
+                HttpMethod.POST,
+                new HttpEntity<>(authToken, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "登录成功"
+            println body.data
         }
 
     }
