@@ -312,7 +312,7 @@ INSERT INTO `article` VALUES ('10', '逻辑回归的另一角度解析', '2018-0
 -- ----------------------------
 DROP TABLE IF EXISTS `authority`;
 CREATE TABLE `authority` (
-  `autnority_id` int(11) NOT NULL AUTO_INCREMENT,
+  `authority_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`autnority_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;

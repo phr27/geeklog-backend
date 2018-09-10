@@ -30,8 +30,8 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<JwtToken> login(@RequestBody AuthToken authToken) {
         Validator.notNull(authToken, ValidatorException.NO_AUTH_TOKEN);
-        Validator.notBlank(authToken.getUsername(), ValidatorException.USERNAME_BLANK);
-        Validator.notBlank(authToken.getPassword(), ValidatorException.PWD_BLANK);
+        Validator.username(authToken.getUsername());
+        Validator.password(authToken.getPassword());
 
         return ResponseEntity.ok("登录成功", loginService.login(authToken.getUsername(), authToken.getPassword()));
     }

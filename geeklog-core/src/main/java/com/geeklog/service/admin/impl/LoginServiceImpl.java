@@ -1,6 +1,7 @@
 package com.geeklog.service.admin.impl;
 
 import com.geeklog.common.exception.ValidatorException;
+import com.geeklog.common.util.MD5Util;
 import com.geeklog.common.util.Validator;
 import com.geeklog.common.util.JwtUtil;
 import com.geeklog.domain.User;
@@ -25,14 +26,14 @@ public class LoginServiceImpl implements LoginService {
      * @author 潘浩然
      * 创建时间 2018/09/10
      * 功能：对用户名密码进行校验，校验通过签发 jwt token
-     * todo md5 加密
      */
     public JwtToken login(String username, String password) {
-        Validator.notBlank(username, ValidatorException.USERNAME_BLANK);
-        Validator.notBlank(password, ValidatorException.PWD_BLANK);
+        Validator.username(username);
+        Validator.password(password);
 
-        User user = userMapper.login(username, password);
+        User user = userMapper.queryUsername(username);
         Validator.notNull(user, ValidatorException.USERNAME_OR_PWD_ERROR);
+        Validator.isTrue(MD5Util.verify(password, user.getPassword()), ValidatorException.USERNAME_OR_PWD_ERROR);
 
         return new JwtToken(JwtUtil.createJwt(user));
     }
