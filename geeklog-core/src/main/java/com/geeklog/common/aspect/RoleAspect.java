@@ -56,12 +56,18 @@ public class RoleAspect {
         String jwtStr = authStr.substring(AUTH_PREFIX.length());
         Validator.notBlank(jwtStr, ValidatorException.NO_JWT_TOKEN);
         User currentUser = JwtUtil.parseJwt(jwtStr);
+        // jwt 正确解析
 
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        RequireRole requireRoleAnnotation = method.getDeclaringClass().getAnnotation(RequireRole.class);
+        RequireRole requireRoleAnnotation = method.getClass().getAnnotation(RequireRole.class);
+        if (requireRoleAnnotation == null) {
+            requireRoleAnnotation = method.getDeclaringClass().getAnnotation(RequireRole.class);
+        }
+        Validator.notNull(requireRoleAnnotation, ValidatorException.unexpected("checkRole 切面未找到 @RequireRole"));
         if (Role.ADMIN.equals(requireRoleAnnotation.value()) && !currentUser.getIsAdmin()) {
             throw RoleException.NOT_ADMIN;
         }
+        // 角色检查通过
 
         SessionContext.setCurrentUser(currentUser);
 
