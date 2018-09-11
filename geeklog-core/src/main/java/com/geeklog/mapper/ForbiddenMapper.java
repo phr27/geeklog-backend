@@ -51,4 +51,15 @@ public interface ForbiddenMapper {
      * @create_time 2018年9月9日15:18:57
      */
     int updateByPrimaryKey(Forbidden forbidden);
+
+    /**
+     * @describe 根据userId查询出所有记录
+     * @return 所有记录的列表
+     * @author 朱远飞
+     * @create_time 2018年9月11日15:04:06
+     */
+    List<Forbidden> queryByUserId(Integer userId);
+
+
+
 }

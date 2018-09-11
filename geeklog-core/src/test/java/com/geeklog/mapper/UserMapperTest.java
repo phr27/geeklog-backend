@@ -67,14 +67,9 @@ public class UserMapperTest {
     @Test
     public void queryNumOfUsers() throws Exception {
         User user = new User();
-        user.setIsAdmin(false);
-        System.out.println(mapper.queryNumOfUsers(user));
-        int count = mapper.queryNumOfUsers(user);
-        System.out.println("用户数量为：" + count);
-        List<User> userList = mapper.queryPaging(user, 5, 4);
-        for (User user1 : userList) {
-            System.out.println(user1.getUserId() + " " + user1.getUsername());
-        }
+
+        System.out.println(mapper.queryNumOfUsers(null));
+
     }
 
     @Test
