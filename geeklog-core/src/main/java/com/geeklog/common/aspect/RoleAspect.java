@@ -30,7 +30,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Aspect
 public class RoleAspect {
 
-    private static final String AUTH_PREFIX = "Bearer ";
+    public static final String AUTH_PREFIX = "Bearer ";
 
     /**
      * @author 潘浩然

@@ -98,8 +98,35 @@ public class Validator {
         }
     }
 
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/11
+     * 功能：断言 @param str 有前缀 prefix
+     */
     public static void startsWith(String str, String prefix, ValidatorException validatorException) {
         if (str == null || !str.startsWith(prefix)) {
+            throw validatorException;
+        }
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/11
+     * 功能：断言 @param value 大于等于 min
+     */
+    public static void min(int value, int min, ValidatorException validatorException) {
+        if (value < min) {
+            throw validatorException;
+        }
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/11
+     * 功能：断言 @param value 小于等于 max
+     */
+    public static void max(int value, int max, ValidatorException validatorException) {
+        if (value > max) {
             throw validatorException;
         }
     }

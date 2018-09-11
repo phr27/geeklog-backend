@@ -62,4 +62,8 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException NO_JWT_TOKEN = new ValidatorException(605, "请先登录");
 
+    public static final ValidatorException PAGE_OUT_OF_RANGE = new ValidatorException(606, "页码超出范围");
+
+    public static final ValidatorException SIZE_OUT_OF_RANGE = new ValidatorException(607, "页长过小");
+
 }
