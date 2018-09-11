@@ -31,4 +31,12 @@
     select forbidden_id, user_id, authority_id
     from forbidden
   </select>
+  <select id="queryByUserId" resultMap="BaseResultMap" >
+    select forbidden_id, user_id, authority_id
+    from forbidden
+    where user_id = #{userId}
+  </select>
+
+
+
 </mapper>
