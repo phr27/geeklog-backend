@@ -1,5 +1,6 @@
 package com.geeklog.common.errorhandler;
 
+import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.exception.SessionException;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.ResponseEntity;
@@ -44,5 +45,15 @@ public class GlobalControllerAdvice {
             logger.error("session exception caused by {}: {}", cause.getClass().getSimpleName(), cause.getMessage());
         }
         return ResponseEntity.build(sessionException.getCode(), sessionException.getMessage());
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/11
+     * 功能：处理会话异常
+     */
+    @ExceptionHandler(RoleException.class)
+    public ResponseEntity<Object> handleRoleException(RoleException roleException) {
+        return ResponseEntity.build(roleException.getCode(), roleException.getMessage());
     }
 }

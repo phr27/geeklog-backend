@@ -97,4 +97,10 @@ public class Validator {
             throw validatorException;
         }
     }
+
+    public static void startsWith(String str, String prefix, ValidatorException validatorException) {
+        if (str == null || !str.startsWith(prefix)) {
+            throw validatorException;
+        }
+    }
 }
