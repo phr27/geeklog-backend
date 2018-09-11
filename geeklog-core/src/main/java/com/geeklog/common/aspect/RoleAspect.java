@@ -9,6 +9,7 @@ import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.JwtUtil;
 import com.geeklog.common.util.ResponseEntity;
+import com.geeklog.common.util.SessionContext;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.User;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -46,7 +47,7 @@ public class RoleAspect {
      * 功能：角色检查切面
      */
     @Around("checkRolePointcut()")
-    public ResponseEntity checkRole(ProceedingJoinPoint joinPoint) {
+    public ResponseEntity checkRole(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String authStr = request.getHeader("Authorization");
         Validator.notBlank(authStr, ValidatorException.NO_JWT_TOKEN);
@@ -62,6 +63,8 @@ public class RoleAspect {
             throw RoleException.NOT_ADMIN;
         }
 
-        return null; // todo
+        SessionContext.setCurrentUser(currentUser);
+
+        return (ResponseEntity) joinPoint.proceed(joinPoint.getArgs());
     }
 }
