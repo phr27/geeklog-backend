@@ -5,6 +5,7 @@ import com.geeklog.common.util.ResponseEntity
 import com.geeklog.controller.LoggedController
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
 
 /**
  * @author 潘浩然
@@ -32,6 +33,20 @@ class ArticleControllerSpec extends LoggedController {
                 entities[0].article_id == 8
                 entities[1].article_id == 7
             }
+        }
+
+        when: "category_id 参数为 null"
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/articles?page=1&size=2&category_id=null",
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == HttpStatus.BAD_REQUEST.value()
+            body.code == HttpStatus.BAD_REQUEST.value()
+            body.message == HttpStatus.BAD_REQUEST.reasonPhrase
+            body.data == null
         }
 
         when: "分类不存在"
