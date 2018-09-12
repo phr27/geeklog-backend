@@ -19,9 +19,14 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.geeklog.domain.Collect" >
     update collect
-    set user_id = #{userId,jdbcType=INTEGER},
-      article_id = #{articleId,jdbcType=INTEGER},
-      created_at = #{createdAt,jdbcType=TIMESTAMP}
+    <set>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="articleId != null">
+        article_id = #{articleId},
+      </if>
+    </set>
     where collect_id = #{collectId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

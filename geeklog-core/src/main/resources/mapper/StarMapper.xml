@@ -18,8 +18,14 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.geeklog.domain.Star" >
     update star
-    set user_id = #{userId,jdbcType=INTEGER},
-      article_id = #{articleId,jdbcType=INTEGER}
+    <set>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="articleId != null" >
+        article_id = #{articleId},
+      </if>
+    </set>
     where star_id = #{starId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
