@@ -1,5 +1,6 @@
 package com.geeklog.common.exception;
 
+import com.geeklog.common.util.Validator;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -65,5 +66,12 @@ public class ValidatorException extends CommonException {
     public static final ValidatorException PAGE_OUT_OF_RANGE = new ValidatorException(606, "页码超出范围");
 
     public static final ValidatorException SIZE_OUT_OF_RANGE = new ValidatorException(607, "页长过小");
+
+
+
+    /**
+     * @author 午康俊
+     */
+    public static final ValidatorException AUTHORITY_OUT_OF_RANGE = new ValidatorException(609, "权限码超出范围");
 
 }

@@ -1,0 +1,28 @@
+package com.geeklog.service.admin.impl;
+
+import com.geeklog.domain.Forbidden;
+import com.geeklog.mapper.AuthorityMapper;
+import com.geeklog.mapper.ForbiddenMapper;
+import com.geeklog.service.admin.ForbiddenService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author 午康俊
+ * 创建时间 2018/9/12
+ * 功能：管理员设置用户权限实现
+ */
+
+@Service
+public class ForbiddenServiceImpl implements ForbiddenService {
+    @Autowired
+    private ForbiddenMapper forbiddenMapper;
+
+    public Forbidden forbid(int userId, int authorityId){
+
+    }
+
+
+}

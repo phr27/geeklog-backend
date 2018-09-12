@@ -130,4 +130,15 @@ public class Validator {
             throw validatorException;
         }
     }
+
+    /**
+     * @author 午康俊
+     * 创建时间 2018/09/12
+     * 功能：断言 @param authority 在规定范围内
+     */
+    public static void isLegal(int value, ValidatorException validatorException) {
+        if (value != 1 || value !=2){
+            throw validatorException;
+        }
+    }
 }
