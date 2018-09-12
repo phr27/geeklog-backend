@@ -66,4 +66,6 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException SIZE_OUT_OF_RANGE = new ValidatorException(607, "页长过小");
 
+    public static final ValidatorException CATEGORY_NOT_EXIST = new ValidatorException(608, "该分类不存在");
+
 }
