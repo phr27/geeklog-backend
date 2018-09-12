@@ -4,7 +4,7 @@
 
 ### User Login
 
-__1__ POST /login
+- [ ] __1__ POST /login
 
 req:
 
@@ -27,7 +27,7 @@ res:
 }
 ```
 
-__2__ GET /users/:user_id
+- [ ] __2__ GET /users/:user_id
 
 res:
 
@@ -48,7 +48,7 @@ res:
 }
 ```
 
-__3__ POST /users (注册)
+- [ ] __3__ POST /users (注册)
 
 req:
 
@@ -79,7 +79,7 @@ res:
 }
 ```
 
-__4__ PUT /users/:user_id (头像路径单独维护)
+- [ ] __4__ PUT /users/:user_id (头像路径单独维护)
 
 req:
 
@@ -110,7 +110,7 @@ res:
 
 ### 修改用户密码
 
-__5__ POST /change-password
+- [ ] __5__ POST /change-password
 
 req:
 
@@ -124,7 +124,7 @@ req:
 
 ## Article
 
-__6__ GET /articles/hot/:count (根据点赞数＋收藏数＋评论数排序，获取最热文章)
+- [ ] __6__ GET /articles/hot/:count (根据点赞数＋收藏数＋评论数排序，获取最热文章)
 
 res:
 
@@ -165,7 +165,7 @@ res:
 }
 ```
 
-__7__ GET /articles?page=1&size=30&category_id=1
+- [ ] __7__ GET /articles?page=1&size=30&category_id=1
 
 res:
 
@@ -209,7 +209,7 @@ res:
 }
 ```
 
-__8__ GET /articles/:article_id
+- [ ] __8__ GET /articles/:article_id
 
 res:
 
@@ -234,7 +234,7 @@ res:
 }
 ```
 
-__9__ POST /articles
+- [ ] __9__ POST /articles
 
 req:
 
@@ -271,7 +271,7 @@ res:
 }
 ```
 
-__10__ PUT /articles/:article_id
+- [ ] __10__ PUT /articles/:article_id
 
 req:
 
@@ -307,7 +307,7 @@ res:
 }
 ```
 
-__11__ DELETE /articles/:article_id
+- [ ] __11__ DELETE /articles/:article_id
 
 res:
 
@@ -334,7 +334,7 @@ res:
 
 ## Comment
 
-__12__ GET /comments/latest/:count
+- [ ] __12__ GET /comments/latest/:count
 
 res:
 
@@ -365,7 +365,7 @@ res:
 }
 ```
 
-__13__ POST /comments
+- [ ] __13__ POST /comments
 
 req:
 
@@ -399,7 +399,7 @@ res:
 
 ### 根据user_id, 获取他写的文章
 
-__14__ GET /users/:user_id/write/articles
+- [ ] __14__ GET /users/:user_id/write/articles
 
 res:
 
@@ -445,7 +445,7 @@ res:
 
 ### 根据user_id, 获取他点赞的的文章
 
-__15__ GET /users/:user_id/star/articles
+- [ ] __15__ GET /users/:user_id/star/articles
 
 res:
 
@@ -491,7 +491,7 @@ res:
 
 ### 根据user_id, 获取他收藏的文章
 
-__16__ GET /users/:user_id/collect/articles
+- [ ] __16__ GET /users/:user_id/collect/articles
 
 res:
 
@@ -537,7 +537,7 @@ res:
 
 ### 根据user_id, 获取他评论的文章
 
-__17__ GET /users/:user_id/comment/articles
+- [ ] __17__ GET /users/:user_id/comment/articles
 
 res:
 
@@ -583,7 +583,7 @@ res:
 
 ### 根据article_id获取该文章的所有评论
 
-__18__ GET /articles/:article_id/comments (返回该文章所有一级评论)
+- [ ] __18__ GET /articles/:article_id/comments (返回该文章所有一级评论)
 
 res:
 
@@ -612,7 +612,7 @@ res:
 }
 ```
 
-__19__ GET /comments/:comment_id/sub_comments (返回该评论的所有自评论)
+- [ ] __19__ GET /comments/:comment_id/sub_comments (返回该评论的所有自评论)
 
 res:
 
@@ -643,7 +643,7 @@ res:
 
 ### 根据user_id, article_id, 点赞或者取消
 
-__20__ POST /add-star
+- [ ] __20__ POST /add-star
 
 req:
 
@@ -668,7 +668,7 @@ res:
 }
 ```
 
-__21__ POST /delete-star
+- [ ] __21__ POST /delete-star
 
 req:
 
@@ -695,7 +695,7 @@ res:
 
 ### 根据user_id, article_id, 收藏或者取消
 
-__22__ POST /add-collect
+- [ ] __22__ POST /add-collect
 
 req:
 
@@ -721,7 +721,7 @@ res:
 }
 ```
 
-__23__ POST /delete-collect
+- [ ] __23__ POST /delete-collect
 
 req:
 
