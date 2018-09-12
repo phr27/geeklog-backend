@@ -1,5 +1,6 @@
 package com.geeklog.controller.admin;
 
+import com.geeklog.common.annotation.GeekLogController;
 import com.geeklog.common.annotation.RequireRole;
 import com.geeklog.common.enumeration.Role;
 import com.geeklog.common.exception.ValidatorException;
@@ -16,10 +17,8 @@ import org.springframework.web.bind.annotation.*;
  * 创建时间 2018/09/12
  * 功能：管理员的文章管理控制器
  */
-@RestController
-@CrossOrigin
+@GeekLogController("/admin")
 @RequireRole(Role.ADMIN)
-@RequestMapping("/admin")
 public class ArticleController {
 
     @Autowired

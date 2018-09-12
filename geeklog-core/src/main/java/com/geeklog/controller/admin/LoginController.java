@@ -1,5 +1,6 @@
 package com.geeklog.controller.admin;
 
+import com.geeklog.common.annotation.GeekLogController;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.Validator;
 import com.geeklog.common.util.ResponseEntity;
@@ -14,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * 创建时间 2018/09/09
  * 功能：管理员登录控制器
  */
-@RestController
-@CrossOrigin
-@RequestMapping("/admin")
+@GeekLogController("/admin")
 public class LoginController {
 
     @Autowired

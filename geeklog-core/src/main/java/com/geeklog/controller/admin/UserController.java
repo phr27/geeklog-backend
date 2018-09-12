@@ -1,5 +1,6 @@
 package com.geeklog.controller.admin;
 
+import com.geeklog.common.annotation.GeekLogController;
 import com.geeklog.common.annotation.RequireRole;
 import com.geeklog.common.enumeration.Role;
 import com.geeklog.common.exception.ValidatorException;
@@ -16,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * 创建时间 2018/09/11
  * 功能：管理员的用户管理控制器
  */
-@RestController
-@CrossOrigin
-@RequestMapping("/admin")
+@GeekLogController("/admin")
 @RequireRole(Role.ADMIN)
 public class UserController {
 

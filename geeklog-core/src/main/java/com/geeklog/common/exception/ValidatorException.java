@@ -68,4 +68,8 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException CATEGORY_NOT_EXIST = new ValidatorException(608, "该分类不存在");
 
+    public static final ValidatorException ARTICLE_NOT_EXIST = new ValidatorException(610, "该文章不存在");
+
+    public static final ValidatorException COMMENT_NOT_EXIST = new ValidatorException(611, "该评论不存在");
+
 }

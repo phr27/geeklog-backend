@@ -1,5 +1,6 @@
 package com.geeklog.common.util;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import com.geeklog.common.exception.ValidatorException;
@@ -127,6 +128,17 @@ public class Validator {
      */
     public static void max(int value, int max, ValidatorException validatorException) {
         if (value > max) {
+            throw validatorException;
+        }
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/12
+     * 功能：断言两个对象相等
+     */
+    public static void equals(Object object, Object other, ValidatorException validatorException) {
+        if (!Objects.equals(object, other)) {
             throw validatorException;
         }
     }
