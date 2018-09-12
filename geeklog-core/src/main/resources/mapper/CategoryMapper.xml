@@ -18,8 +18,14 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.geeklog.domain.Category" >
     update category
-    set name = #{name,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR}
+    <set>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="description != null">
+        description = #{description},
+      </if>
+    </set>
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
