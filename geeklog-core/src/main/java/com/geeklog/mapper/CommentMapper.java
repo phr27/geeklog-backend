@@ -1,6 +1,8 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.Comment;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 /**
  *  @author 朱远飞
@@ -51,4 +53,52 @@ public interface CommentMapper {
      * @create_time 2018年9月9日15:18:57
      */
     int updateByPrimaryKey(Comment comment);
+
+    /**
+     * @describe 以一个条件来查询用户数量
+     * @param comment 查询条件
+     * @return 评论数量
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:40:23
+     */
+    int queryNumOfComments(Comment comment);
+
+    /**
+     * @describe 分页查询评论
+     * @param comment 分页查询条件
+     * @param rowIndex  limit第一个参数 起始位置
+     * @param pageSize  limit第二个参数 每页数量
+     * @return 分页查询的评论集合
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:40:26
+     */
+    List<Comment> queryPaging(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
+                                  @Param("pageSize") int pageSize);
+
+    /**
+     * @describe 分页查询首评论（即parentId为null的评论，升序，最新的放在最后）
+     * @param comment 分页查询条件
+     * @param rowIndex  limit第一个参数 起始位置
+     * @param pageSize  limit第二个参数 每页数量
+     * @return 分页查询的评论集合
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:40:26
+     */
+    List<Comment> queryPagingRoot(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
+                           @Param("pageSize") int pageSize);
+
+    /**
+     * @describe 分页查询首评论的回复（即rootId = 某一个评论的Id，升序，最新的放在最后）
+     * @param comment 分页查询条件
+     * @param rowIndex  limit第一个参数 起始位置
+     * @param pageSize  limit第二个参数 每页数量
+     * @return 分页查询的评论集合
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:40:26
+     */
+    List<Comment> queryPagingReply(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
+                              @Param("pageSize") int pageSize);
+
+
+
 }

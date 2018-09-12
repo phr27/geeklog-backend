@@ -91,6 +91,7 @@
         and display = #{article.display}
       </if>
     </where>
+    ORDER BY created_at DESC
     LIMIT #{rowIndex}, #{pageSize}
   </select>
 
