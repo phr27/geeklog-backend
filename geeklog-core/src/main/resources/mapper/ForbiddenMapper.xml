@@ -36,7 +36,11 @@
     from forbidden
     where user_id = #{userId}
   </select>
-
+  <select id="queryByUserIdAndAuthorityId" resultMap="BaseResultMap">
+     select forbidden_id, user_id, authority_id
+    from forbidden
+    where user_id = #{userId} and authority_id = #{authorityId}
+  </select>
 
 
 </mapper>

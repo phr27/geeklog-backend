@@ -49,5 +49,14 @@ public class ForbiddenMapperTest {
         }
 
     }
-
+    @Test
+    public void queryByUserIdAndAuthorityId() throws Exception {
+        Forbidden forbidden = mapper.queryByUserIdAndAuthorityId(4, 2);
+        if(forbidden == null)
+            System.out.println("不存在");
+        else{
+            System.out.println(forbidden.getForbiddenId());
+            System.out.println("存在");
+        }
+    }
 }
