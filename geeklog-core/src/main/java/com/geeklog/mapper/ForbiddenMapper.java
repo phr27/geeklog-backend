@@ -1,6 +1,8 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.Forbidden;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 /**
  *  @author 朱远飞
@@ -60,6 +62,14 @@ public interface ForbiddenMapper {
      */
     List<Forbidden> queryByUserId(Integer userId);
 
-
+    /**
+     * @describe 根据userId和authorityId查询记录
+     * @param userId 用户id
+     * @param authorityId 权限id
+     * @return Forbidden
+     * @author 朱远飞
+     * @create_time 2018年9月12日11:38:42
+     */
+    Forbidden queryByUserIdAndAuthorityId(@Param("userId") int userId, @Param("authorityId") int authorityId);
 
 }
