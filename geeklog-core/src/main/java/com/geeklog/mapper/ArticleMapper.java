@@ -1,6 +1,8 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.Article;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 /**
  *  @author 朱远飞
@@ -51,4 +53,28 @@ public interface ArticleMapper {
      * @create_time 2018年9月9日15:18:57
      */
     int updateByPrimaryKey(Article article);
+
+    /**
+     * @describe 以一个条件来查询文章数量
+     * @param article 查询条件
+     * @return 文章数量
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:13:25
+     */
+    int queryNumOfArticles(Article article);
+
+    /**
+     * @describe 分页查询
+     * @param article 分页查询条件
+     * @param rowIndex  limit第一个参数 起始位置
+     * @param pageSize  limit第二个参数 每页数量
+     * @return 分页查询的文章集合
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:14:05
+     */
+    List<Article> queryPaging(@Param("article") Article article, @Param("rowIndex") int rowIndex,
+                           @Param("pageSize") int pageSize);
+
+
+
 }

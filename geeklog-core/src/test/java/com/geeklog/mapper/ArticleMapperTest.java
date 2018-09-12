@@ -49,4 +49,22 @@ public class ArticleMapperTest {
     public void updateByPrimaryKey() throws Exception {
     }
 
+    @Test
+    public void queryNumOfArticlesTest() throws Exception {
+        Article article = new Article();
+        article.setCategoryId(1);
+        int num = mapper.queryNumOfArticles(article);
+        assertEquals(2, num);
+    }
+    @Test
+    public void queryPagingTest() throws Exception {
+        Article article = new Article();
+        article.setCategoryId(1);
+        List<Article> articles = mapper.queryPaging(article, 0, 3);
+        assertEquals(2, articles.size());
+
+    }
+
+
+
 }
