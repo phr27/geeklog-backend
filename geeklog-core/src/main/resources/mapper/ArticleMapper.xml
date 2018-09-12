@@ -49,4 +49,54 @@
     content
     from article
   </select>
+  <select id="queryNumOfArticles" resultType="int">
+    SELECT count(1)
+    FROM article
+    <where>
+      <if test="title != null">
+        and title like concat('%', #{title}, '%')
+      </if>
+      <if test="tags != null">
+        and tags like concat('%', #{tags}, '%')
+      </if>
+      <if test="categoryId != null">
+        and category_id = #{categoryId}
+      </if>
+      <if test="userId != null">
+        and user_id = #{userId}
+      </if>
+      <if test="display != null">
+        and display = #{display}
+      </if>
+    </where>
+  </select>
+  <select id="queryPaging" resultMap="BaseResultMap">
+    SELECT article_id, title, created_at, modified_at, user_id, category_id, tags, display,
+    content
+    FROM article
+    <where>
+      <if test="article.title != null">
+        and title like concat('%', #{article.title}, '%')
+      </if>
+      <if test="article.tags != null">
+        and tags like concat('%', #{article.tags}, '%')
+      </if>
+      <if test="article.categoryId != null">
+        and category_id = #{article.categoryId}
+      </if>
+      <if test="article.userId != null">
+        and user_id = #{article.userId}
+      </if>
+      <if test="article.display != null">
+        and display = #{article.display}
+      </if>
+    </where>
+    ORDER BY created_at DESC
+    LIMIT #{rowIndex}, #{pageSize}
+  </select>
+
+
+
+
+
 </mapper>

@@ -41,4 +41,74 @@
     select comment_id, user_id, article_id, content, parent_id, root_id, created_at
     from comment
   </select>
+  <select id="queryNumOfComments" resultType="int">
+    SELECT count(1)
+    FROM comment
+    <where>
+      <if test="userId != null">
+        and user_id = #{userId}
+      </if>
+      <if test="articleId != null">
+        and article_id = #{articleId}
+      </if>
+      <if test="content != null">
+        and content like concat('%', #{content}, '%')
+      </if>
+    </where>
+  </select>
+  <select id="queryPaging" resultMap="BaseResultMap">
+    SELECT comment_id, user_id, article_id, content, parent_id, root_id, created_at
+    FROM comment
+    <where>
+      <if test="comment.userId != null">
+        and user_id = #{comment.userId}
+      </if>
+      <if test="comment.articleId != null">
+        and article_id = #{comment.articleId}
+      </if>
+      <if test="comment.content != null">
+        and content like concat('%', #{comment.content}, '%')
+      </if>
+    </where>
+    ORDER BY created_at
+    LIMIT #{rowIndex}, #{pageSize}
+  </select>
+  <select id="queryPagingRoot" resultMap="BaseResultMap">
+    SELECT comment_id, user_id, article_id, content, parent_id, root_id, created_at
+    FROM comment
+    <where>
+      <if test="comment.userId != null">
+        and user_id = #{comment.userId}
+      </if>
+      <if test="comment.articleId != null">
+        and article_id = #{comment.articleId}
+      </if>
+      <if test="comment.content != null">
+        and content like concat('%', #{comment.content}, '%')
+      </if>
+      and parent_id is NULL
+    </where>
+    ORDER BY created_at
+    LIMIT #{rowIndex}, #{pageSize}
+  </select>
+  <select id="queryPagingReply" resultMap="BaseResultMap">
+    SELECT comment_id, user_id, article_id, content, parent_id, root_id, created_at
+    FROM comment
+    <where>
+      <if test="comment.userId != null">
+        and user_id = #{comment.userId}
+      </if>
+      <if test="comment.articleId != null">
+        and article_id = #{comment.articleId}
+      </if>
+      <if test="comment.content != null">
+        and content like concat('%', #{comment.content}, '%')
+      </if>
+      and parent_id IS NOT NULL
+      and root_id = #{comment.rootId}
+    </where>
+    ORDER BY created_at
+    LIMIT #{rowIndex}, #{pageSize}
+  </select>
+
 </mapper>
