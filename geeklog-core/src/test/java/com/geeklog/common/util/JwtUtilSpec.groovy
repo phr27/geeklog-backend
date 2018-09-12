@@ -1,8 +1,10 @@
 package com.geeklog.common.util
 
-import com.geeklog.common.exception.JwtParseException
+import com.geeklog.common.exception.SessionException
+import com.geeklog.common.exception.ValidatorException
 import com.geeklog.domain.User
 import io.jsonwebtoken.JwtException
+import org.springframework.http.HttpStatus
 import spock.lang.Specification
 
 /**
@@ -10,7 +12,7 @@ import spock.lang.Specification
  * 创建时间 2018/09/09
  * 功能：Jwt 工具类单元测试
  */
-class JwtUtilSpec extends Specification {
+class JwtUtilSpec extends BaseUtilSpec {
 
     def "JwtUtil test"() {
         User testUser = new User()
@@ -23,28 +25,30 @@ class JwtUtilSpec extends Specification {
         when: "owner 为 null 时"
         JwtUtil.createJwt(null)
         then:
-        NullPointerException nullPointerException = thrown()
-        nullPointerException.message == "owner cannot be null"
+        ValidatorException validatorException = thrown()
+        unexpectedValidatorError(validatorException, "createJwt(owner cannot be null)")
 
         when: "owner id 为 null 时"
         JwtUtil.createJwt(testUser)
         then:
-        nullPointerException = thrown()
-        nullPointerException.message == "owner id cannot be null"
+        validatorException = thrown()
+        unexpectedValidatorError(validatorException, "createJwt(owner id cannot be null)")
 
         when: "要解析的 jwt 为 null"
         JwtUtil.parseJwt(null)
         then:
-        JwtParseException jwtParseException = thrown()
-        jwtParseException.message == "会话无效，请重新登录"
-        IllegalArgumentException.isAssignableFrom(jwtParseException.cause.class)
+        validatorException = thrown()
+        unexpectedValidatorError(validatorException, "parseJwt(jwt cannot be blank)")
 
         when: "要解析的 jwt 格式错误"
         JwtUtil.parseJwt("123456")
         then:
-        jwtParseException = thrown()
-        jwtParseException.message == "会话无效，请重新登录"
-        JwtException.isAssignableFrom(jwtParseException.cause.class)
+        SessionException sessionException = thrown()
+        with(sessionException) {
+            code == 630
+            message == "会话无效，请重新登录"
+            JwtException.isAssignableFrom(cause.class)
+        }
 
         when: "正确解析"
         testUser.userId = 1

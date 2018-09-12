@@ -18,7 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 /**
  * @author 潘浩然
  * 创建时间 2018/09/07
- * 功能：全局异常处理器
+ * 功能：全局 http 错误处理器
  */
 @Controller
 public class GlobalErrorController implements ErrorController {
@@ -34,7 +34,7 @@ public class GlobalErrorController implements ErrorController {
     /**
      * @author 潘浩然
      * 创建时间 2018/09/07
-     * 功能：对 404, 405 之类的全局异常进行处理，将 spring boot 默认的异常 json 转换为 ResponseEntity，保证响应体格式一致
+     * 功能：对 404, 405 之类的全局错误进行处理，将 spring boot 默认的异常 json 转换为 ResponseEntity，保证响应体格式一致
      */
     @RequestMapping(PATH)
     public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {

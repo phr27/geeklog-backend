@@ -7,7 +7,8 @@ import java.util.UUID;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.geeklog.common.exception.JwtParseException;
+import com.geeklog.common.exception.ValidatorException;
+import com.geeklog.common.exception.SessionException;
 import com.geeklog.domain.User;
 import io.jsonwebtoken.*;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -49,10 +50,11 @@ public class JwtUtil {
      * @author 潘浩然
      * 创建时间 2018/09/09
      * 功能：根据用户创建 Jwt
+     * @throws IllegalArgumentException owner 或 owner id 为 null
      */
     public static String createJwt(User owner) {
-        Assert.notNull(owner, "owner cannot be null");
-        Assert.notNull(owner.getUserId(), "owner id cannot be null");
+        Validator.notNull(owner, ValidatorException.unexpected("createJwt(owner cannot be null)"));
+        Validator.notNull(owner.getUserId(), ValidatorException.unexpected("createJwt(owner id cannot be null)"));
 
         Date now = new Date();
 
@@ -77,9 +79,11 @@ public class JwtUtil {
      * @author 潘浩然
      * 创建时间 2018/09/09
      * 功能：将 Jwt 解析为用户信息
-     * @throws JwtParseException 解析过程中出现问题（过期，格式错误等）抛出该异常
+     * @throws SessionException 解析过程中出现问题（过期，格式错误等）抛出该异常
      */
     public static User parseJwt(String jwt) {
+        Validator.notBlank(jwt, ValidatorException.unexpected("parseJwt(jwt cannot be blank)"));
+
         try {
             Claims claims = Jwts.parser().setSigningKey(generalKey()).parseClaimsJws(jwt).getBody();
 
@@ -91,8 +95,8 @@ public class JwtUtil {
             user.setIsAdmin(claims.get("is_admin", Boolean.class));
 
             return user;
-        } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtParseException("会话无效，请重新登录", e);
+        } catch (JwtException e) {
+            throw SessionException.invalid(e);
         }
     }
 }
