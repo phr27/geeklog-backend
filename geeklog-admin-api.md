@@ -1,13 +1,11 @@
 # Geeklog Api
 
-- [ ] hello 
-- [x] hello test
 
 ## 管理后台Api(/admin/*)
 
 ### User
 
-__1__ GET /admin/users?page=1&size=20 (不返回admin)
+- [ ] __1__ GET /admin/users?page=1&size=20 (不返回admin)
 
 res:
 
@@ -43,7 +41,7 @@ res:
 
 ### Forbidden
 
-__2__ POST /admin/forbiddens
+- [ ] __2__ POST /admin/forbiddens
 
 req:
 
@@ -68,7 +66,7 @@ res:
 }
 ```
 
-__3__ DELETE /admin/forbiddens/:user_id/:authority_id
+- [ ] __3__ DELETE /admin/forbiddens/:user_id/:authority_id
 
 res:
 
@@ -86,7 +84,7 @@ res:
 
 ### Admin Login
 
-__4__ POST /admin/login
+- [ ] __4__ POST /admin/login
 
 req:
 
@@ -111,7 +109,7 @@ res:
 
 ### Admin Article
 
-__5__ GET /admin/articles?category_id=1&page=1&size=30
+- [ ] __5__ GET /admin/articles?category_id=1&page=1&size=30
 
 res:
 
@@ -149,7 +147,7 @@ res:
 }
 ```
 
-__6__ DELETE /admin/articles/:article_id
+- [ ] __6__ DELETE /admin/articles/:article_id
 
 res:
 
@@ -171,7 +169,7 @@ res:
 }
 ```
 
-__7__ PUT /admin/articles/:article_id
+- [ ] __7__ PUT /admin/articles/:article_id
 
 req:
 
@@ -203,7 +201,7 @@ res:
 
 ### Admin Comments
 
-__8__ GET /admin/comments?article_id=2&root_id=1&page=1&size=30
+- [ ] __8__ GET /admin/comments?article_id=2&root_id=1&page=1&size=30
 
 res:
 
@@ -237,7 +235,7 @@ res:
 }
 ```
 
-__9__ DELETE /admin/comments/:comment_id
+- [ ] __9__ DELETE /admin/comments/:comment_id
 
 res:
 
@@ -259,7 +257,7 @@ res:
 
 ### Manage Category
 
-__10__ GET /admin/categories
+- [ ] __10__ GET /admin/categories
 
 res:
 
@@ -282,7 +280,7 @@ res:
 }
 ```
 
-__11__ POST /admin/categories
+- [ ] __11__ POST /admin/categories
 
 req:
 
@@ -307,7 +305,7 @@ res:
 }
 ```
 
-__12__ PUT /admin/categories/:category_id
+- [ ] __12__ PUT /admin/categories/:category_id
 
 req:
 
@@ -331,7 +329,7 @@ res:
 }
 ```
 
-__13__ DELETE /admin/categories/:category_id
+- [ ] __13__ DELETE /admin/categories/:category_id
 
 res:
 
@@ -347,7 +345,7 @@ res:
 
 ### Admin Authorities
 
-__14__ GET /admin/authorities
+- [ ] __14__ GET /admin/authorities
 
 res:
 
