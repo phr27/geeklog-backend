@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @RequestMapping("/admin")
-//@RequireRole(Role.ADMIN)
+@RequireRole(Role.ADMIN)
 
 public class ForbiddenController {
 
