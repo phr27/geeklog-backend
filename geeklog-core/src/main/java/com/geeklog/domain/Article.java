@@ -42,20 +42,20 @@ public class Article {
         this.title = title == null ? null : title.trim();
     }
 
-    public long getCreatedAt() {
-        return createdAt.getTime();
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedAt(Long createdAt) {
-        this.createdAt = new Date(createdAt);
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public long getModifiedAt() {
-        return modifiedAt.getTime();
+    public Date getModifiedAt() {
+        return modifiedAt;
     }
 
-    public void setModifiedAt(Long modifiedAt) {
-        this.modifiedAt = new Date(modifiedAt);
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 
     public Integer getUserId() {
