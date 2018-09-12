@@ -5,7 +5,7 @@
 
 ### User
 
-- [ ] __1__ GET /admin/users?page=1&size=20 (不返回admin)
+- [X] __1__ GET /admin/users?page=1&size=20 (不返回admin)
 
 res:
 
@@ -41,7 +41,7 @@ res:
 
 ### Forbidden
 
-- [ ] __2__ POST /admin/forbiddens
+- [X] __2__ POST /admin/forbiddens
 
 req:
 
@@ -84,7 +84,7 @@ res:
 
 ### Admin Login
 
-- [ ] __4__ POST /admin/login
+- [X] __4__ POST /admin/login
 
 req:
 
@@ -109,7 +109,7 @@ res:
 
 ### Admin Article
 
-- [ ] __5__ GET /admin/articles?category_id=1&page=1&size=30
+- [X] __5__ GET /admin/articles?category_id=1&page=1&size=30
 
 res:
 
@@ -201,7 +201,7 @@ res:
 
 ### Admin Comments
 
-- [ ] __8__ GET /admin/comments?article_id=2&root_id=1&page=1&size=30
+- [X] __8__ GET /admin/comments?article_id=2&page=1&size=30
 
 res:
 
@@ -235,7 +235,7 @@ res:
 }
 ```
 
-- [ ] __9__ DELETE /admin/comments/:comment_id
+- [X] __9__ DELETE /admin/comments/:comment_id
 
 res:
 
@@ -345,7 +345,7 @@ res:
 
 ### Admin Authorities
 
-- [ ] __14__ GET /admin/authorities
+- [X] __14__ GET /admin/authorities
 
 res:
 
