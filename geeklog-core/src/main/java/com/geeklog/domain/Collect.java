@@ -41,11 +41,11 @@ public class Collect {
         this.articleId = articleId;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public long getCreatedAt() {
+        return createdAt.getTime();
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = new Date(createdAt);
     }
 }

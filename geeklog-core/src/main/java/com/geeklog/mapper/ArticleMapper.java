@@ -64,7 +64,7 @@ public interface ArticleMapper {
     int queryNumOfArticles(Article article);
 
     /**
-     * @describe 分页查询
+     * @describe 分页查询(降序)
      * @param article 分页查询条件
      * @param rowIndex  limit第一个参数 起始位置
      * @param pageSize  limit第二个参数 每页数量
