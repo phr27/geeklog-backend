@@ -16,7 +16,7 @@
     delete from article
     where article_id = #{articleId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.Article" >
+  <insert id="insert" parameterType="com.geeklog.domain.Article" useGeneratedKeys="true" keyProperty="articleId">
     insert into article (article_id, title, created_at, 
       modified_at, user_id, category_id, 
       tags, display, content

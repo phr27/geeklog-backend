@@ -11,7 +11,7 @@
     delete from collect
     where collect_id = #{collectId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.Collect" >
+  <insert id="insert" parameterType="com.geeklog.domain.Collect" useGeneratedKeys="true" keyProperty="collectId">
     insert into collect (collect_id, user_id, article_id, 
       created_at)
     values (#{collectId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, 

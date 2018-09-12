@@ -14,7 +14,7 @@
     delete from comment
     where comment_id = #{commentId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.Comment" >
+  <insert id="insert" parameterType="com.geeklog.domain.Comment" useGeneratedKeys="true" keyProperty="commentId">
     insert into comment (comment_id, user_id, article_id, 
       content, parent_id, root_id, 
       created_at)

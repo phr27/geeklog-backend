@@ -9,7 +9,7 @@
     delete from authority
     where authority_id = #{authorityId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.Authority" >
+  <insert id="insert" parameterType="com.geeklog.domain.Authority" useGeneratedKeys="true" keyProperty="authorityId">
     insert into authority (authority_id, name)
     values (#{authorityId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>

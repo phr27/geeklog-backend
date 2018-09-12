@@ -10,7 +10,7 @@
     delete from category
     where category_id = #{categoryId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.Category" >
+  <insert id="insert" parameterType="com.geeklog.domain.Category" useGeneratedKeys="true" keyProperty="categoryId">
     insert into category (category_id, name, description
       )
     values (#{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}

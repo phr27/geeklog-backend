@@ -10,7 +10,7 @@
     delete from star
     where star_id = #{starId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.Star" >
+  <insert id="insert" parameterType="com.geeklog.domain.Star" useGeneratedKeys="true" keyProperty="starId">
     insert into star (star_id, user_id, article_id
       )
     values (#{starId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}
