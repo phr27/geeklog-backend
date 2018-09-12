@@ -26,6 +26,11 @@ public class ForbiddenMapperTest {
 
     @Test
     public void insert() throws Exception {
+        Forbidden forbidden = new Forbidden();
+        forbidden.setUserId(8);
+        forbidden.setAuthorityId(2);
+        mapper.insert(forbidden);
+        System.out.println(forbidden.getForbiddenId());
     }
 
     @Test
