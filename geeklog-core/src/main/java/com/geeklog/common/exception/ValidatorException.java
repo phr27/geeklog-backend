@@ -1,5 +1,6 @@
 package com.geeklog.common.exception;
 
+import com.geeklog.common.util.Validator;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -68,8 +69,14 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException CATEGORY_NOT_EXIST = new ValidatorException(608, "该分类不存在");
 
+    /**
+     * @author 午康俊
+     */
+    public static final ValidatorException AUTHORITY_OUT_OF_RANGE = new ValidatorException(609, "权限码超出范围");
+
     public static final ValidatorException ARTICLE_NOT_EXIST = new ValidatorException(610, "该文章不存在");
 
     public static final ValidatorException COMMENT_NOT_EXIST = new ValidatorException(611, "该评论不存在");
+
 
 }

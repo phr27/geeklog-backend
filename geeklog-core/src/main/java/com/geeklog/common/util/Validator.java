@@ -3,6 +3,7 @@ package com.geeklog.common.util;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import com.geeklog.common.enumeration.Permission;
 import com.geeklog.common.exception.ValidatorException;
 import org.apache.commons.lang3.StringUtils;
 
@@ -139,6 +140,19 @@ public class Validator {
      */
     public static void equals(Object object, Object other, ValidatorException validatorException) {
         if (!Objects.equals(object, other)) {
+            throw validatorException;
+        }
+    }
+
+    /**
+     * @author 午康俊
+     * 创建时间 2018/09/12
+     * 功能：断言 @param authority 在规定范围内
+     * 修改时间：2018/09/12
+     * 修改人 潘浩然
+     */
+    public static void isLegal(int value, ValidatorException validatorException) {
+        if (Permission.getPermission(value) == null) {
             throw validatorException;
         }
     }
