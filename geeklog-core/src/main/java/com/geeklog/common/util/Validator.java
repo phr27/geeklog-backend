@@ -137,7 +137,8 @@ public class Validator {
      * 功能：断言 @param authority 在规定范围内
      */
     public static void isLegal(int value, ValidatorException validatorException) {
-        if (value != 1 || value !=2){
+        System.out.println(value);
+        if (value != 1 && value !=2){
             throw validatorException;
         }
     }
