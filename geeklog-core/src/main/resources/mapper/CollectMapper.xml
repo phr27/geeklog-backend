@@ -33,4 +33,15 @@
     select collect_id, user_id, article_id, created_at
     from collect
   </select>
+  <select id="queryByUserId" resultMap="BaseResultMap">
+    select collect_id, user_id, article_id, created_at
+    from collect
+    where user_id = #{userId}
+  </select>
+  <select id="queryByUserIdAndArticleId" resultMap="BaseResultMap">
+    select collect_id, user_id, article_id, created_at
+    from collect
+    where user_id = #{userId} and article_id = #{articleId}
+  </select>
+
 </mapper>
