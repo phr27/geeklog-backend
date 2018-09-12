@@ -67,6 +67,41 @@
       </if>
     </where>
   </select>
+
+  <select id="queryNumOfRoot" resultType="int">
+    SELECT count(1)
+    FROM comment
+    <where>
+      <if test="userId != null">
+        and user_id = #{userId}
+      </if>
+      <if test="articleId != null">
+        and article_id = #{articleId}
+      </if>
+      <if test="content != null">
+        and content like concat('%', #{content}, '%')
+      </if>
+      and parent_id is NULL
+    </where>
+  </select>
+  <select id="queryNumOfReply" resultType="int">
+    SELECT count(1)
+    FROM comment
+    <where>
+      <if test="userId != null">
+        and user_id = #{userId}
+      </if>
+      <if test="articleId != null">
+        and article_id = #{articleId}
+      </if>
+      <if test="content != null">
+        and content like concat('%', #{content}, '%')
+      </if>
+      and parent_id IS NOT NULL
+      and root_id = #{comment.rootId}
+    </where>
+  </select>
+
   <select id="queryPaging" resultMap="BaseResultMap">
     SELECT comment_id, user_id, article_id, content, parent_id, root_id, created_at
     FROM comment

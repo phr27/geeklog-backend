@@ -55,13 +55,31 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment comment);
 
     /**
-     * @describe 以一个条件来查询用户数量
+     * @describe 以一个条件来查询评论数量
      * @param comment 查询条件
      * @return 评论数量
      * @author 朱远飞
      * @create_time 2018年9月12日09:40:23
      */
     int queryNumOfComments(Comment comment);
+
+    /**
+     * @describe 以一个条件来查询首评论数量
+     * @param comment 查询条件
+     * @return 首评论数量
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:40:23
+     */
+    int queryNumOfRoot(Comment comment);
+
+    /**
+     * @describe 以一个条件来查询某个首评论的回复数量
+     * @param comment 查询条件
+     * @return 回复数量
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:40:23
+     */
+    int queryNumOfReply(Comment comment);
 
     /**
      * @describe 分页查询评论
