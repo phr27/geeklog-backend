@@ -10,6 +10,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static org.junit.Assert.*;
+/**
+ * 作者：朱远飞
+ * 创建时间：2018年9月12日14:07:55
+ * 说明：CommentMapper 测试类
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CommentMapperTest {

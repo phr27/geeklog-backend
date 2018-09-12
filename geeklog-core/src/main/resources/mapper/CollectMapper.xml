@@ -11,7 +11,7 @@
     delete from collect
     where collect_id = #{collectId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.Collect" >
+  <insert id="insert" parameterType="com.geeklog.domain.Collect" useGeneratedKeys="true" keyProperty="collectId">
     insert into collect (collect_id, user_id, article_id, 
       created_at)
     values (#{collectId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, 
@@ -19,9 +19,14 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.geeklog.domain.Collect" >
     update collect
-    set user_id = #{userId,jdbcType=INTEGER},
-      article_id = #{articleId,jdbcType=INTEGER},
-      created_at = #{createdAt,jdbcType=TIMESTAMP}
+    <set>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="articleId != null">
+        article_id = #{articleId},
+      </if>
+    </set>
     where collect_id = #{collectId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -33,4 +38,15 @@
     select collect_id, user_id, article_id, created_at
     from collect
   </select>
+  <select id="queryByUserId" resultMap="BaseResultMap">
+    select collect_id, user_id, article_id, created_at
+    from collect
+    where user_id = #{userId}
+  </select>
+  <select id="queryByUserIdAndArticleId" resultMap="BaseResultMap">
+    select collect_id, user_id, article_id, created_at
+    from collect
+    where user_id = #{userId} and article_id = #{articleId}
+  </select>
+
 </mapper>

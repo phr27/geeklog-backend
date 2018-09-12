@@ -1,6 +1,6 @@
 package com.geeklog.mapper;
 
-import com.geeklog.domain.Forbidden;
+import com.geeklog.domain.Collect;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,25 +12,20 @@ import java.util.List;
 import static org.junit.Assert.*;
 /**
  * 作者：朱远飞
- * 创建时间：2018年9月9日15:14:59
- * 说明：ForbiddenMapper 测试类
+ * 创建时间：2018年9月12日14:07:35
+ * 说明：CollectMappe 测试类
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ForbiddenMapperTest {
+public class CollectMapperTest {
     @Autowired
-    ForbiddenMapper mapper;
+    CollectMapper mapper;
     @Test
     public void deleteByPrimaryKey() throws Exception {
     }
 
     @Test
     public void insert() throws Exception {
-        Forbidden forbidden = new Forbidden();
-        forbidden.setUserId(8);
-        forbidden.setAuthorityId(2);
-        mapper.insert(forbidden);
-        System.out.println(forbidden.getForbiddenId());
     }
 
     @Test
@@ -47,21 +42,19 @@ public class ForbiddenMapperTest {
 
     @Test
     public void queryByUserId() throws Exception {
-        List<Forbidden> forbiddens = mapper.queryByUserId(4);
-        assertEquals(1, forbiddens.size());
-        for (Forbidden forbidden : forbiddens) {
-            System.out.println(forbidden.getForbiddenId());
-        }
+        List<Collect> collects = mapper.queryByUserId(1);
+        assertEquals(1,collects.size());
+    }
 
-    }
     @Test
-    public void queryByUserIdAndAuthorityId() throws Exception {
-        Forbidden forbidden = mapper.queryByUserIdAndAuthorityId(4, 2);
-        if(forbidden == null)
+        public void queryByUserIdAndArticleId() throws Exception {
+
+        Collect collect = mapper.queryByUserIdAndArticleId(8, 5);
+        if(collect != null){
+            System.out.println(collect.getArticleId());
+        }else{
             System.out.println("不存在");
-        else{
-            System.out.println(forbidden.getForbiddenId());
-            System.out.println("存在");
         }
     }
+
 }

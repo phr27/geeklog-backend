@@ -1,6 +1,8 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.Collect;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 /**
  *  @author 朱远飞
@@ -51,4 +53,24 @@ public interface CollectMapper {
      * @create_time 2018年9月9日15:18:57
      */
     int updateByPrimaryKey(Collect collect);
+
+    /**
+     * 通过userId查询该用户收藏的记录
+     * @param userId 用户id
+     * @return  记录的集合
+     * @author 朱远飞
+     * @create_time 2018年9月12日14:04:36
+     */
+    List<Collect> queryByUserId(int userId);
+
+    /**
+     * 通过userId和articleId查询记录
+     * @param userId 用户Id
+     * @param articleId 文章Id
+     * @return  Collect
+     * @author 朱远飞
+     * @create_time 2018年9月12日14:04:38
+     */
+    Collect queryByUserIdAndArticleId(@Param("userId") int userId, @Param("articleId" ) int articleId);
+
 }

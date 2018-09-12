@@ -16,7 +16,7 @@
     delete from article
     where article_id = #{articleId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.Article" >
+  <insert id="insert" parameterType="com.geeklog.domain.Article" useGeneratedKeys="true" keyProperty="articleId">
     insert into article (article_id, title, created_at, 
       modified_at, user_id, category_id, 
       tags, display, content
@@ -28,14 +28,29 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.geeklog.domain.Article" >
     update article
-    set title = #{title,jdbcType=VARCHAR},
-      created_at = #{createdAt},
-      modified_at = #{modifiedAt},
-      user_id = #{userId,jdbcType=INTEGER},
-      category_id = #{categoryId,jdbcType=INTEGER},
-      tags = #{tags,jdbcType=VARCHAR},
-      display = #{display,jdbcType=BIT},
-      content = #{content,jdbcType=LONGVARCHAR}
+    <set>
+      <if test="title != null">
+        title = #{title},
+      </if>
+      <if test="modifiedAt != null">
+        modified_at = #{modifiedAt},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId},
+      </if>
+      <if test="tags != null">
+        tags = #{tags},
+      </if>
+      <if test="display != null">
+        display = #{display},
+      </if>
+      <if test="content != null">
+        content = #{content},
+      </if>
+    </set>
     where article_id = #{articleId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

@@ -10,7 +10,7 @@
     delete from forbidden
     where forbidden_id = #{forbiddenId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.geeklog.domain.Forbidden" >
+  <insert id="insert" parameterType="com.geeklog.domain.Forbidden" useGeneratedKeys="true" keyProperty="forbiddenId">
     insert into forbidden (forbidden_id, user_id, authority_id
       )
     values (#{forbiddenId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{authorityId,jdbcType=INTEGER}
@@ -18,8 +18,14 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.geeklog.domain.Forbidden" >
     update forbidden
-    set user_id = #{userId,jdbcType=INTEGER},
-      authority_id = #{authorityId,jdbcType=INTEGER}
+    <set>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="authorityId != null">
+        authority_id = #{authorityId},
+      </if>
+    </set>
     where forbidden_id = #{forbiddenId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
