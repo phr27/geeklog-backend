@@ -11,6 +11,11 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
+/**
+ * @author 潘浩然
+ * 创建时间 2018/09/11
+ * 功能：管理员的用户管理控制器的单元测试
+ */
 class UserControllerSpec extends ControllerSpecification {
 
     def "GET /admin/users?page=#page&size=#size"() {

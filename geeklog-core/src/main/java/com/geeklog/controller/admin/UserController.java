@@ -11,6 +11,11 @@ import com.geeklog.service.admin.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author 潘浩然
+ * 创建时间 2018/09/11
+ * 功能：管理员的用户管理控制器
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/admin")
@@ -20,6 +25,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/11
+     * 功能：分页列出普通用户及其权限
+     */
     @GetMapping("/users")
     public ResponseEntity<Page<UserWithPermission>> userList(@RequestParam int page, @RequestParam int size) {
         Validator.min(page, 1, ValidatorException.PAGE_OUT_OF_RANGE);
