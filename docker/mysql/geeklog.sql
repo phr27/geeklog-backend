@@ -40,7 +40,7 @@ CREATE TABLE `article` (
 -- Records of article
 -- ----------------------------
 INSERT INTO `article` VALUES ('1', 'Java开发技巧', '2018-09-10 11:56:04', '2018-09-10 11:56:04', '1', '这是文章主体内容3', '2', 'Java', '');
-INSERT INTO `article` VALUES ('2', 'Vue总结', '2018-09-08 11:30:48', '2018-09-08 11:30:48', '2', '这是文章主体内容1', '1', 'Vue', '');
+INSERT INTO `article` VALUES ('2', 'Vue总结', '2018-09-08 11:30:48', '2018-09-08 11:30:48', '2', '这是文章主体内容2', '1', 'Vue', '');
 INSERT INTO `article` VALUES ('3', 'JavaScript技巧', '2018-09-08 11:30:48', '2018-09-08 11:30:48', '3', '这是文章主体内容', '1', 'JavaScript', '');
 INSERT INTO `article` VALUES ('4', 'Docker使用经验', '2018-09-08 11:30:49', '2018-09-08 11:30:49', '4', '这是文章主体内容', '3', 'Docker', '');
 INSERT INTO `article` VALUES ('5', 'Python开发技巧', '2018-09-08 11:30:49', '2018-09-08 11:30:49', '5', '这是文章主体内容', '2', 'Python', '');
