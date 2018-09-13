@@ -257,7 +257,7 @@ res:
 
 ### Manage Category
 
-- [ ] __10__ GET /admin/categories
+- [X] __10__ GET /admin/categories
 
 res:
 
