@@ -5,6 +5,7 @@ import com.geeklog.common.annotation.GeekLogController;
 import com.geeklog.common.annotation.RequireRole;
 import com.geeklog.common.enumeration.Role;
 import com.geeklog.common.util.ResponseEntity;
+import com.geeklog.domain.Forbidden;
 import com.geeklog.dto.BeForbidden;
 import com.geeklog.service.admin.ForbiddenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ForbiddenController {
     }
 
     @DeleteMapping("/forbiddens/{user_id}/{authority_id}")
-    public ResponseEntity <Forbidden> deleteForbidden(@PathVariable("user_id") int userId, @PathVariable("authority_id") int authorityId) {
+    public ResponseEntity<Forbidden>  deleteForbidden(@PathVariable("user_id") int userId, @PathVariable("authority_id") int authorityId) {
 
         forbiddenService.isLegalUser(userId, authorityId);
 

@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 
-@GeekLogController("/admin")
+@GeekLogController(path = "/admin", value = "admin.CategoryController")
 @RequireRole(Role.ADMIN)
 public class CategoryController {
     @Autowired
@@ -34,11 +34,11 @@ public class CategoryController {
         return ResponseEntity.ok("success", categoryService.listCategory());
     }
 
-    @PostMapping("/categories")
-    public ResponseEntity<Category> addCategory(@RequestBody Acategory acategory){
-
-        return ResponseEntity.ok("添加分类成功",categoryService)
-    }
+//    @PostMapping("/categories")
+//    public ResponseEntity<Category> addCategory(@RequestBody Acategory acategory){
+//
+//        return ResponseEntity.ok("添加分类成功",categoryService);
+//    }
 
 
 
