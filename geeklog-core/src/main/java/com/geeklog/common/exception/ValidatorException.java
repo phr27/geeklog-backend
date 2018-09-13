@@ -1,6 +1,5 @@
 package com.geeklog.common.exception;
 
-import com.geeklog.common.util.Validator;
 import org.springframework.http.HttpStatus;
 
 /**

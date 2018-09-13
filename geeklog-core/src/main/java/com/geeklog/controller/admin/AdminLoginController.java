@@ -1,12 +1,13 @@
 package com.geeklog.controller.admin;
 
 import com.geeklog.common.annotation.GeekLogController;
+import com.geeklog.common.enumeration.Role;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.Validator;
 import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.dto.AuthToken;
 import com.geeklog.dto.JwtToken;
-import com.geeklog.service.admin.LoginService;
+import com.geeklog.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * 功能：管理员登录控制器
  */
 @GeekLogController("/admin")
-public class LoginController {
+public class AdminLoginController {
 
     @Autowired
     private LoginService loginService;
@@ -32,6 +33,6 @@ public class LoginController {
         Validator.username(authToken.getUsername());
         Validator.password(authToken.getPassword());
 
-        return ResponseEntity.ok("登录成功", loginService.login(authToken.getUsername(), authToken.getPassword()));
+        return ResponseEntity.ok("登录成功", loginService.login(authToken.getUsername(), authToken.getPassword(), Role.ADMIN));
     }
 }

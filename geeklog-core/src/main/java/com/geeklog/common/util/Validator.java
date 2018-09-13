@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import com.geeklog.common.enumeration.Permission;
+import com.geeklog.common.exception.CommonException;
 import com.geeklog.common.exception.ValidatorException;
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,9 +29,9 @@ public class Validator {
      * 创建时间 2018/09/09
      * 功能：断言 @param object 不为 null，断言失败就抛出异常
      */
-    public static void notNull(Object object, ValidatorException validatorException) {
+    public static void notNull(Object object, CommonException commonException) {
         if (object == null) {
-            throw validatorException;
+            throw commonException;
         }
     }
 
@@ -39,9 +40,9 @@ public class Validator {
      * 创建时间 2018/09/10
      * 功能：断言 @param str 不为 null 和空字符串，断言失败就抛出异常
      */
-    public static void notBlank(String str, ValidatorException validatorException) {
+    public static void notBlank(String str, CommonException commonException) {
         if (StringUtils.isBlank(str)) {
-            throw validatorException;
+            throw commonException;
         }
     }
 
@@ -94,9 +95,9 @@ public class Validator {
      * 创建时间 2018/09/10
      * 功能：断言 @param bool 为 true，断言失败就抛出异常
      */
-    public static void isTrue(Boolean bool, ValidatorException validatorException) {
+    public static void isTrue(Boolean bool, CommonException commonException) {
         if (!bool) {
-            throw validatorException;
+            throw commonException;
         }
     }
 
@@ -105,9 +106,9 @@ public class Validator {
      * 创建时间 2018/09/11
      * 功能：断言 @param str 有前缀 prefix
      */
-    public static void startsWith(String str, String prefix, ValidatorException validatorException) {
+    public static void startsWith(String str, String prefix, CommonException commonException) {
         if (str == null || !str.startsWith(prefix)) {
-            throw validatorException;
+            throw commonException;
         }
     }
 
@@ -116,9 +117,9 @@ public class Validator {
      * 创建时间 2018/09/11
      * 功能：断言 @param value 大于等于 min
      */
-    public static void min(int value, int min, ValidatorException validatorException) {
+    public static void min(int value, int min, CommonException commonException) {
         if (value < min) {
-            throw validatorException;
+            throw commonException;
         }
     }
 
@@ -127,9 +128,9 @@ public class Validator {
      * 创建时间 2018/09/11
      * 功能：断言 @param value 小于等于 max
      */
-    public static void max(int value, int max, ValidatorException validatorException) {
+    public static void max(int value, int max, CommonException commonException) {
         if (value > max) {
-            throw validatorException;
+            throw commonException;
         }
     }
 
@@ -138,9 +139,9 @@ public class Validator {
      * 创建时间 2018/09/12
      * 功能：断言两个对象相等
      */
-    public static void equals(Object object, Object other, ValidatorException validatorException) {
+    public static void equals(Object object, Object other, CommonException commonException) {
         if (!Objects.equals(object, other)) {
-            throw validatorException;
+            throw commonException;
         }
     }
 
@@ -151,9 +152,9 @@ public class Validator {
      * 修改时间：2018/09/12
      * 修改人 潘浩然
      */
-    public static void isLegal(int value, ValidatorException validatorException) {
+    public static void isLegal(int value, CommonException commonException) {
         if (Permission.getPermission(value) == null) {
-            throw validatorException;
+            throw commonException;
         }
     }
 }
