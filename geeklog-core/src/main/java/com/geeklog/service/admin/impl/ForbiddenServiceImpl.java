@@ -1,8 +1,13 @@
 package com.geeklog.service.admin.impl;
 
+import com.geeklog.common.exception.ValidatorException;
+import com.geeklog.common.util.ResponseEntity;
+import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Forbidden;
+import com.geeklog.domain.User;
 import com.geeklog.mapper.AuthorityMapper;
 import com.geeklog.mapper.ForbiddenMapper;
+import com.geeklog.mapper.UserMapper;
 import com.geeklog.service.admin.ForbiddenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,10 @@ import java.util.List;
 public class ForbiddenServiceImpl implements ForbiddenService {
     @Autowired
     private ForbiddenMapper forbiddenMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
 
 
     @Transactional
@@ -48,5 +57,15 @@ public class ForbiddenServiceImpl implements ForbiddenService {
         }
     }
 
+    public void isLegalUser(int userId, int authorityId){
+        User user = userMapper.selectByPrimaryKey(userId);
+
+        Validator.isLegal(authorityId, ValidatorException.AUTHORITY_OUT_OF_RANGE);
+
+        Validator.notNull(user, ValidatorException.USER_NOT_EXIST);
+
+        Validator.isTrue(!user.getIsAdmin(),ValidatorException.USER_IS_ADMIN);
+
+    }
 
 }

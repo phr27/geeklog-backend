@@ -11,4 +11,5 @@ import com.geeklog.domain.Forbidden;
 public interface ForbiddenService {
     Forbidden forbid (int userId, int authorityId);
     Forbidden deleteForbidden (int userId, int authorityId);
+    void isLegalUser(int userId, int authorityId);
 }
