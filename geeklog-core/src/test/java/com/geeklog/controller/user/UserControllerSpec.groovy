@@ -1,6 +1,6 @@
 package com.geeklog.controller.user
 
-import com.geeklog.common.exception.ValidatorException
+import com.geeklog.common.exception.RoleException
 import com.geeklog.common.util.ResponseEntity
 import com.geeklog.controller.LoggedController
 import org.springframework.http.HttpEntity
@@ -20,8 +20,8 @@ class UserControllerSpec extends LoggedController {
         then:
         with(entity) {
             statusCodeValue == 200
-            body.code == ValidatorException.USER_NOT_EXIST.code
-            body.message == ValidatorException.USER_NOT_EXIST.message
+            body.code == RoleException.USER_NOT_EXIST.code
+            body.message == RoleException.USER_NOT_EXIST.message
             body.data == null
         }
 

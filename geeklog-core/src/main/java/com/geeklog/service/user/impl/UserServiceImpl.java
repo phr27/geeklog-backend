@@ -2,13 +2,11 @@ package com.geeklog.service.user.impl;
 
 import java.util.List;
 
-import com.geeklog.common.enumeration.Permission;
-import com.geeklog.common.exception.ValidatorException;
+import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.util.Converter;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Forbidden;
 import com.geeklog.domain.User;
-import com.geeklog.dto.UserWithPermission;
 import com.geeklog.dto.UserWithPermissionBio;
 import com.geeklog.mapper.ForbiddenMapper;
 import com.geeklog.mapper.UserMapper;
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     public UserWithPermissionBio findUserById(int userId) {
         User user = userMapper.selectByPrimaryKey(userId);
-        Validator.notNull(user, ValidatorException.USER_NOT_EXIST);
+        Validator.notNull(user, RoleException.USER_NOT_EXIST);
 
         UserWithPermissionBio userWithPermissionBio = Converter.domainToDTO(user, UserWithPermissionBio.class);
 
