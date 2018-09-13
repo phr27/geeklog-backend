@@ -37,4 +37,9 @@
     select category_id, name, description
     from category
   </select>
+  <select id="queryByCategoryName" resultMap="BaseResultMap">
+    select category_id, name, description
+    from category
+    whrere `name` = #{name}
+  </select>
 </mapper>

@@ -51,4 +51,15 @@ public interface CategoryMapper {
      * @create_time 2018年9月9日15:18:57
      */
     int updateByPrimaryKey(Category category);
+
+    /**
+     * @describe 根据类别名称查询记录
+     * @param name 类别名称
+     * @return Category
+     * @author 朱远飞
+     * @create_time 2018年9月13日14:57:55
+     */
+    Category queryByCategoryName(String name);
+
+
 }
