@@ -13,4 +13,6 @@ public interface ArticleService {
     Page<Article> listArticle(Integer categoryId, int page, int size);
 
     Article deleteArticle(int articleId);
+
+    Article updateArticleDisplay(int articleId, boolean display);
 }

@@ -1,11 +1,9 @@
 package com.geeklog.service.admin.impl;
 
 import com.geeklog.common.exception.ValidatorException;
-import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Forbidden;
 import com.geeklog.domain.User;
-import com.geeklog.mapper.AuthorityMapper;
 import com.geeklog.mapper.ForbiddenMapper;
 import com.geeklog.mapper.UserMapper;
 import com.geeklog.service.admin.ForbiddenService;
@@ -13,15 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * @author 午康俊
  * 创建时间 2018/9/12
  * 功能：管理员设置用户权限实现
  */
-
-@Service
+@Service("admin.ForbiddenService")
 public class ForbiddenServiceImpl implements ForbiddenService {
     @Autowired
     private ForbiddenMapper forbiddenMapper;

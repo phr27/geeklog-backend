@@ -4,15 +4,11 @@ package com.geeklog.controller.admin;
 import com.geeklog.common.annotation.GeekLogController;
 import com.geeklog.common.annotation.RequireRole;
 import com.geeklog.common.enumeration.Role;
-import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.ResponseEntity;
-import com.geeklog.common.util.Validator;
-import com.geeklog.domain.Forbidden;
-import com.geeklog.domain.User;
 import com.geeklog.dto.BeForbidden;
-import com.geeklog.mapper.UserMapper;
 import com.geeklog.service.admin.ForbiddenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,13 +16,12 @@ import org.springframework.web.bind.annotation.*;
  * 创建时间 2018/9/12
  * 功能 管理员管理api
  */
-
-
-@GeekLogController("/admin")
+@GeekLogController(path = "/admin", value = "admin.ForbiddenController")
 @RequireRole(Role.ADMIN)
 public class ForbiddenController {
 
     @Autowired
+    @Qualifier("admin.ForbiddenService")
     private ForbiddenService forbiddenService;
 
     @PostMapping("/forbiddens")

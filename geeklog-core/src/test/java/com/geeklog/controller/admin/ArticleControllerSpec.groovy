@@ -3,6 +3,7 @@ package com.geeklog.controller.admin
 import com.geeklog.common.exception.ValidatorException
 import com.geeklog.common.util.ResponseEntity
 import com.geeklog.controller.LoggedController
+import com.geeklog.dto.ArticleDisplaySetter
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -139,6 +140,55 @@ class ArticleControllerSpec extends LoggedController {
                 tags == "Java"
             }
 
+        }
+    }
+
+    def "ArticleController PUT /admin/articles/{article_id}"() {
+        getAuthorization()
+
+        when: "没有请求体"
+        def entity = restTemplate.exchange("$URL_PREFFIX/admin/articles/1",
+                HttpMethod.PUT,
+                new HttpEntity<Object>(headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == HttpStatus.BAD_REQUEST.value()
+            body.code == HttpStatus.BAD_REQUEST.value()
+            body.message == HttpStatus.BAD_REQUEST.reasonPhrase
+            body.data == null
+        }
+
+        when: "原来值和更新值一致"
+        ArticleDisplaySetter displaySetter = new ArticleDisplaySetter()
+        displaySetter.setDisplay(true)
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/articles/1",
+                HttpMethod.PUT,
+                new HttpEntity<Object>(displaySetter, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "success"
+            body.data.display
+        }
+
+        when: "正常更新"
+        displaySetter.setDisplay(false)
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/articles/1",
+                HttpMethod.PUT,
+                new HttpEntity<Object>(displaySetter, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "success"
+            !body.data.display
         }
     }
 }

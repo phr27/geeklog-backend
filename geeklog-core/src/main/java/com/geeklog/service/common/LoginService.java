@@ -1,5 +1,6 @@
-package com.geeklog.service.admin;
+package com.geeklog.service.common;
 
+import com.geeklog.common.enumeration.Role;
 import com.geeklog.dto.JwtToken;
 
 /**
@@ -9,5 +10,5 @@ import com.geeklog.dto.JwtToken;
  */
 public interface LoginService {
 
-    JwtToken login(String username, String password);
+    JwtToken login(String username, String password, Role requireRole);
 }

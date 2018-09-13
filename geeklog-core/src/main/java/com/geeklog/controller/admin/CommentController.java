@@ -10,6 +10,7 @@ import com.geeklog.domain.Comment;
 import com.geeklog.dto.Page;
 import com.geeklog.service.admin.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,11 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
  * 创建时间 2018/09/12
  * 功能：管理员的评论管理控制器
  */
-@GeekLogController("/admin")
+@GeekLogController(path = "/admin", value = "admin.CommentController")
 @RequireRole(Role.ADMIN)
 public class CommentController {
 
     @Autowired
+    @Qualifier("admin.CommentService")
     private CommentService commentService;
 
     /**
