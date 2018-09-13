@@ -77,13 +77,9 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException COMMENT_NOT_EXIST = new ValidatorException(611, "该评论不存在");
 
-    public static final ValidatorException USER_NOT_EXIST = new ValidatorException(612, "该用户不存在");
+    public static final ValidatorException STILL_HAVE_ARTICLE = new ValidatorException(612, "仍有文章存在");
 
-    public static final ValidatorException USER_IS_ADMIN = new ValidatorException(613, "该用户为管理员");
 
-    public static final ValidatorException USER_IS_ADMIN = new ValidatorException(613, "该用户为管理员");
-
-    public static final ValidatorException CATEGORY_NOT_EXIST = new ValidatorException(614, "该分类不存在");
 
 
 }

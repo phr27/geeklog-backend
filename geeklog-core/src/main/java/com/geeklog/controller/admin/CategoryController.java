@@ -32,11 +32,19 @@ public class CategoryController {
         return ResponseEntity.ok("success", categoryService.listCategory());
     }
 
-//    @PostMapping("/categories")
-//    public ResponseEntity<Category> addCategory(@RequestBody Acategory acategory){
-//
-//        return ResponseEntity.ok("添加分类成功",categoryService);
-//    }
+    @PostMapping("/categories")
+    public ResponseEntity addCategory(@RequestBody Acategory acategory){
+
+        Category category = categoryService.addCategory(acategory.getName(), acategory.getDescription());
+
+        if (category == null){
+            return ResponseEntity.badRequest("分类已存在，禁止重复添加");
+        } else {
+            return ResponseEntity.ok("添加分类成功",category);
+        }
+
+
+    }
 
     @PutMapping("/categories/{category_id}")
     public ResponseEntity<Acategory> updateCategory(@RequestBody Acategory acategory, @PathVariable("category_id") int categoryId){
@@ -44,6 +52,13 @@ public class CategoryController {
         return ResponseEntity.ok("更新分类成功", categoryService.updateCategory(categoryId, acategory.getName(), acategory.getDescription()));
 
     }
+
+    @DeleteMapping("/categories/{category_id}")
+    public ResponseEntity<Acategory> deleteCategory(@PathVariable("category_id") int categoryId){
+
+        return ResponseEntity.ok("删除分类成功", categoryService.deleteCategory(categoryId));
+    }
+
 
 
 }
