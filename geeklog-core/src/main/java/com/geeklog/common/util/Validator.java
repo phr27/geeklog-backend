@@ -36,6 +36,17 @@ public class Validator {
     }
 
     /**
+     * @author 午康俊
+     * 创建时间 2018/09/13
+     * 功能：断言 @param object 为 null，断言失败就抛出异常
+     */
+    public static void isNull(Object object, CommonException commonException) {
+        if (object != null) {
+            throw commonException;
+        }
+    }
+
+    /**
      * @author 潘浩然
      * 创建时间 2018/09/10
      * 功能：断言 @param str 不为 null 和空字符串，断言失败就抛出异常

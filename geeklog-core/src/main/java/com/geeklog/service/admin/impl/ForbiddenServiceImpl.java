@@ -1,5 +1,6 @@
 package com.geeklog.service.admin.impl;
 
+import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Forbidden;
@@ -57,9 +58,9 @@ public class ForbiddenServiceImpl implements ForbiddenService {
 
         Validator.isLegal(authorityId, ValidatorException.AUTHORITY_OUT_OF_RANGE);
 
-        Validator.notNull(user, ValidatorException.USER_NOT_EXIST);
+        Validator.notNull(user, RoleException.USER_NOT_EXIST);
 
-        Validator.isTrue(!user.getIsAdmin(),ValidatorException.USER_IS_ADMIN);
+        Validator.isTrue(!user.getIsAdmin(), RoleException.USER_IS_ADMIN);
 
     }
 
