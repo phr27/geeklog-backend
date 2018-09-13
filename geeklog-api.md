@@ -27,7 +27,7 @@ res:
 }
 ```
 
-- [ ] __2__ GET /users/:user_id
+- [X] __2__ GET /users/:user_id
 
 res:
 
