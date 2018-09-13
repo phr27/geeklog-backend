@@ -6,6 +6,7 @@ import com.geeklog.controller.LoggedController
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
+import spock.lang.Ignore
 
 /**
  * @author 潘浩然
@@ -96,6 +97,48 @@ class ArticleControllerSpec extends LoggedController {
                 entities[0].article_id == 3
                 entities[1].article_id == 2
             }
+        }
+
+    }
+
+    @Ignore
+    def "ArticleController DELETE /admin/articles/{article_id}"() {
+        getAuthorization()
+
+        when: "文章不存在"
+        def entity = restTemplate.exchange("$URL_PREFFIX/admin/articles/50",
+                HttpMethod.DELETE,
+                new HttpEntity<Object>(headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == ValidatorException.ARTICLE_NOT_EXIST.code
+            body.message == ValidatorException.ARTICLE_NOT_EXIST.message
+            body.data == null
+        }
+
+        when: "正常删除"
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/articles/1",
+                HttpMethod.DELETE,
+                new HttpEntity<Object>(headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "success"
+            with(body.data) {
+                article_id == 1
+                title == "Java开发技巧"
+                user_id == 1
+                display == true
+                category_id == 2
+                tags == "Java"
+            }
+
         }
     }
 }

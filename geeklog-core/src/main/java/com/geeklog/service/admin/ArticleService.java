@@ -11,4 +11,6 @@ import com.geeklog.dto.Page;
 public interface ArticleService {
 
     Page<Article> listArticle(Integer categoryId, int page, int size);
+
+    Article deleteArticle(int articleId);
 }

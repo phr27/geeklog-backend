@@ -31,7 +31,7 @@ class CommentControllerSpec extends LoggedController {
             body.code == 200
             body.message == "success"
             body.data == [
-                    total   : 9,
+                    total   : 10,
                     entities: [
                             [
                                     comment_id: 5,
