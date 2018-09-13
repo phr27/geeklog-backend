@@ -42,7 +42,7 @@ public class CategoryMapperTest {
     @Test
     public void queryByCategoryName() throws Exception {
         Category category = mapper.queryByCategoryName("前端开发");
-        System.out.println(category != null);
+        System.out.println(category.getDescription());
     }
 
 }

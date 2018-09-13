@@ -40,6 +40,6 @@
   <select id="queryByCategoryName" resultMap="BaseResultMap">
     select category_id, name, description
     from category
-    whrere `name` = #{name}
+    where name = #{name}
   </select>
 </mapper>
