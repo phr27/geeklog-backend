@@ -27,21 +27,4 @@ class GlobalErrorControllerSpec extends ControllerSpecification {
             data == null
         }
     }
-
-    /**
-     * @author 潘浩然
-     * 创建时间 2018/09/07
-     * 功能：测试 405 异常是否正确处理
-     */
-    def "DeployTestController POST /deploy/test(405)"() {
-        when:
-        def entity = restTemplate.exchange("$URL_PREFFIX/deploy/test", HttpMethod.POST, null, ResponseEntity)
-        then:
-        entity.statusCode == HttpStatus.METHOD_NOT_ALLOWED
-        with(entity.body) {
-            code == 405
-            message == "Method Not Allowed"
-            data == null
-        }
-    }
 }

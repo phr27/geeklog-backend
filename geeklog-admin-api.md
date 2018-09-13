@@ -66,7 +66,7 @@ res:
 }
 ```
 
-- [ ] __3__ DELETE /admin/forbiddens/:user_id/:authority_id
+- [X] __3__ DELETE /admin/forbiddens/:user_id/:authority_id
 
 res:
 
@@ -257,7 +257,7 @@ res:
 
 ### Manage Category
 
-- [ ] __10__ GET /admin/categories
+- [X] __10__ GET /admin/categories
 
 res:
 

@@ -1,6 +1,5 @@
 package com.geeklog.common.exception;
 
-import com.geeklog.common.util.Validator;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -77,6 +76,12 @@ public class ValidatorException extends CommonException {
     public static final ValidatorException ARTICLE_NOT_EXIST = new ValidatorException(610, "该文章不存在");
 
     public static final ValidatorException COMMENT_NOT_EXIST = new ValidatorException(611, "该评论不存在");
+
+    public static final ValidatorException USER_NOT_EXIST = new ValidatorException(612, "该用户不存在");
+
+    public static final ValidatorException USER_IS_ADMIN = new ValidatorException(613, "该用户为管理员");
+
+
 
 
 }

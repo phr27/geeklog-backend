@@ -15,6 +15,7 @@ import com.geeklog.mapper.ForbiddenMapper;
 import com.geeklog.mapper.UserMapper;
 import com.geeklog.service.admin.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 创建时间 2018/09/11
  * 功能：管理员模块的用户服务实现
  */
-@Service
+@Service("admin.UserService")
 public class UserServiceImpl implements UserService {
 
     @Autowired

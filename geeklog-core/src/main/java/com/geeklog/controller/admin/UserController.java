@@ -10,6 +10,7 @@ import com.geeklog.dto.Page;
 import com.geeklog.dto.UserWithPermission;
 import com.geeklog.service.admin.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,11 +18,12 @@ import org.springframework.web.bind.annotation.*;
  * 创建时间 2018/09/11
  * 功能：管理员的用户管理控制器
  */
-@GeekLogController("/admin")
+@GeekLogController(path = "/admin", value = "admin.UserController")
 @RequireRole(Role.ADMIN)
 public class UserController {
 
     @Autowired
+    @Qualifier("admin.UserService")
     private UserService userService;
 
     /**

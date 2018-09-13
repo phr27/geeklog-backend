@@ -7,21 +7,26 @@ import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Article;
+import com.geeklog.dto.ArticleDisplaySetter;
 import com.geeklog.dto.Page;
 import com.geeklog.service.admin.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 潘浩然
  * 创建时间 2018/09/12
  * 功能：管理员的文章管理控制器
+ * 修改时间 2018/09/13
+ * 修改人 潘浩然
  */
-@GeekLogController("/admin")
+@GeekLogController(path = "/admin", value = "ArticleController")
 @RequireRole(Role.ADMIN)
 public class ArticleController {
 
     @Autowired
+    @Qualifier("admin.ArticleService")
     private ArticleService articleService;
 
     /**
@@ -37,5 +42,26 @@ public class ArticleController {
         Validator.min(size, 1, ValidatorException.SIZE_OUT_OF_RANGE);
 
         return ResponseEntity.ok("success", articleService.listArticle(categoryId, page, size));
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/13
+     * 功能：根据文章 id 删除文章
+     */
+    @DeleteMapping("/articles/{article_id}")
+    public ResponseEntity<Article> deleteArticle(@PathVariable("article_id") int articleId) {
+        return ResponseEntity.ok("success", articleService.deleteArticle(articleId));
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/13
+     * 功能：设置文章是否可见
+     */
+    @PutMapping("/articles/{article_id}")
+    public ResponseEntity<Article> updateArticleDisplay(@PathVariable("article_id") int articleId,
+                                                        @RequestBody ArticleDisplaySetter articleDisplaySetter) {
+        return ResponseEntity.ok("success", articleService.updateArticleDisplay(articleId, articleDisplaySetter.isDisplay()));
     }
 }

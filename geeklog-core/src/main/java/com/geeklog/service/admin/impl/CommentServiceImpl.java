@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 创建时间 2018/09/12
  * 功能：管理员的评论管理服务实现
  */
-@Service
+@Service("admin.CommentService")
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
