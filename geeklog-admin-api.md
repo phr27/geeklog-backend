@@ -280,7 +280,7 @@ res:
 }
 ```
 
-- [ ] __11__ POST /admin/categories
+- [X] __11__ POST /admin/categories
 
 req:
 
@@ -305,7 +305,7 @@ res:
 }
 ```
 
-- [ ] __12__ PUT /admin/categories/:category_id
+- [X] __12__ PUT /admin/categories/:category_id
 
 req:
 
@@ -329,7 +329,7 @@ res:
 }
 ```
 
-- [ ] __13__ DELETE /admin/categories/:category_id
+- [X] __13__ DELETE /admin/categories/:category_id
 
 res:
 
