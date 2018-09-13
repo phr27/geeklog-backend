@@ -66,7 +66,7 @@ res:
 }
 ```
 
-- [ ] __3__ DELETE /admin/forbiddens/:user_id/:authority_id
+- [X] __3__ DELETE /admin/forbiddens/:user_id/:authority_id
 
 res:
 
