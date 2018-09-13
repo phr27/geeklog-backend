@@ -25,6 +25,6 @@ abstract class LoggedController extends ControllerSpecification {
         )
 
         def authorization = RoleAspect.AUTH_PREFIX + entity.body.data.token
-        headers.add("Authorization", authorization)
+        headers.set("Authorization", authorization)
     }
 }

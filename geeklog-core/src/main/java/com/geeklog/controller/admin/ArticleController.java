@@ -38,4 +38,14 @@ public class ArticleController {
 
         return ResponseEntity.ok("success", articleService.listArticle(categoryId, page, size));
     }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/13
+     * 功能：根据文章 id 删除文章
+     */
+    @DeleteMapping("/articles/{article_id}")
+    public ResponseEntity<Article> deleteArticle(@PathVariable("article_id") int articleId) {
+        return ResponseEntity.ok("success", articleService.deleteArticle(articleId));
+    }
 }

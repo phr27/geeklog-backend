@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 潘浩然
  * 创建时间 2018/09/12
  * 功能：管理员的文章管理服务实现
+ * 修改时间 2018/09/13
+ * 修改人 潘浩然
  */
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -54,5 +56,21 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articles = articleMapper.queryPaging(articleWithCategoryId, (page - 1) * size, size);
 
         return new Page<>(total, articles.toArray(new Article[articles.size()]));
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/13
+     * 功能：根据文章 id 删除文章
+     */
+    @Transactional
+    public Article deleteArticle(int articleId) {
+        Article targetArticle = articleMapper.selectByPrimaryKey(articleId);
+        Validator.notNull(targetArticle, ValidatorException.ARTICLE_NOT_EXIST);
+
+        int count = articleMapper.deleteByPrimaryKey(articleId);
+        Validator.equals(count, 1, ValidatorException.unexpected("ArticleServiceImpl.deleteArticle(..) 删除异常，未知错误"));
+
+        return targetArticle;
     }
 }
