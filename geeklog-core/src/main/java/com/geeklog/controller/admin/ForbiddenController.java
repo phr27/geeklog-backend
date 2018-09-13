@@ -21,11 +21,9 @@ import org.springframework.web.bind.annotation.*;
  * 功能 管理员管理api
  */
 
-@RestController
-@CrossOrigin
-@GeekLogController("/admin")
 
-@RequireRole(Role.ADMIN)
+@GeekLogController("/admin")
+//@RequireRole(Role.ADMIN)
 public class ForbiddenController {
 
     @Autowired
@@ -51,4 +49,20 @@ public class ForbiddenController {
         return ResponseEntity.ok("权限设置成功", forbiddenService.forbid(beForbidden.getUserId(), beForbidden.getAuthorityId()));
 
     }
+
+    @DeleteMapping("/forbiddens/{user_id}/{authority_id}")
+    public ResponseEntity deleteForbidden(@PathVariable("user_id") int userId, @PathVariable("authority_id") int authorityId) {
+        Validator.isLegal(authorityId, ValidatorException.AUTHORITY_OUT_OF_RANGE);
+
+        User user = userMapper.selectByPrimaryKey(userId);
+        if (user == null){
+            return ResponseEntity.badRequest("非法用户");
+        }
+        if(user.getIsAdmin()){
+            return ResponseEntity.forbidden("非法操作，禁止修改管理员权限");
+        }
+        return ResponseEntity.ok("权限删除成功", forbiddenService.deleteForbidden(userId, authorityId));
+    }
+
+
 }

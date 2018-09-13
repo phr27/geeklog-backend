@@ -6,6 +6,7 @@ import com.geeklog.mapper.ForbiddenMapper;
 import com.geeklog.service.admin.ForbiddenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class ForbiddenServiceImpl implements ForbiddenService {
     @Autowired
     private ForbiddenMapper forbiddenMapper;
 
+
+    @Transactional
     public Forbidden forbid(int userId, int authorityId){
         Forbidden forbidden = forbiddenMapper.queryByUserIdAndAuthorityId(userId, authorityId);
         if (forbidden == null){
@@ -32,6 +35,17 @@ public class ForbiddenServiceImpl implements ForbiddenService {
             return forbidden;
         }
 
+    }
+
+    @Transactional
+    public Forbidden deleteForbidden(int userId, int authorityId){
+        Forbidden forbidden = forbiddenMapper.queryByUserIdAndAuthorityId(userId, authorityId);
+        if (forbidden != null) {
+            forbiddenMapper.deleteByPrimaryKey(forbidden.getForbiddenId());
+            return forbidden;
+        }else {
+            return null;
+        }
     }
 
 
