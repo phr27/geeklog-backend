@@ -4,7 +4,7 @@
 
 ### User Login
 
-- [ ] __1__ POST /login
+- [X] __1__ POST /login
 
 req:
 

@@ -147,7 +147,7 @@ res:
 }
 ```
 
-- [ ] __6__ DELETE /admin/articles/:article_id
+- [X] __6__ DELETE /admin/articles/:article_id
 
 res:
 
@@ -169,7 +169,7 @@ res:
 }
 ```
 
-- [ ] __7__ PUT /admin/articles/:article_id
+- [X] __7__ PUT /admin/articles/:article_id
 
 req:
 
