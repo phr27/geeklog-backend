@@ -1,5 +1,10 @@
 package com.geeklog.common.enumeration;
 
+/**
+ * @author 潘浩然
+ * 创建时间 2018/09/11
+ * 功能：权限枚举
+ */
 public enum Permission {
     CAN_WRITE_ARTICLE(1),
     CAN_COMMENT(2);

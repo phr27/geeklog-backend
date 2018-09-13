@@ -10,6 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
+/**
+ * @author 潘浩然
+ * 创建时间 2018/09/11
+ * 功能：pojo 转 json 配置，驼峰转小写下划线
+ */
 @Configuration
 public class JsonConfig {
 

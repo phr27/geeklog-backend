@@ -5,6 +5,7 @@ import java.util.List;
 import com.geeklog.common.enumeration.Permission;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.Converter;
+import com.geeklog.common.util.PageUtil;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Forbidden;
 import com.geeklog.domain.User;
@@ -39,13 +40,8 @@ public class UserServiceImpl implements UserService {
         User notAdmin = new User();
         notAdmin.setIsAdmin(false);
         int total = userMapper.queryNumOfUsers(notAdmin);
-        int totalPage = total / size;
-        if (total % size != 0) {
-            totalPage++;
-        }
-        if (totalPage == 0) {
-            totalPage = 1;
-        }
+
+        int totalPage = PageUtil.getTotalPage(total, size);
 
         Validator.max(page, totalPage, ValidatorException.PAGE_OUT_OF_RANGE);
 

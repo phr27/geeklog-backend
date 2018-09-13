@@ -1,6 +1,7 @@
 package com.geeklog.controller.admin;
 
 
+import com.geeklog.common.annotation.GeekLogController;
 import com.geeklog.common.annotation.RequireRole;
 import com.geeklog.common.enumeration.Role;
 import com.geeklog.common.exception.ValidatorException;
@@ -22,9 +23,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/admin")
-@RequireRole(Role.ADMIN)
+@GeekLogController("/admin")
 
+@RequireRole(Role.ADMIN)
 public class ForbiddenController {
 
     @Autowired

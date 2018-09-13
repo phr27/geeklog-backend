@@ -343,6 +343,7 @@ INSERT INTO `category` VALUES ('3', '运维', '这是运维');
 INSERT INTO `category` VALUES ('4', '测试', '这是测试');
 INSERT INTO `category` VALUES ('5', '机器学习', '这是机器学习');
 INSERT INTO `category` VALUES ('6', '大数据', '这是大数据');
+INSERT INTO `category` VALUES ('7', '深度学习', '这是深度学习');
 
 -- ----------------------------
 -- Table structure for collect
