@@ -1,6 +1,7 @@
 package com.geeklog.service.admin.impl;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.PageUtil;
@@ -71,6 +72,30 @@ public class ArticleServiceImpl implements ArticleService {
         int count = articleMapper.deleteByPrimaryKey(articleId);
         Validator.equals(count, 1, ValidatorException.unexpected("ArticleServiceImpl.deleteArticle(..) 删除异常，未知错误"));
 
+        return targetArticle;
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/13
+     * 功能：更新文章是否可见
+     */
+    @Transactional
+    public Article updateArticleDisplay(int articleId, boolean display) {
+        Article targetArticle = articleMapper.selectByPrimaryKey(articleId);
+        Validator.notNull(targetArticle, ValidatorException.ARTICLE_NOT_EXIST);
+
+        if (Objects.equals(display, targetArticle.getDisplay())) {
+            return targetArticle;
+        }
+
+        Article newArticle = new Article();
+        newArticle.setArticleId(targetArticle.getArticleId());
+        newArticle.setDisplay(display);
+        int effectRow = articleMapper.updateByPrimaryKey(newArticle);
+        Validator.equals(effectRow, 1, ValidatorException.unexpected("ArticleServiceImpl.updateArticleDisplay(..) 更新异常，未知错误"));
+
+        targetArticle.setDisplay(display);
         return targetArticle;
     }
 }
