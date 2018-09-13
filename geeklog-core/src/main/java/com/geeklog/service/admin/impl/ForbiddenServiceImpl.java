@@ -20,17 +20,18 @@ public class ForbiddenServiceImpl implements ForbiddenService {
     @Autowired
     private ForbiddenMapper forbiddenMapper;
 
-    Forbidden f = new Forbidden();
-
     public Forbidden forbid(int userId, int authorityId){
         Forbidden forbidden = forbiddenMapper.queryByUserIdAndAuthorityId(userId, authorityId);
         if (forbidden == null){
+            Forbidden f = new Forbidden();
             f.setUserId(userId);
             f.setAuthorityId(authorityId);
             forbiddenMapper.insert(f);
             return f;
+        }else {
+            return forbidden;
         }
-        return forbidden;
+
     }
 
 
