@@ -1,10 +1,14 @@
 package com.geeklog.service.admin.impl;
 
+import com.geeklog.common.exception.ValidatorException;
+import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Category;
+import com.geeklog.dto.Acategory;
 import com.geeklog.mapper.CategoryMapper;
 import com.geeklog.service.admin.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,4 +33,23 @@ public class CategoryServiceImpl implements CategoryService {
 //
 //
 //    }
+
+    @Transactional
+    public Acategory updateCategory(int categoryId, String name, String description) {
+
+        Category category = categoryMapper.selectByPrimaryKey(categoryId);
+        Validator.notNull(category, ValidatorException.CATEGORY_NOT_EXIST);
+        category.setName(name);
+        category.setDescription(description);
+        categoryMapper.updateByPrimaryKey(category);
+        Acategory acategory = new Acategory();
+        acategory.setName(category.getName());
+        acategory.setDescription(category.getDescription());
+        return acategory;
+
+
+
+
+
+    }
 }

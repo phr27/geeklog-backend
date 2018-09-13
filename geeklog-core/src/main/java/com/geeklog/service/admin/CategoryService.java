@@ -1,6 +1,7 @@
 package com.geeklog.service.admin;
 
 import com.geeklog.domain.Category;
+import com.geeklog.dto.Acategory;
 
 import java.util.List;
 
@@ -13,4 +14,7 @@ public interface CategoryService {
 
     List<Category> listCategory();
 //    Category addCategory(String name, String description);
+
+
+    Acategory updateCategory(int categoryId, String name, String description);
 }

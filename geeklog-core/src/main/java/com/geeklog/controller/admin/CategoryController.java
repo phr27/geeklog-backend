@@ -9,9 +9,7 @@ import com.geeklog.domain.Category;
 import com.geeklog.dto.Acategory;
 import com.geeklog.service.admin.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,7 +38,12 @@ public class CategoryController {
 //        return ResponseEntity.ok("添加分类成功",categoryService);
 //    }
 
+    @PutMapping("/categories/{category_id}")
+    public ResponseEntity<Acategory> updateCategory(@RequestBody Acategory acategory, @PathVariable("category_id") int categoryId){
 
+        return ResponseEntity.ok("更新分类成功", categoryService.updateCategory(categoryId, acategory.getName(), acategory.getDescription()));
+
+    }
 
 
 }

@@ -81,7 +81,9 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException USER_IS_ADMIN = new ValidatorException(613, "该用户为管理员");
 
+    public static final ValidatorException USER_IS_ADMIN = new ValidatorException(613, "该用户为管理员");
 
+    public static final ValidatorException CATEGORY_NOT_EXIST = new ValidatorException(614, "该分类不存在");
 
 
 }
