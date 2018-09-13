@@ -1,5 +1,6 @@
-package com.geeklog.controller.user
+package com.geeklog.controller.admin
 
+import com.geeklog.common.exception.RoleException
 import com.geeklog.common.exception.ValidatorException
 import com.geeklog.common.util.ResponseEntity
 import com.geeklog.controller.ControllerSpecification
@@ -11,15 +12,15 @@ import org.springframework.http.HttpStatus
 /**
  * @author 潘浩然
  * 创建时间 2018/09/13
- * 功能：用户登录控制器单元测试
+ * 功能：管理员登录控制器单元测试
  */
-class UserLoginControllerSpec extends ControllerSpecification {
+class LoginControllerSpec extends ControllerSpecification {
 
-    def "POST /login"() {
+    def "POST /admin/login"() {
         AuthToken authToken = new AuthToken()
 
         when: "没有请求体，bad request"
-        def entity = restTemplate.exchange("$URL_PREFFIX/login",
+        def entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<Object>(headers),
                 ResponseEntity
@@ -33,7 +34,7 @@ class UserLoginControllerSpec extends ControllerSpecification {
         }
 
         when: "用户名为空"
-        entity = restTemplate.exchange("$URL_PREFFIX/login",
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
                 ResponseEntity
@@ -48,7 +49,7 @@ class UserLoginControllerSpec extends ControllerSpecification {
 
         when: "用户名格式错误"
         authToken.username = " 中文 "
-        entity = restTemplate.exchange("$URL_PREFFIX/login",
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
                 ResponseEntity
@@ -63,7 +64,7 @@ class UserLoginControllerSpec extends ControllerSpecification {
 
         when: "密码为空"
         authToken.username = "phr272018"
-        entity = restTemplate.exchange("$URL_PREFFIX/login",
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
                 ResponseEntity
@@ -78,7 +79,7 @@ class UserLoginControllerSpec extends ControllerSpecification {
 
         when: "密码格式错误"
         authToken.password = "12345"
-        entity = restTemplate.exchange("$URL_PREFFIX/login",
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
                 ResponseEntity
@@ -94,7 +95,7 @@ class UserLoginControllerSpec extends ControllerSpecification {
         when: "用户不存在"
         authToken.username = "phr272018"
         authToken.password = "123456"
-        entity = restTemplate.exchange("$URL_PREFFIX/login",
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
                 ResponseEntity
@@ -110,7 +111,7 @@ class UserLoginControllerSpec extends ControllerSpecification {
         when: "密码错误"
         authToken.username = "a123456"
         authToken.password = "1234567"
-        entity = restTemplate.exchange("$URL_PREFFIX/login",
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
                 ResponseEntity
@@ -123,10 +124,10 @@ class UserLoginControllerSpec extends ControllerSpecification {
             body.data == null
         }
 
-        when: "普通用户登录"
+        when: "不是管理员"
         authToken.username = "c123456"
-        authToken.password = "123456"
-        entity = restTemplate.exchange("$URL_PREFFIX/login",
+        authToken.password = "1234567"
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
                 ResponseEntity
@@ -134,15 +135,15 @@ class UserLoginControllerSpec extends ControllerSpecification {
         then:
         with(entity) {
             statusCodeValue == 200
-            body.code == 200
-            body.message == "登录成功"
-            println body.data
+            body.code == RoleException.NOT_ADMIN.code
+            body.message == RoleException.NOT_ADMIN.message
+            body.data == null
         }
 
-        when: "管理员登录"
+        when: "登录成功"
         authToken.username = "a123456"
         authToken.password = "123456"
-        entity = restTemplate.exchange("$URL_PREFFIX/login",
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
                 ResponseEntity

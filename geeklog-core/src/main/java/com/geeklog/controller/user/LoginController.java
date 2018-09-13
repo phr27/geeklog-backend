@@ -6,8 +6,9 @@ import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.common.util.Validator;
 import com.geeklog.dto.AuthToken;
 import com.geeklog.dto.JwtToken;
-import com.geeklog.service.LoginService;
+import com.geeklog.service.common.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
  * 创建时间 2018/09/13
  * 功能：用户登录控制器
  */
-@GeekLogController
-public class UserLoginController {
+@GeekLogController(value = "user.LoginController")
+public class LoginController {
 
     @Autowired
+    @Qualifier("common.LoginService")
     private LoginService loginService;
 
     @PostMapping("/login")

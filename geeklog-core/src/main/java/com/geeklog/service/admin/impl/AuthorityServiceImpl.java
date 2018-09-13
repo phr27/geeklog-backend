@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * 创建时间 2018/09/12
  * 功能：权限相关服务实现
  */
-@Service
+@Service("admin.AuthorityService")
 public class AuthorityServiceImpl implements AuthorityService {
 
     @Autowired

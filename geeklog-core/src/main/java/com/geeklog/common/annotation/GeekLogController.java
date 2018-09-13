@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public @interface GeekLogController {
 
-    @AliasFor(annotation = RequestMapping.class)
-    String[] value() default {};
-
-    @AliasFor(annotation = RequestMapping.class)
+    @AliasFor(annotation = RequestMapping.class, attribute = "path")
     String[] path() default {};
+
+    @AliasFor(annotation = RestController.class, attribute = "value")
+    String value() default "";
 }

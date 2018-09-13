@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 修改时间 2018/09/13
  * 修改人 潘浩然
  */
-@Service
+@Service("admin.ArticleService")
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired

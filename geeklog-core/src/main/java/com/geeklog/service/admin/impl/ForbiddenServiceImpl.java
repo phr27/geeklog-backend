@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 创建时间 2018/9/12
  * 功能：管理员设置用户权限实现
  */
-@Service
+@Service("admin.ForbiddenService")
 public class ForbiddenServiceImpl implements ForbiddenService {
     @Autowired
     private ForbiddenMapper forbiddenMapper;

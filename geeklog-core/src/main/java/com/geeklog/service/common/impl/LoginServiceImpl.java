@@ -1,4 +1,4 @@
-package com.geeklog.service.impl;
+package com.geeklog.service.common.impl;
 
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ import com.geeklog.common.util.JwtUtil;
 import com.geeklog.domain.User;
 import com.geeklog.dto.JwtToken;
 import com.geeklog.mapper.UserMapper;
-import com.geeklog.service.LoginService;
+import com.geeklog.service.common.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  * 创建时间 2018/09/09
  * 功能：管理员登录服务实现
  */
-@Service
+@Service("common.LoginService")
 public class LoginServiceImpl implements LoginService {
 
     @Autowired

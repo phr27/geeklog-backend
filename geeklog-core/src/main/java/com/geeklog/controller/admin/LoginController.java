@@ -7,8 +7,9 @@ import com.geeklog.common.util.Validator;
 import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.dto.AuthToken;
 import com.geeklog.dto.JwtToken;
-import com.geeklog.service.LoginService;
+import com.geeklog.service.common.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.*;
  * 创建时间 2018/09/09
  * 功能：管理员登录控制器
  */
-@GeekLogController("/admin")
-public class AdminLoginController {
+@GeekLogController(path = "/admin", value = "admin.LoginController")
+public class LoginController {
 
     @Autowired
+    @Qualifier("common.LoginService")
     private LoginService loginService;
 
     /**

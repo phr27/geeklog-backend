@@ -11,6 +11,7 @@ import com.geeklog.dto.ArticleDisplaySetter;
 import com.geeklog.dto.Page;
 import com.geeklog.service.admin.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,11 +21,12 @@ import org.springframework.web.bind.annotation.*;
  * 修改时间 2018/09/13
  * 修改人 潘浩然
  */
-@GeekLogController("/admin")
+@GeekLogController(path = "/admin", value = "ArticleController")
 @RequireRole(Role.ADMIN)
 public class ArticleController {
 
     @Autowired
+    @Qualifier("admin.ArticleService")
     private ArticleService articleService;
 
     /**

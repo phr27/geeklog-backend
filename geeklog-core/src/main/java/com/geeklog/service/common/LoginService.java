@@ -1,4 +1,4 @@
-package com.geeklog.service;
+package com.geeklog.service.common;
 
 import com.geeklog.common.enumeration.Role;
 import com.geeklog.dto.JwtToken;
