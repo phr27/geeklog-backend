@@ -30,20 +30,20 @@ public class ForbiddenController {
     private ForbiddenService forbiddenService;
 
     @PostMapping("/forbiddens")
-    public ResponseEntity forbidden(@RequestBody BeForbidden beForbidden) {
+    public ResponseEntity<Forbidden> forbidden(@RequestBody BeForbidden beForbidden) {
 
         forbiddenService.isLegalUser(beForbidden.getUserId(), beForbidden.getAuthorityId());
 
-        return ResponseEntity.ok("权限设置成功", forbiddenService.forbid(beForbidden.getUserId(), beForbidden.getAuthorityId()));
+        return ResponseEntity.ok("禁用成功", forbiddenService.forbid(beForbidden.getUserId(), beForbidden.getAuthorityId()));
 
     }
 
     @DeleteMapping("/forbiddens/{user_id}/{authority_id}")
-    public ResponseEntity deleteForbidden(@PathVariable("user_id") int userId, @PathVariable("authority_id") int authorityId) {
+    public ResponseEntity <Forbidden> deleteForbidden(@PathVariable("user_id") int userId, @PathVariable("authority_id") int authorityId) {
 
         forbiddenService.isLegalUser(userId, authorityId);
 
-        return ResponseEntity.ok("权限删除成功", forbiddenService.deleteForbidden(userId, authorityId));
+        return ResponseEntity.ok("解除禁用成功", forbiddenService.deleteForbidden(userId, authorityId));
     }
 
 
