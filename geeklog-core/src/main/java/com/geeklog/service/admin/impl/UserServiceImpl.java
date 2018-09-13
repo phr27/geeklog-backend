@@ -48,25 +48,10 @@ public class UserServiceImpl implements UserService {
 
         List<User> users = userMapper.queryPaging(notAdmin, (page - 1) * size, size);
         UserWithPermission[] usersWithPermission = new UserWithPermission[users.size()];
-        int j;
         for (int i = 0; i < usersWithPermission.length; i++) {
             usersWithPermission[i] = Converter.domainToDTO(users.get(i), UserWithPermission.class);
             List<Forbidden> forbiddens = forbiddenMapper.queryByUserId(usersWithPermission[i].getUserId());
-            if (forbiddens == null || forbiddens.size() == 0) {
-                continue;
-            }
-            for (j = 0; j < forbiddens.size(); j++) {
-                switch (Permission.getPermission(forbiddens.get(j).getAuthorityId())) {
-                    case CAN_COMMENT:
-                        usersWithPermission[i].setCanComment(false);
-                        break;
-                    case CAN_WRITE_ARTICLE:
-                        usersWithPermission[i].setCanWriteArticle(false);
-                        break;
-                    default:
-                        ValidatorException.unexpected("Unkown authority id in database table `geeklog.forbidden`");
-                }
-            }
+            usersWithPermission[i].setPermissions(forbiddens);
         }
 
         return new Page<>(total, usersWithPermission);

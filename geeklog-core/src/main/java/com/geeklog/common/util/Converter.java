@@ -1,8 +1,13 @@
 package com.geeklog.common.util;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import com.geeklog.common.exception.ValidatorException;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author 潘浩然
@@ -29,17 +34,24 @@ public class Converter {
             throw ValidatorException.unexpected("Converter.domainToDTO(dtoClass 没有公有无参构造器)");
         }
 
-        Field[] fields = domain.getClass().getDeclaredFields();
-        for (int i = 0; i < fields.length; i++) {
+        Field[] domainFields = domain.getClass().getDeclaredFields();
+        List<Field> dtoFields = getAllFields(dtoClass);
+        int j;
+        for (int i = 0; i < domainFields.length; i++) {
             try {
-                Field targetField = dtoClass.getDeclaredField(fields[i].getName());
-                if (!targetField.getType().isAssignableFrom(fields[i].getType())) {
+                Field targetField = null;
+                for (j = 0; j < dtoFields.size(); j++) {
+                    if (StringUtils.equals(domainFields[i].getName(), dtoFields.get(j).getName())) {
+                        targetField = dtoFields.get(j);
+                        break;
+                    }
+                }
+                if (targetField == null || !targetField.getType().isAssignableFrom(domainFields[i].getType())) {
                     continue;
                 }
-                fields[i].setAccessible(true);
+                domainFields[i].setAccessible(true);
                 targetField.setAccessible(true);
-                targetField.set(dto, fields[i].get(domain));
-            } catch (NoSuchFieldException e) {
+                targetField.set(dto, domainFields[i].get(domain));
             } catch (Throwable e) {
                 throw ValidatorException.unexpected(
                         "Converter.domainToDTO throw " + e.getClass().getSimpleName() + ": " + e.getMessage());
@@ -47,5 +59,25 @@ public class Converter {
         }
 
         return dto;
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/13
+     * 功能：获取该类型的所有字段，包括父类型的字段
+     */
+    private static List<Field> getAllFields(Class<?> clazz) {
+        List<Field> fields = new ArrayList<>();
+        Class<?> currentClass = clazz;
+        int i;
+        while (currentClass != null) {
+            Field[] currentFields = currentClass.getDeclaredFields();
+            for (i = 0; i < currentFields.length; i++) {
+                fields.add(currentFields[i]);
+            }
+            currentClass = currentClass.getSuperclass();
+        }
+
+        return fields;
     }
 }

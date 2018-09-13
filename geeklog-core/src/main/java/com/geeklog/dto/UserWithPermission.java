@@ -1,20 +1,26 @@
 package com.geeklog.dto;
 
+import java.util.List;
+
+import com.geeklog.common.enumeration.Permission;
+import com.geeklog.common.exception.ValidatorException;
+import com.geeklog.domain.Forbidden;
+
 public class UserWithPermission {
 
-    private Integer userId;
+    protected Integer userId;
 
-    private String username;
+    protected String username;
 
-    private String nickname;
+    protected String nickname;
 
-    private String avatar;
+    protected String avatar;
 
-    private Boolean isAdmin;
+    protected Boolean isAdmin;
 
-    private Boolean canComment = true;
+    protected Boolean canComment = true;
 
-    private Boolean canWriteArticle = true;
+    protected Boolean canWriteArticle = true;
 
     public Integer getUserId() {
         return userId;
@@ -60,15 +66,26 @@ public class UserWithPermission {
         return canComment;
     }
 
-    public void setCanComment(Boolean canComment) {
-        this.canComment = canComment;
-    }
-
     public Boolean getCanWriteArticle() {
         return canWriteArticle;
     }
 
-    public void setCanWriteArticle(Boolean canWriteArticle) {
-        this.canWriteArticle = canWriteArticle;
+    public void setPermissions(List<Forbidden> forbiddens) {
+        if (forbiddens == null || forbiddens.size() == 0) {
+            return;
+        }
+        for (int i = 0; i < forbiddens.size(); i++) {
+            switch (Permission.getPermission(forbiddens.get(i).getAuthorityId())) {
+                case CAN_COMMENT:
+                    canComment = false;
+                    break;
+                case CAN_WRITE_ARTICLE:
+                    canWriteArticle = false;
+                    break;
+                default:
+                    ValidatorException.unexpected("Unkown authority id in database table `geeklog.forbidden`");
+            }
+        }
     }
+
 }
