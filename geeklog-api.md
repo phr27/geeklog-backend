@@ -48,7 +48,7 @@ res:
 }
 ```
 
-- [ ] __3__ POST /users (注册)
+- [X] __3__ POST /users (注册)
 
 req:
 
@@ -79,7 +79,7 @@ res:
 }
 ```
 
-- [ ] __4__ PUT /users/:user_id (头像路径单独维护)
+- [X] __4__ PUT /users/:user_id (头像路径单独维护)
 
 req:
 
@@ -110,7 +110,7 @@ res:
 
 ### 修改用户密码
 
-- [ ] __5__ POST /change-password
+- [X] __5__ POST /change-password
 
 req:
 
