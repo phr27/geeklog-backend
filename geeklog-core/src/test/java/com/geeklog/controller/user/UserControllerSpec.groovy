@@ -3,6 +3,7 @@ package com.geeklog.controller.user
 import com.geeklog.common.exception.RoleException
 import com.geeklog.common.util.ResponseEntity
 import com.geeklog.controller.LoggedController
+import com.geeklog.dto.UserInfoUpdate
 import com.geeklog.dto.UserRegistry
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
@@ -148,6 +149,98 @@ class UserControllerSpec extends LoggedController {
                     avatar: null,
                     bio: newUser.bio,
                     is_admin: false,
+                    can_comment: true,
+                    can_write_article: true
+            ]
+        }
+    }
+
+    def "PUT /users/{user_id}"() {
+        getAuthorization()
+
+        UserInfoUpdate userInfoUpdate = new UserInfoUpdate()
+
+        when: "更新其他用户信息"
+        def entity = restTemplate.exchange("$URL_PREFFIX/users/10",
+                HttpMethod.PUT,
+                new HttpEntity<Object>(userInfoUpdate, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == RoleException.UPDATE_OTHER_USER.code
+            body.message == RoleException.UPDATE_OTHER_USER.message
+            body.data == null
+        }
+
+        when: "不更新所有字段"
+        entity = restTemplate.exchange("$URL_PREFFIX/users/1",
+                HttpMethod.PUT,
+                new HttpEntity<Object>(userInfoUpdate, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "更新成功"
+            body.data == [
+                    user_id: null,
+                    username: "a123456",
+                    nickname: "小啊",
+                    avatar: null,
+                    bio: null,
+                    is_admin: true,
+                    can_comment: true,
+                    can_write_article: true
+            ]
+        }
+
+        when: "更新部分字段"
+        userInfoUpdate.bio = "管理员bio"
+        entity = restTemplate.exchange("$URL_PREFFIX/users/1",
+                HttpMethod.PUT,
+                new HttpEntity<Object>(userInfoUpdate, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "更新成功"
+            body.data == [
+                    user_id: null,
+                    username: "a123456",
+                    nickname: "小啊",
+                    avatar: null,
+                    bio: userInfoUpdate.bio,
+                    is_admin: true,
+                    can_comment: true,
+                    can_write_article: true
+            ]
+        }
+
+        when: "更新所有字段"
+        userInfoUpdate.nickname = "小啊1"
+        userInfoUpdate.bio = "管理员bio1"
+        entity = restTemplate.exchange("$URL_PREFFIX/users/1",
+                HttpMethod.PUT,
+                new HttpEntity<Object>(userInfoUpdate, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "更新成功"
+            body.data == [
+                    user_id: null,
+                    username: "a123456",
+                    nickname: userInfoUpdate.nickname,
+                    avatar: null,
+                    bio: userInfoUpdate.bio,
+                    is_admin: true,
                     can_comment: true,
                     can_write_article: true
             ]

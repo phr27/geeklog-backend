@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import com.geeklog.common.enumeration.Permission;
 import com.geeklog.common.exception.CommonException;
 import com.geeklog.common.exception.ValidatorException;
+import com.geeklog.domain.User;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -22,6 +23,11 @@ public class Validator {
      */
     private static final String PASSWORD_PATTERN = "(?:\\w|[~`!@#$%^&*?,:;()\\-.+={}\\[\\]]){6,}";
 
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/10
+     * 功能：用户名格式
+     */
     private static final String USERNAME_PATTERN = "\\w{6,20}";
 
     /**
@@ -165,6 +171,18 @@ public class Validator {
      */
     public static void isLegal(int value, CommonException commonException) {
         if (Permission.getPermission(value) == null) {
+            throw commonException;
+        }
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/14
+     * 功能：断言 userId 和当前会话的用户 id 一致，若当前会话的用户为 null，则断言成功
+     */
+    public static void isCurrentUser(int userId, CommonException commonException) {
+        User currentUser = SessionContext.getCurrentUser();
+        if (currentUser != null && currentUser.getUserId() != userId) {
             throw commonException;
         }
     }

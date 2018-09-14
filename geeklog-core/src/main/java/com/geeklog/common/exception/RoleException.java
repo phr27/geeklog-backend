@@ -13,4 +13,6 @@ public class RoleException extends CommonException {
     public static final RoleException USER_NOT_EXIST = new RoleException(642, "该用户不存在");
 
     public static final RoleException USER_ALREADY_EXIST = new RoleException(643, "该用户已存在");
+
+    public static final RoleException UPDATE_OTHER_USER = new RoleException(644, "不能更新其他用户的信息");
 }

@@ -33,15 +33,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ForbiddenMapper forbiddenMapper;
 
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/14
+     * 功能：根据 userId 查找用户
+     */
     @Transactional
     public UserWithPermissionBio findUserById(int userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         Validator.notNull(user, RoleException.USER_NOT_EXIST);
 
         UserWithPermissionBio userWithPermissionBio = Converter.convert(user, UserWithPermissionBio.class);
-
-        List<Forbidden> forbiddens = forbiddenMapper.queryByUserId(userId);
-        userWithPermissionBio.setPermissions(forbiddens);
+        userWithPermissionBio.setPermissions(forbiddenMapper.queryByUserId(userId));
 
         return userWithPermissionBio;
     }
@@ -75,14 +78,15 @@ public class UserServiceImpl implements UserService {
     /**
      * @author 潘浩然
      * 创建时间 2018/09/14
-     * 功能：更新用户个人信息
+     * 功能：更新自己的个人信息
      */
     @Transactional
     public UserWithPermissionBio updateUserInfo(int userId, UserInfoUpdate userInfoUpdate) {
+        Validator.isCurrentUser(userId, RoleException.UPDATE_OTHER_USER);
         Validator.notNull(userInfoUpdate, ValidatorException.NO_USER_UPDATE_INFO);
 
         User user = userMapper.selectByPrimaryKey(userId);
-        Validator.notNull(user, RoleException.USER_NOT_EXIST);
+        Validator.notNull(user, ValidatorException.unexpected("UserServiceImpl.updateUserInfo(..) 当前会话的用户在数据库中没找到"));
 
         if (userInfoUpdate.getNickname() != null || userInfoUpdate.getBio() != null) {
             User newUser = Converter.convert(userInfoUpdate, User.class);
