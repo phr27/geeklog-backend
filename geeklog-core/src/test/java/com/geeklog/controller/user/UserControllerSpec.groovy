@@ -1,8 +1,12 @@
 package com.geeklog.controller.user
 
 import com.geeklog.common.exception.RoleException
+import com.geeklog.common.exception.ValidatorException
 import com.geeklog.common.util.ResponseEntity
+import com.geeklog.common.util.Validator
 import com.geeklog.controller.LoggedController
+import com.geeklog.dto.AuthToken
+import com.geeklog.dto.PasswordUpdate
 import com.geeklog.dto.UserInfoUpdate
 import com.geeklog.dto.UserRegistry
 import org.springframework.http.HttpEntity
@@ -245,5 +249,86 @@ class UserControllerSpec extends LoggedController {
                     can_write_article: true
             ]
         }
+    }
+
+    def "POST /change-password"() {
+        getAuthorization()
+
+        PasswordUpdate passwordUpdate = new PasswordUpdate()
+        passwordUpdate.userId = 3
+        passwordUpdate.oldPassword = "123456"
+        passwordUpdate.newPassword = "1234567"
+
+        when: "修改别人的密码"
+        def entity = restTemplate.exchange("$URL_PREFFIX/change-password",
+                HttpMethod.POST,
+                new HttpEntity<>(passwordUpdate, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == RoleException.UPDATE_OTHER_PWD.code
+            body.message == RoleException.UPDATE_OTHER_PWD.message
+            body.data == null
+        }
+
+        when: "正常修改密码为 1234567"
+        passwordUpdate.userId = 1
+        entity = restTemplate.exchange("$URL_PREFFIX/change-password",
+                HttpMethod.POST,
+                new HttpEntity<>(passwordUpdate, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "修改成功"
+            body.data == [
+                    user_id: null,
+                    username: "a123456",
+                    nickname: "小啊",
+                    avatar: null,
+                    bio: null,
+                    is_admin: true,
+                    can_comment: true,
+                    can_write_article: true
+            ]
+        }
+
+        when: "使用旧密码登录失败"
+        headers.remove("Authorization")
+        assert headers.get("Authorization") == null
+        AuthToken authToken = new AuthToken()
+        authToken.username = "a123456"
+        authToken.password = "123456"
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
+                HttpMethod.POST,
+                new HttpEntity<>(authToken, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == ValidatorException.USERNAME_OR_PWD_ERROR.code
+            body.message == ValidatorException.USERNAME_OR_PWD_ERROR.message
+            body.data == null
+        }
+
+        when: "新密码登录成功"
+        authToken.password = "1234567"
+        entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
+                HttpMethod.POST,
+                new HttpEntity<>(authToken, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "登录成功"
+        }
+        println entity.body.data
     }
 }

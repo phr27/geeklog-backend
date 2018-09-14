@@ -82,4 +82,9 @@ public class ValidatorException extends CommonException {
     public static final ValidatorException NO_REGISTER_INFO = new ValidatorException(613, "需要用户注册信息");
 
     public static final ValidatorException NO_USER_UPDATE_INFO = new ValidatorException(614, "需要用户更新信息");
+
+    public static final ValidatorException NO_PWD_UPDATE_INFO = new ValidatorException(615, "需要密码更新信息");
+
+    public static final ValidatorException OLD_PWD_ERROR = new ValidatorException(616, "原密码错误");
+
 }

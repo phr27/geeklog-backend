@@ -9,6 +9,7 @@ import com.geeklog.common.util.MD5Util;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Forbidden;
 import com.geeklog.domain.User;
+import com.geeklog.dto.PasswordUpdate;
 import com.geeklog.dto.UserInfoUpdate;
 import com.geeklog.dto.UserRegistry;
 import com.geeklog.dto.UserWithPermissionBio;
@@ -106,6 +107,36 @@ public class UserServiceImpl implements UserService {
         UserWithPermissionBio userWithPermissionBio = Converter.convert(user, UserWithPermissionBio.class);
         userWithPermissionBio.setUserId(null);
         userWithPermissionBio.setPermissions(forbiddenMapper.queryByUserId(userId));
+
+        return userWithPermissionBio;
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/14
+     * 功能：修改自己的密码
+     */
+    @Transactional
+    public UserWithPermissionBio updatePassword(PasswordUpdate passwordUpdate) {
+        Validator.notNull(passwordUpdate, ValidatorException.NO_PWD_UPDATE_INFO);
+        Validator.isCurrentUser(passwordUpdate.getUserId(), RoleException.UPDATE_OTHER_PWD);
+        Validator.password(passwordUpdate.getOldPassword());
+        Validator.password(passwordUpdate.getNewPassword());
+
+        User user = userMapper.selectByPrimaryKey(passwordUpdate.getUserId());
+        Validator.notNull(user, ValidatorException.unexpected("UserServiceImpl.updatePassword(..) 当前会话的用户在数据库中没找到"));
+
+        Validator.isTrue(MD5Util.verify(passwordUpdate.getOldPassword(), user.getPassword()), ValidatorException.OLD_PWD_ERROR);
+
+        User userWithNewPwd = new User();
+        userWithNewPwd.setUserId(passwordUpdate.getUserId());
+        userWithNewPwd.setPassword(MD5Util.md5(passwordUpdate.getNewPassword()));
+        int effectRow = userMapper.updateByPrimaryKey(userWithNewPwd);
+        Validator.equals(effectRow, 1, ValidatorException.unexpected("UserServiceImpl.updatePassword(..) 密码更新失败，未知数据库错误"));
+
+        UserWithPermissionBio userWithPermissionBio = Converter.convert(user, UserWithPermissionBio.class);
+        userWithPermissionBio.setUserId(null);
+        userWithPermissionBio.setPermissions(forbiddenMapper.queryByUserId(user.getUserId()));
 
         return userWithPermissionBio;
     }
