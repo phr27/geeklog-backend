@@ -11,4 +11,6 @@ public class RoleException extends CommonException {
     public static final RoleException USER_IS_ADMIN = new RoleException(641, "该用户为管理员");
 
     public static final RoleException USER_NOT_EXIST = new RoleException(642, "该用户不存在");
+
+    public static final RoleException USER_ALREADY_EXIST = new RoleException(643, "该用户已存在");
 }

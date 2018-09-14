@@ -6,7 +6,7 @@ import com.geeklog.dto.UserWithPermission
 
 class ConverterSpec extends BaseUtilSpec {
 
-    def "Converter.domainToDTO test"() {
+    def "Converter.convert test"() {
         User user = new User()
         user.userId = 1
         user.username = "phr272018"
@@ -15,20 +15,20 @@ class ConverterSpec extends BaseUtilSpec {
         user.avatar = "/a/b"
         user.isAdmin = true
 
-        when: "domain is null"
-        Converter.domainToDTO(null, UserWithPermission)
+        when: "object is null"
+        Converter.convert(null, UserWithPermission)
         then:
         ValidatorException validatorException = thrown()
-        unexpectedValidatorError(validatorException, "Converter.domainToDTO(domain cannot be null)")
+        unexpectedValidatorError(validatorException, "Converter.convert(object cannot be null)")
 
-        when: "dtoClass is null"
-        Converter.domainToDTO(user, null)
+        when: "clazz is null"
+        Converter.convert(user, null)
         then:
         validatorException = thrown()
-        unexpectedValidatorError(validatorException, "Converter.domainToDTO(dtoClass cannot be null)")
+        unexpectedValidatorError(validatorException, "Converter.convert(clazz cannot be null)")
 
         when: "正常转换"
-        UserWithPermission userWithPermission = Converter.domainToDTO(user, UserWithPermission.class)
+        UserWithPermission userWithPermission = Converter.convert(user, UserWithPermission.class)
         then:
         with(userWithPermission) {
             userId == user.userId

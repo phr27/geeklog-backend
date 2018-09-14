@@ -2,8 +2,6 @@ package com.geeklog.common.util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import com.geeklog.common.exception.ValidatorException;
@@ -19,46 +17,48 @@ public class Converter {
     /**
      * @author 潘浩然
      * 创建时间 2018/09/11
-     * 功能：domain 对象转 dto 对象
+     * 功能：object 对象转 T 类型，类型兼容名字相同的字段值复制
+     * @param object
+     * @param clazz
      */
-    public static <T> T domainToDTO(Object domain, Class<T> dtoClass) {
-        Validator.notNull(domain, ValidatorException.unexpected("Converter.domainToDTO(domain cannot be null)"));
-        Validator.notNull(dtoClass, ValidatorException.unexpected("Converter.domainToDTO(dtoClass cannot be null)"));
+    public static <T> T convert(Object object, Class<T> clazz) {
+        Validator.notNull(object, ValidatorException.unexpected("Converter.convert(object cannot be null)"));
+        Validator.notNull(clazz, ValidatorException.unexpected("Converter.convert(clazz cannot be null)"));
 
-        T dto;
+        T target;
         try {
-            dto = dtoClass.newInstance();
+            target = clazz.newInstance();
         } catch (InstantiationException e) {
-            throw ValidatorException.unexpected("Converter.domainToDTO(dtoClass 不可实例化)");
+            throw ValidatorException.unexpected("Converter.convert(clazz 不可实例化)");
         } catch (IllegalAccessException e) {
-            throw ValidatorException.unexpected("Converter.domainToDTO(dtoClass 没有公有无参构造器)");
+            throw ValidatorException.unexpected("Converter.convert(clazz 没有公有无参构造器)");
         }
 
-        Field[] domainFields = domain.getClass().getDeclaredFields();
-        List<Field> dtoFields = getAllFields(dtoClass);
+        Field[] objectFields = object.getClass().getDeclaredFields();
+        List<Field> clazzFields = getAllFields(clazz);
         int j;
-        for (int i = 0; i < domainFields.length; i++) {
+        for (int i = 0; i < objectFields.length; i++) {
             try {
                 Field targetField = null;
-                for (j = 0; j < dtoFields.size(); j++) {
-                    if (StringUtils.equals(domainFields[i].getName(), dtoFields.get(j).getName())) {
-                        targetField = dtoFields.get(j);
+                for (j = 0; j < clazzFields.size(); j++) {
+                    if (StringUtils.equals(objectFields[i].getName(), clazzFields.get(j).getName())) {
+                        targetField = clazzFields.get(j);
                         break;
                     }
                 }
-                if (targetField == null || !targetField.getType().isAssignableFrom(domainFields[i].getType())) {
+                if (targetField == null || !targetField.getType().isAssignableFrom(objectFields[i].getType())) {
                     continue;
                 }
-                domainFields[i].setAccessible(true);
+                objectFields[i].setAccessible(true);
                 targetField.setAccessible(true);
-                targetField.set(dto, domainFields[i].get(domain));
+                targetField.set(target, objectFields[i].get(object));
             } catch (Throwable e) {
                 throw ValidatorException.unexpected(
-                        "Converter.domainToDTO throw " + e.getClass().getSimpleName() + ": " + e.getMessage());
+                        "Converter.convert throw " + e.getClass().getSimpleName() + ": " + e.getMessage());
             }
         }
 
-        return dto;
+        return target;
     }
 
     /**

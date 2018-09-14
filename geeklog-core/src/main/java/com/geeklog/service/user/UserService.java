@@ -1,5 +1,6 @@
 package com.geeklog.service.user;
 
+import com.geeklog.dto.UserRegistry;
 import com.geeklog.dto.UserWithPermissionBio;
 
 /**
@@ -10,4 +11,6 @@ import com.geeklog.dto.UserWithPermissionBio;
 public interface UserService {
 
     UserWithPermissionBio findUserById(int userId);
+
+    UserWithPermissionBio register(UserRegistry userRegistry);
 }

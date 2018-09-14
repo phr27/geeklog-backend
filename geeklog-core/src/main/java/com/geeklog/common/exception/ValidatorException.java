@@ -79,7 +79,7 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException STILL_HAVE_ARTICLE = new ValidatorException(612, "仍有文章存在");
 
-
+    public static final ValidatorException NO_REGISTER_INFO = new ValidatorException(613, "需要用户注册信息");
 
 
 }
