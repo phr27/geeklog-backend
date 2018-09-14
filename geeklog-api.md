@@ -124,7 +124,7 @@ req:
 
 ## Article
 
-- [ ] __6__ GET /articles/hot/:count (根据点赞数＋收藏数＋评论数排序，获取最热文章)
+- [X] __6__ GET /articles/hot/:count (根据点赞数＋收藏数＋评论数排序，获取最热文章)
 
 res:
 
