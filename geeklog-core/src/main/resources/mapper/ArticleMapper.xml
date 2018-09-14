@@ -12,6 +12,15 @@
     <result column="display" property="display" jdbcType="BIT" />
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="articleDto" type="com.geeklog.dto.ArticleDto" extends="BaseResultMap">
+    <result column="star_count" property="starCount" jdbcType="INTEGER" />
+    <result column="collect_count" property="collectCount" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+  </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from article
     where article_id = #{articleId,jdbcType=INTEGER}
@@ -110,7 +119,53 @@
     LIMIT #{rowIndex}, #{pageSize}
   </select>
 
-
+  <select id="queryPagingOrder" resultMap="articleDto">
+    select  a.article_id, a.title, a.created_at, a.modified_at,
+    a.user_id, a.category_id, a.tags, a.display, a.content,
+    cate.`name` as category_name,
+    u.username, u.nickname,
+    collect_count, comment_count, star_count,
+    ifNull(collect_count,0)+ifNull(comment_count,0)+ifNull(star_count,0) as count
+    from
+    (select a.*, count(co.article_id) as collect_count from article a  left JOIN collect co on a.article_id=co.article_id group by a.article_id)
+    as A
+    LEFT JOIN
+    (select a.article_id, count(c.article_id) as comment_count from article a  left JOIN comment c on a.article_id=c.article_id group by a.article_id)
+    as B
+    on A.article_id = B.article_id
+    LEFT JOIN
+    (select a.article_id, count(s.article_id) as star_count from article a  left JOIN star s on a.article_id=s.article_id group by a.article_id)
+    as C
+    on B.article_id = C.article_id
+    JOIN user u
+    on a.user_id = u.user_id
+    JOIN category cate
+    on a.category_id = cate.category_id
+    <where>
+      <if test="article.title != null">
+        and a.title like concat('%', #{article.title}, '%')
+      </if>
+      <if test="article.tags != null">
+        and a.tags like concat('%', #{article.tags}, '%')
+      </if>
+      <if test="article.categoryId != null">
+        and a.category_id = #{article.categoryId}
+      </if>
+      <if test="article.userId != null">
+        and a.user_id = #{article.userId}
+      </if>
+      <if test="article.display != null">
+        and a.display = #{article.display}
+      </if>
+    </where>
+    <if test="orderByTime == true">
+      ORDER BY a.created_at DESC
+    </if>
+    <if test="orderByTime == false">
+      ORDER BY `count` DESC
+    </if>
+    LIMIT #{rowIndex}, #{pageSize}
+  </select>
 
 
 
