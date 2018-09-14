@@ -3,12 +3,16 @@ package com.geeklog.controller.user
 import com.geeklog.common.exception.RoleException
 import com.geeklog.common.util.ResponseEntity
 import com.geeklog.controller.LoggedController
-import com.geeklog.domain.User
 import com.geeklog.dto.UserRegistry
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import spock.lang.Ignore
 
+/**
+ * @author 潘浩然
+ * 创建时间 2018/09/14
+ * 功能：用户模块的用户管理控制器单元测试
+ */
 class UserControllerSpec extends LoggedController {
 
     def "GET /users/{user_id}"() {
@@ -74,17 +78,18 @@ class UserControllerSpec extends LoggedController {
                     can_comment: true
             ]
         }
+
     }
 
     @Ignore
     def "POST /users"() {
-        getAuthorization()
-
         UserRegistry newUser = new UserRegistry()
         newUser.username = "a123456"
         newUser.password = "123456"
         newUser.nickname = "phr"
         newUser.bio = "个人简介"
+        headers.remove("Authorization")
+        assert headers.get("Authorization") == null
 
         when: "用户已存在"
         def entity = restTemplate.exchange("$URL_PREFFIX/users",

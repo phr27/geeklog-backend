@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * @author 潘浩然
+ * 创建时间 2018/09/14
+ * 功能：用户模块的用户管理控制器
+ */
 @GeekLogController(path = "/users", value = "user.UserController")
-@RequireRole(Role.USER)
 public class UserController {
 
     @Autowired
@@ -25,6 +29,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{user_id}")
+    @RequireRole(Role.USER)
     public ResponseEntity<UserWithPermissionBio> findUserById(@PathVariable("user_id") int userId) {
         return ResponseEntity.ok("success", userService.findUserById(userId));
     }
