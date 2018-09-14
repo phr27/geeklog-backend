@@ -56,6 +56,30 @@ class UserControllerSpec extends LoggedController {
             ]
         }
 
+        when: "正常获取普通用户"
+        entity = restTemplate.exchange("$URL_PREFFIX/users/3",
+                HttpMethod.GET,
+                new HttpEntity<Object>(headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "success"
+            body.data == [
+                    user_id: 3,
+                    username: "c123456",
+                    nickname: "小菜1",
+                    avatar: null,
+                    bio: null,
+                    is_admin: false,
+                    can_write_article: true,
+                    can_comment: true
+
+            ]
+        }
+
         when: "正常获取管理员"
         entity = restTemplate.exchange("$URL_PREFFIX/users/2",
                 HttpMethod.GET,

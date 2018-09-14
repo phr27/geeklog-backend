@@ -59,7 +59,7 @@ public class RoleAspect {
         // jwt 正确解析
 
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        RequireRole requireRoleAnnotation = method.getClass().getAnnotation(RequireRole.class);
+        RequireRole requireRoleAnnotation = method.getAnnotation(RequireRole.class);
         if (requireRoleAnnotation == null) {
             requireRoleAnnotation = method.getDeclaringClass().getAnnotation(RequireRole.class);
         }

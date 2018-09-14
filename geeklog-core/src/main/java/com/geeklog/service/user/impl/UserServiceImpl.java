@@ -9,6 +9,7 @@ import com.geeklog.common.util.MD5Util;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Forbidden;
 import com.geeklog.domain.User;
+import com.geeklog.dto.UserInfoUpdate;
 import com.geeklog.dto.UserRegistry;
 import com.geeklog.dto.UserWithPermissionBio;
 import com.geeklog.mapper.ForbiddenMapper;
@@ -67,6 +68,40 @@ public class UserServiceImpl implements UserService {
 
         UserWithPermissionBio userWithPermissionBio = Converter.convert(newUser, UserWithPermissionBio.class);
         userWithPermissionBio.setUserId(null);
+
+        return userWithPermissionBio;
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/14
+     * 功能：更新用户个人信息
+     */
+    @Transactional
+    public UserWithPermissionBio updateUserInfo(int userId, UserInfoUpdate userInfoUpdate) {
+        Validator.notNull(userInfoUpdate, ValidatorException.NO_USER_UPDATE_INFO);
+
+        User user = userMapper.selectByPrimaryKey(userId);
+        Validator.notNull(user, RoleException.USER_NOT_EXIST);
+
+        if (userInfoUpdate.getNickname() != null || userInfoUpdate.getBio() != null) {
+            User newUser = Converter.convert(userInfoUpdate, User.class);
+            newUser.setUserId(userId);
+
+            int effectRow = userMapper.updateByPrimaryKey(newUser);
+            Validator.equals(effectRow, 1, ValidatorException.unexpected("UserServiceImpl.updateUserInfo(..) 更新用户信息错误，未知错误"));
+
+            if (userInfoUpdate.getNickname() != null) {
+                user.setNickname(userInfoUpdate.getNickname());
+            }
+            if (userInfoUpdate.getBio() != null) {
+                user.setBio(userInfoUpdate.getBio());
+            }
+        }
+
+        UserWithPermissionBio userWithPermissionBio = Converter.convert(user, UserWithPermissionBio.class);
+        userWithPermissionBio.setUserId(null);
+        userWithPermissionBio.setPermissions(forbiddenMapper.queryByUserId(userId));
 
         return userWithPermissionBio;
     }
