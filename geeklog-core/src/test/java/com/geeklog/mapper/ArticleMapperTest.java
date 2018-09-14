@@ -1,6 +1,7 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.Article;
+import com.geeklog.dto.ArticleDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,20 @@ public class ArticleMapperTest {
 
     }
 
+    @Test
+    public void queryPagingOrderTest() throws Exception {
+        Article article = new Article();
+        long start = System.currentTimeMillis();
+        List<ArticleDto> articleDtos = mapper.queryPagingOrder(article, 0, 10, false);
+        System.out.println(System.currentTimeMillis() - start);
+        for (ArticleDto articleDto : articleDtos) {
+            System.out.println(articleDto.getArticleId());
+            System.out.println(articleDto.getTitle());
+            System.out.println(articleDto.getCategoryName());
+            System.out.println(articleDto.getUsername());
+            System.out.println(articleDto.getNickname());
+        }
 
+    }
 
 }

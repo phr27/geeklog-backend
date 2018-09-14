@@ -1,6 +1,7 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.Article;
+import com.geeklog.dto.ArticleDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -75,6 +76,17 @@ public interface ArticleMapper {
     List<Article> queryPaging(@Param("article") Article article, @Param("rowIndex") int rowIndex,
                            @Param("pageSize") int pageSize);
 
-
+    /**
+     * @describe 分页排序查询(降序)
+     * @param article 分页查询条件
+     * @param rowIndex  limit第一个参数 起始位置
+     * @param pageSize  limit第二个参数 每页数量
+     * @param orderByTime 是否根据时间进行排序，true为按时间排序，false为按综合热度排序
+     * @return 分页查询的文章集合
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:14:05
+     */
+    List<ArticleDto> queryPagingOrder(@Param("article") Article article, @Param("rowIndex") int rowIndex,
+                                      @Param("pageSize") int pageSize, @Param("orderByTime") boolean orderByTime);
 
 }
