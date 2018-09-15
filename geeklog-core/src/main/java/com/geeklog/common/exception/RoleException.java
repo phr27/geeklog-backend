@@ -18,4 +18,6 @@ public class RoleException extends CommonException {
 
     public static final RoleException UPDATE_OTHER_PWD = new RoleException(645, "不能更改其他用户的密码");
 
+    public static final RoleException OTHER_USER_STAR = new RoleException(646, "不能替其他用户点赞或取消点赞");
+
 }

@@ -87,4 +87,10 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException OLD_PWD_ERROR = new ValidatorException(616, "原密码错误");
 
+    public static final ValidatorException NO_STAR_INFO = new ValidatorException(617, "需要点赞或取消点赞的信息");
+
+    public static final ValidatorException ALREADY_STAR = new ValidatorException(618, "已点赞");
+
+    public static final ValidatorException ALREADY_UNSTAR = new ValidatorException(618, "已取消点赞");
+
 }
