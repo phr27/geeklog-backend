@@ -643,7 +643,7 @@ res:
 
 ### 根据user_id, article_id, 点赞或者取消
 
-- [ ] __20__ POST /add-star
+- [X] __20__ POST /add-star
 
 req:
 
@@ -668,7 +668,7 @@ res:
 }
 ```
 
-- [ ] __21__ POST /delete-star
+- [X] __21__ POST /delete-star
 
 req:
 
