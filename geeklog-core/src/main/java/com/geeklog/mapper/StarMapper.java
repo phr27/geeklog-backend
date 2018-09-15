@@ -1,6 +1,8 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.Star;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 /**
  *  @author 朱远飞
@@ -51,4 +53,15 @@ public interface StarMapper {
      * @create_time 2018年9月9日15:18:57
      */
     int updateByPrimaryKey(Star star);
+
+    /**
+     * @describe 根据用户id和文章id查询star
+     * @param userId 用户id
+     * @param articleId 文章id
+     * @return Star
+     * @author 朱远飞
+     * @create_time 2018年9月15日20:02:42
+     */
+    Star queryByUserIdAndArticleId(@Param("userId") int userId, @Param("articleId") int articleId);
+
 }

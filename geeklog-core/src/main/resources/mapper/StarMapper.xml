@@ -37,4 +37,10 @@
     select star_id, user_id, article_id
     from star
   </select>
+  <select id="queryByUserIdAndArticleId" resultMap="BaseResultMap">
+    select star_id, user_id, article_id
+    from star
+    WHERE user_id = #{userId}
+    AND article_id = #{articleId}
+  </select>
 </mapper>
