@@ -99,4 +99,6 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException ALREADY_UNCOLLECT = new ValidatorException(622, "已取消收藏");
 
+    public static final ValidatorException LATEST_COMMENT_COUNT_OUT_OF_RANGE = new ValidatorException(623, "请求的最新评论数量过小");
+
 }
