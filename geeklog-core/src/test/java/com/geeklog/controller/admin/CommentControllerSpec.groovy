@@ -31,25 +31,25 @@ class CommentControllerSpec extends LoggedController {
             body.code == 200
             body.message == "success"
             body.data == [
-                    total   : 10,
+                    total   : 6,
                     entities: [
                             [
-                                    comment_id: 5,
-                                    user_id   : 6,
-                                    article_id: 2,
-                                    content   : "学习前端Vue中，写的不错",
+                                    comment_id: 9,
+                                    user_id   : 1,
+                                    article_id: 3,
+                                    content   : "学习了，学习了",
                                     parent_id : null,
-                                    root_id   : 5,
-                                    created_at: new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-09-06 09:59:48").getTime()
+                                    root_id   : 9,
+                                    created_at: new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-09-06 10:06:01").getTime()
                             ],
                             [
-                                    comment_id: 6,
-                                    user_id   : 2,
-                                    article_id: 2,
-                                    content   : "感谢感谢，一点自己的心得",
-                                    parent_id : 5,
-                                    root_id   : 5,
-                                    created_at: new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-09-06 09:59:55").getTime()
+                                    comment_id: 10,
+                                    user_id   : 10,
+                                    article_id: 4,
+                                    content   : "文章在这里XXX，我觉得写得很不错",
+                                    parent_id : null,
+                                    root_id   : 10,
+                                    created_at: new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-09-06 10:06:09").getTime()
                             ]
                     ]
             ]
@@ -106,7 +106,6 @@ class CommentControllerSpec extends LoggedController {
         }
     }
 
-    @Ignore
     def "CommentController DELETE /comments/{comment_id}"() {
         getAuthorization()
 

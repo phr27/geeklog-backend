@@ -80,7 +80,7 @@ class StarControllerSpec extends LoggedController {
         }
 
         when: "已点过赞再次点赞"
-        starCollectRequestBody.articleId = 1
+        starCollectRequestBody.articleId = 2
         entity = restTemplate.exchange("$URL_PREFFIX/add-star",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
@@ -119,25 +119,10 @@ class StarControllerSpec extends LoggedController {
 
         StarCollectRequestBody starCollectRequestBody = new StarCollectRequestBody()
         starCollectRequestBody.userId = 1
-        starCollectRequestBody.articleId = 5
-
-        when: "取消点赞后再次取消点赞"
-        def entity = restTemplate.exchange("$URL_PREFFIX/delete-star",
-                HttpMethod.POST,
-                new HttpEntity<>(starCollectRequestBody, headers),
-                ResponseEntity
-        )
-        then:
-        with(entity) {
-            statusCodeValue == 200
-            body.code == ValidatorException.ALREADY_UNSTAR.code
-            body.message == ValidatorException.ALREADY_UNSTAR.message
-            body.data == null
-        }
+        starCollectRequestBody.articleId = 3
 
         when: "正常取消点赞"
-        starCollectRequestBody.articleId = 3
-        entity = restTemplate.exchange("$URL_PREFFIX/delete-star",
+        def entity = restTemplate.exchange("$URL_PREFFIX/delete-star",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -152,6 +137,20 @@ class StarControllerSpec extends LoggedController {
                 user_id == 1
                 article_id == 3
             }
+        }
+
+        when: "取消点赞后再次取消点赞"
+        entity = restTemplate.exchange("$URL_PREFFIX/delete-star",
+                HttpMethod.POST,
+                new HttpEntity<>(starCollectRequestBody, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == ValidatorException.ALREADY_UNSTAR.code
+            body.message == ValidatorException.ALREADY_UNSTAR.message
+            body.data == null
         }
     }
 }

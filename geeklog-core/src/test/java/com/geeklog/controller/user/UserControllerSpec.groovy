@@ -110,10 +110,10 @@ class UserControllerSpec extends LoggedController {
 
     }
 
-    @Ignore
+//    @Ignore
     def "POST /users"() {
         UserRegistry newUser = new UserRegistry()
-        newUser.username = "a123456"
+        newUser.username = "c123456"
         newUser.password = "123456"
         newUser.nickname = "phr"
         newUser.bio = "个人简介"
@@ -288,9 +288,9 @@ class UserControllerSpec extends LoggedController {
             body.data == [
                     user_id: null,
                     username: "a123456",
-                    nickname: "小啊",
+                    nickname: "小啊1",
                     avatar: null,
-                    bio: null,
+                    bio: "管理员bio1",
                     is_admin: true,
                     can_comment: true,
                     can_write_article: true

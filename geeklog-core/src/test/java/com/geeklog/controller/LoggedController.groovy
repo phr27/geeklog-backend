@@ -1,6 +1,6 @@
 package com.geeklog.controller
 
-import com.geeklog.common.aspect.RoleAspect
+import com.geeklog.common.aspect.AuthAspect
 import com.geeklog.common.util.ResponseEntity
 import com.geeklog.dto.AuthToken
 import org.springframework.http.HttpEntity
@@ -13,18 +13,15 @@ import org.springframework.http.HttpMethod
  */
 abstract class LoggedController extends ControllerSpecification {
 
-    void getAuthorization(String username = "a123456", String password = "123456") {
-        AuthToken authToken = new AuthToken()
-        authToken.username = username
-        authToken.password = password
+    void getAuthorization(authToken = new AuthToken("a123456", "123456")) {
 
-        def entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
+        def entity = restTemplate.exchange("$URL_PREFFIX/login",
                 HttpMethod.POST,
                 new HttpEntity<>(authToken, headers),
                 ResponseEntity
         )
 
-        def authorization = RoleAspect.AUTH_PREFIX + entity.body.data.token
+        def authorization = AuthAspect.AUTH_PREFIX + entity.body.data.token
         headers.set("Authorization", authorization)
     }
 }

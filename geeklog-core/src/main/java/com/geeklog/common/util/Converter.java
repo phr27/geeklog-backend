@@ -34,24 +34,24 @@ public class Converter {
             throw ValidatorException.unexpected("Converter.convert(clazz 没有公有无参构造器)");
         }
 
-        Field[] objectFields = object.getClass().getDeclaredFields();
+        List<Field> objectFields = getAllFields(object.getClass());
         List<Field> clazzFields = getAllFields(clazz);
         int j;
-        for (int i = 0; i < objectFields.length; i++) {
+        for (int i = 0; i < objectFields.size(); i++) {
             try {
                 Field targetField = null;
                 for (j = 0; j < clazzFields.size(); j++) {
-                    if (StringUtils.equals(objectFields[i].getName(), clazzFields.get(j).getName())) {
+                    if (StringUtils.equals(objectFields.get(i).getName(), clazzFields.get(j).getName())) {
                         targetField = clazzFields.get(j);
                         break;
                     }
                 }
-                if (targetField == null || !targetField.getType().isAssignableFrom(objectFields[i].getType())) {
+                if (targetField == null || !targetField.getType().isAssignableFrom(objectFields.get(i).getType())) {
                     continue;
                 }
-                objectFields[i].setAccessible(true);
+                objectFields.get(i).setAccessible(true);
                 targetField.setAccessible(true);
-                targetField.set(target, objectFields[i].get(object));
+                targetField.set(target, objectFields.get(i).get(object));
             } catch (Throwable e) {
                 throw ValidatorException.unexpected(
                         "Converter.convert throw " + e.getClass().getSimpleName() + ": " + e.getMessage());

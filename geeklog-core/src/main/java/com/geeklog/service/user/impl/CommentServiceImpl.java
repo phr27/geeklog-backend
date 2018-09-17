@@ -51,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment publishComment(CommentPublish commentPublish) {
         Validator.notNull(commentPublish, ValidatorException.NO_COMMENT_PUBLISH_INFO);
         Validator.notNull(commentPublish.getUserId(), ValidatorException.NO_COMMENT_PUBLISH_INFO);
-        Validator.notNull(commentPublish.getContent(), ValidatorException.NO_COMMENT_PUBLISH_INFO);
+        Validator.notBlank(commentPublish.getContent(), ValidatorException.COMMENT_CONTENT_BLANK);
         Validator.isCurrentUser(commentPublish.getUserId(), RoleException.OTHER_USER_COMMENT);
 
         Comment comment = Converter.convert(commentPublish, Comment.class);

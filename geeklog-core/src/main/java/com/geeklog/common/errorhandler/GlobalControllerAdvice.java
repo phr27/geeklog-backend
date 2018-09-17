@@ -1,5 +1,6 @@
 package com.geeklog.common.errorhandler;
 
+import com.geeklog.common.exception.PermissionException;
 import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.exception.SessionException;
 import com.geeklog.common.exception.ValidatorException;
@@ -50,10 +51,20 @@ public class GlobalControllerAdvice {
     /**
      * @author 潘浩然
      * 创建时间 2018/09/11
-     * 功能：处理会话异常
+     * 功能：处理角色检查异常
      */
     @ExceptionHandler(RoleException.class)
     public ResponseEntity<Object> handleRoleException(RoleException roleException) {
         return ResponseEntity.build(roleException.getCode(), roleException.getMessage());
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/17
+     * 功能：处理权限检查异常
+     */
+    @ExceptionHandler(PermissionException.class)
+    public ResponseEntity<Object> handlePermissionException(PermissionException permissionException) {
+        return ResponseEntity.build(permissionException.getCode(), permissionException.getMessage());
     }
 }

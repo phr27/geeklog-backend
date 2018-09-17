@@ -37,8 +37,8 @@
       <if test="parentId != null">
         parent_id = #{parentId},
       </if>
-      <if test="root_id != null">
-        rootId = #{rootId},
+      <if test="rootId != null">
+        root_id = #{rootId},
       </if>
     </set>
     where comment_id = #{commentId,jdbcType=INTEGER}

@@ -105,4 +105,6 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException PARENT_COMMENT_NOT_EXIST = new ValidatorException(625, "父评论不存在");
 
+    public static final ValidatorException COMMENT_CONTENT_BLANK = new ValidatorException(626, "评论内容不能为空");
+
 }

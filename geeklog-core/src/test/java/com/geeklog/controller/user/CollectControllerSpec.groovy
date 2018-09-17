@@ -4,6 +4,7 @@ import com.geeklog.common.exception.RoleException
 import com.geeklog.common.exception.ValidatorException
 import com.geeklog.common.util.ResponseEntity
 import com.geeklog.controller.LoggedController
+import com.geeklog.dto.AuthToken
 import com.geeklog.dto.StarCollectRequestBody
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
@@ -16,7 +17,7 @@ import org.springframework.http.HttpMethod
 class CollectControllerSpec extends LoggedController {
 
     def "POST /add-collect"() {
-        getAuthorization()
+        getAuthorization(new AuthToken("d123456", "123456"))
 
         StarCollectRequestBody starCollectRequestBody = new StarCollectRequestBody()
 
@@ -65,7 +66,7 @@ class CollectControllerSpec extends LoggedController {
         }
 
         when: "文章不存在"
-        starCollectRequestBody.userId = 1
+        starCollectRequestBody.userId = 4
         entity = restTemplate.exchange("$URL_PREFFIX/add-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
@@ -80,7 +81,7 @@ class CollectControllerSpec extends LoggedController {
         }
 
         when: "已收藏过再次收藏"
-        starCollectRequestBody.articleId = 1
+        starCollectRequestBody.articleId = 2
         entity = restTemplate.exchange("$URL_PREFFIX/add-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
@@ -108,7 +109,7 @@ class CollectControllerSpec extends LoggedController {
             body.message == "success"
             with(body.data) {
                 collect_id != null
-                user_id == 1
+                user_id == 4
                 article_id == 3
                 created_at != null
             }
@@ -116,29 +117,14 @@ class CollectControllerSpec extends LoggedController {
     }
 
     def "POST /delete-collect"() {
-        getAuthorization()
+        getAuthorization(new AuthToken("d123456", "123456"))
 
         StarCollectRequestBody starCollectRequestBody = new StarCollectRequestBody()
-        starCollectRequestBody.userId = 1
-        starCollectRequestBody.articleId = 5
-
-        when: "取消收藏后再次取消收藏"
-        def entity = restTemplate.exchange("$URL_PREFFIX/delete-collect",
-                HttpMethod.POST,
-                new HttpEntity<>(starCollectRequestBody, headers),
-                ResponseEntity
-        )
-        then:
-        with(entity) {
-            statusCodeValue == 200
-            body.code == ValidatorException.ALREADY_UNCOLLECT.code
-            body.message == ValidatorException.ALREADY_UNCOLLECT.message
-            body.data == null
-        }
+        starCollectRequestBody.userId = 4
+        starCollectRequestBody.articleId = 3
 
         when: "正常取消收藏"
-        starCollectRequestBody.articleId = 3
-        entity = restTemplate.exchange("$URL_PREFFIX/delete-collect",
+        def entity = restTemplate.exchange("$URL_PREFFIX/delete-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -150,10 +136,24 @@ class CollectControllerSpec extends LoggedController {
             body.message == "success"
             with(body.data) {
                 collect_id != null
-                user_id == 1
+                user_id == 4
                 article_id == 3
                 created_at != null
             }
+        }
+
+        when: "取消收藏后再次取消收藏"
+        entity = restTemplate.exchange("$URL_PREFFIX/delete-collect",
+                HttpMethod.POST,
+                new HttpEntity<>(starCollectRequestBody, headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == ValidatorException.ALREADY_UNCOLLECT.code
+            body.message == ValidatorException.ALREADY_UNCOLLECT.message
+            body.data == null
         }
     }
 }
