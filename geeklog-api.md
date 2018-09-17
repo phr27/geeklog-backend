@@ -695,7 +695,7 @@ res:
 
 ### 根据user_id, article_id, 收藏或者取消
 
-- [ ] __22__ POST /add-collect
+- [X] __22__ POST /add-collect
 
 req:
 
@@ -721,7 +721,7 @@ res:
 }
 ```
 
-- [ ] __23__ POST /delete-collect
+- [X] __23__ POST /delete-collect
 
 req:
 
