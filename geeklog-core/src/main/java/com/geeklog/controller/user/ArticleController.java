@@ -2,6 +2,8 @@ package com.geeklog.controller.user;
 
 
 import com.geeklog.common.annotation.GeekLogController;
+import com.geeklog.common.annotation.RequireRole;
+import com.geeklog.common.enumeration.Role;
 import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.domain.Article;
 import com.geeklog.dto.ArticleDto;
@@ -23,6 +25,7 @@ import java.util.List;
  */
 
 @GeekLogController(value = "user.ArticleController")
+@RequireRole(Role.USER)
 public class ArticleController {
 
     @Autowired
