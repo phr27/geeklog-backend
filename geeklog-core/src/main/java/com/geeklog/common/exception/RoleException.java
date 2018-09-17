@@ -22,4 +22,6 @@ public class RoleException extends CommonException {
 
     public static final RoleException OTHER_USER_COLLECT = new RoleException(647, "不能替其他用户收藏或取消收藏");
 
+    public static final RoleException OTHER_USER_COMMENT = new RoleException(648, "不能替其他用户发布评论");
+
 }

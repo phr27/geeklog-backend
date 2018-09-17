@@ -43,9 +43,6 @@ public class CollectServiceImpl extends StarCollectBaseService implements Collec
         int effectRow = collectMapper.insert(collect);
         Validator.equals(effectRow, 1, ValidatorException.unexpected("CollectServiceImpl.collect(..) 收藏信息保存至数据库失败，未知错误"));
 
-        collect = collectMapper.queryByUserIdAndArticleId(starCollectRequestBody.getUserId(), starCollectRequestBody.getArticleId());
-        Validator.notNull(collect, ValidatorException.unexpected("CollectServiceImpl.collect(..) 收藏记录丢失，未知错误"));
-
         return collect;
     }
 

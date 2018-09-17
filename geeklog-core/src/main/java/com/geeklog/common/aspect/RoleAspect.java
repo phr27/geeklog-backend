@@ -28,49 +28,27 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 @Component
 @Aspect
-public class RoleAspect {
-
-    public static final String AUTH_PREFIX = "Bearer ";
+public class RoleAspect extends AuthAspect<RequireRole> {
 
     /**
      * @author 潘浩然
      * 创建时间 2018/09/10
      * 功能：切点定义，所有标注了 @RequireRole 的类（中的所有方法）或方法
      */
+    @Override
     @Pointcut("@within(com.geeklog.common.annotation.RequireRole) || @annotation(com.geeklog.common.annotation.RequireRole)")
-    public void checkRolePointcut() {
+    public void pointcut() {
     }
 
-    /**
-     * @author 潘浩然
-     * 创建时间 2018/09/11
-     * 功能：角色检查切面
-     */
-    @Around("checkRolePointcut()")
-    public ResponseEntity checkRole(ProceedingJoinPoint joinPoint) throws Throwable {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String authStr = request.getHeader("Authorization");
-        Validator.notBlank(authStr, ValidatorException.NO_JWT_TOKEN);
-        Validator.startsWith(authStr, AUTH_PREFIX, ValidatorException.NO_JWT_TOKEN);
+    @Override
+    protected String errorLogWhenAnnotationNotFound() {
+        return "角色检查切面未找到 @RequireRole";
+    }
 
-        String jwtStr = authStr.substring(AUTH_PREFIX.length());
-        Validator.notBlank(jwtStr, ValidatorException.NO_JWT_TOKEN);
-        User currentUser = JwtUtil.parseJwt(jwtStr);
-        // jwt 正确解析
-
-        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        RequireRole requireRoleAnnotation = method.getAnnotation(RequireRole.class);
-        if (requireRoleAnnotation == null) {
-            requireRoleAnnotation = method.getDeclaringClass().getAnnotation(RequireRole.class);
-        }
-        Validator.notNull(requireRoleAnnotation, ValidatorException.unexpected("checkRole 切面未找到 @RequireRole"));
-        if (Role.ADMIN.equals(requireRoleAnnotation.value()) && !currentUser.getIsAdmin()) {
+    @Override
+    protected void doAuth(User jwtUser, RequireRole annotation) {
+        if (Role.ADMIN.equals(annotation.value()) && !jwtUser.getIsAdmin()) {
             throw RoleException.NOT_ADMIN;
         }
-        // 角色检查通过
-
-        SessionContext.setCurrentUser(currentUser);
-
-        return (ResponseEntity) joinPoint.proceed(joinPoint.getArgs());
     }
 }

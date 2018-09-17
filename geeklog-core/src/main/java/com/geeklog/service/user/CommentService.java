@@ -3,6 +3,7 @@ package com.geeklog.service.user;
 import java.util.List;
 
 import com.geeklog.domain.Comment;
+import com.geeklog.dto.CommentPublish;
 
 /**
  * @author 潘浩然
@@ -12,4 +13,6 @@ import com.geeklog.domain.Comment;
 public interface CommentService {
 
     List<Comment> listLatestComment(int count);
+
+    Comment publishComment(CommentPublish commentPublish);
 }

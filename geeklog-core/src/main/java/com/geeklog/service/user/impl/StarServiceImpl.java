@@ -45,9 +45,6 @@ public class StarServiceImpl extends StarCollectBaseService implements StarServi
         int effectRow = starMapper.insert(star);
         Validator.equals(effectRow, 1, ValidatorException.unexpected("StarServiceImpl.star(..) 点赞信息保存至数据库失败，未知错误"));
 
-        star = starMapper.queryByUserIdAndArticleId(starCollectRequestBody.getUserId(), starCollectRequestBody.getArticleId());
-        Validator.notNull(star, ValidatorException.unexpected("StarServiceImpl.star(..) 点赞记录丢失，未知错误"));
-
         return star;
     }
 

@@ -57,4 +57,12 @@ class CommentControllerSpec extends LoggedController {
             ]
         }
     }
+
+//    def "POST /comments"() {
+//
+//        when: "没有评论权限"
+//        getAuthorization("e123456", "123456")
+//        then:
+//
+//    }
 }

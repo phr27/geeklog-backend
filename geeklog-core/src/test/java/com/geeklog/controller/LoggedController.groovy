@@ -13,10 +13,10 @@ import org.springframework.http.HttpMethod
  */
 abstract class LoggedController extends ControllerSpecification {
 
-    void getAuthorization() {
+    void getAuthorization(String username = "a123456", String password = "123456") {
         AuthToken authToken = new AuthToken()
-        authToken.username = "a123456"
-        authToken.password = "123456"
+        authToken.username = username
+        authToken.password = password
 
         def entity = restTemplate.exchange("$URL_PREFFIX/admin/login",
                 HttpMethod.POST,

@@ -101,4 +101,8 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException LATEST_COMMENT_COUNT_OUT_OF_RANGE = new ValidatorException(623, "请求的最新评论数量过小");
 
+    public static final ValidatorException NO_COMMENT_PUBLISH_INFO = new ValidatorException(624, "需要发布评论的相关信息");
+
+    public static final ValidatorException PARENT_COMMENT_NOT_EXIST = new ValidatorException(625, "父评论不存在");
+
 }
