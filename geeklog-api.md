@@ -334,7 +334,7 @@ res:
 
 ## Comment
 
-- [ ] __12__ GET /comments/latest/:count
+- [X] __12__ GET /comments/latest/:count
 
 res:
 
@@ -365,7 +365,7 @@ res:
 }
 ```
 
-- [ ] __13__ POST /comments
+- [X] __13__ POST /comments
 
 req:
 
