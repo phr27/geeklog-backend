@@ -3,8 +3,7 @@ package com.geeklog.controller.user;
 import com.geeklog.common.annotation.GeekLogController;
 import com.geeklog.common.annotation.RequireRole;
 import com.geeklog.common.enumeration.Role;
-import com.geeklog.common.exception.RoleException;
-import com.geeklog.common.exception.ValidatorException;
+import com.geeklog.common.exception.StarCollectBaseException;
 import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Star;
@@ -35,7 +34,7 @@ public class StarController {
      */
     @PostMapping("/add-star")
     public ResponseEntity<Star> star(@RequestBody StarCollectRequestBody starCollectRequestBody) {
-        Validator.validStarCollectRequestBody(starCollectRequestBody);
+        Validator.validStarCollectRequestBody(starCollectRequestBody, StarCollectBaseException.STAR);
 
         return ResponseEntity.ok("success", starService.star(starCollectRequestBody));
     }
@@ -47,7 +46,7 @@ public class StarController {
      */
     @PostMapping("/delete-star")
     public ResponseEntity<Star> unstar(@RequestBody StarCollectRequestBody starCollectRequestBody) {
-        Validator.validStarCollectRequestBody(starCollectRequestBody);
+        Validator.validStarCollectRequestBody(starCollectRequestBody, StarCollectBaseException.STAR);
 
         return ResponseEntity.ok("success", starService.unstar(starCollectRequestBody));
     }

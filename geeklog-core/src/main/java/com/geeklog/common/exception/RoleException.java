@@ -20,4 +20,6 @@ public class RoleException extends CommonException {
 
     public static final RoleException OTHER_USER_STAR = new RoleException(646, "不能替其他用户点赞或取消点赞");
 
+    public static final RoleException OTHER_USER_COLLECT = new RoleException(647, "不能替其他用户收藏或取消收藏");
+
 }

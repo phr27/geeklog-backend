@@ -11,17 +11,17 @@ import org.springframework.http.HttpMethod
 /**
  * @author 潘浩然
  * 创建时间 2018/09/17
- * 功能：点赞控制器单元测试
+ * 功能：收藏控制器单元测试
  */
-class StarControllerSpec extends LoggedController {
+class CollectControllerSpec extends LoggedController {
 
-    def "POST /add-star"() {
+    def "POST /add-collect"() {
         getAuthorization()
 
         StarCollectRequestBody starCollectRequestBody = new StarCollectRequestBody()
 
         when: "未提供用户 id"
-        def entity = restTemplate.exchange("$URL_PREFFIX/add-star",
+        def entity = restTemplate.exchange("$URL_PREFFIX/add-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -29,14 +29,14 @@ class StarControllerSpec extends LoggedController {
         then:
         with(entity) {
             statusCodeValue == 200
-            body.code == ValidatorException.NO_STAR_INFO.code
-            body.message == ValidatorException.NO_STAR_INFO.message
+            body.code == ValidatorException.NO_COLLECT_INFO.code
+            body.message == ValidatorException.NO_COLLECT_INFO.message
             body.data == null
         }
 
         when: "未提供文章 id"
         starCollectRequestBody.userId = 3
-        entity = restTemplate.exchange("$URL_PREFFIX/add-star",
+        entity = restTemplate.exchange("$URL_PREFFIX/add-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -44,14 +44,14 @@ class StarControllerSpec extends LoggedController {
         then:
         with(entity) {
             statusCodeValue == 200
-            body.code == ValidatorException.NO_STAR_INFO.code
-            body.message == ValidatorException.NO_STAR_INFO.message
+            body.code == ValidatorException.NO_COLLECT_INFO.code
+            body.message == ValidatorException.NO_COLLECT_INFO.message
             body.data == null
         }
 
         when: "用户 id 不是当前会话的用户 id"
         starCollectRequestBody.articleId = 50
-        entity = restTemplate.exchange("$URL_PREFFIX/add-star",
+        entity = restTemplate.exchange("$URL_PREFFIX/add-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -59,14 +59,14 @@ class StarControllerSpec extends LoggedController {
         then:
         with(entity) {
             statusCodeValue == 200
-            body.code == RoleException.OTHER_USER_STAR.code
-            body.message == RoleException.OTHER_USER_STAR.message
+            body.code == RoleException.OTHER_USER_COLLECT.code
+            body.message == RoleException.OTHER_USER_COLLECT.message
             body.data == null
         }
 
         when: "文章不存在"
         starCollectRequestBody.userId = 1
-        entity = restTemplate.exchange("$URL_PREFFIX/add-star",
+        entity = restTemplate.exchange("$URL_PREFFIX/add-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -79,9 +79,9 @@ class StarControllerSpec extends LoggedController {
             body.data == null
         }
 
-        when: "已点过赞再次点赞"
+        when: "已收藏过再次收藏"
         starCollectRequestBody.articleId = 1
-        entity = restTemplate.exchange("$URL_PREFFIX/add-star",
+        entity = restTemplate.exchange("$URL_PREFFIX/add-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -89,14 +89,14 @@ class StarControllerSpec extends LoggedController {
         then:
         with(entity) {
             statusCodeValue == 200
-            body.code == ValidatorException.ALREADY_STAR.code
-            body.message == ValidatorException.ALREADY_STAR.message
+            body.code == ValidatorException.ALREADY_COLLECT.code
+            body.message == ValidatorException.ALREADY_COLLECT.message
             body.data == null
         }
 
-        when: "正常点赞"
+        when: "正常收藏"
         starCollectRequestBody.articleId = 3
-        entity = restTemplate.exchange("$URL_PREFFIX/add-star",
+        entity = restTemplate.exchange("$URL_PREFFIX/add-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -107,22 +107,23 @@ class StarControllerSpec extends LoggedController {
             body.code == 200
             body.message == "success"
             with(body.data) {
-                star_id != null
+                collect_id != null
                 user_id == 1
                 article_id == 3
+                created_at != null
             }
         }
     }
 
-    def "POST /delete-star"() {
+    def "POST /delete-collect"() {
         getAuthorization()
 
         StarCollectRequestBody starCollectRequestBody = new StarCollectRequestBody()
         starCollectRequestBody.userId = 1
         starCollectRequestBody.articleId = 5
 
-        when: "取消点赞后再次取消点赞"
-        def entity = restTemplate.exchange("$URL_PREFFIX/delete-star",
+        when: "取消收藏后再次取消收藏"
+        def entity = restTemplate.exchange("$URL_PREFFIX/delete-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -130,14 +131,14 @@ class StarControllerSpec extends LoggedController {
         then:
         with(entity) {
             statusCodeValue == 200
-            body.code == ValidatorException.ALREADY_UNSTAR.code
-            body.message == ValidatorException.ALREADY_UNSTAR.message
+            body.code == ValidatorException.ALREADY_UNCOLLECT.code
+            body.message == ValidatorException.ALREADY_UNCOLLECT.message
             body.data == null
         }
 
-        when: "正常取消点赞"
+        when: "正常取消收藏"
         starCollectRequestBody.articleId = 3
-        entity = restTemplate.exchange("$URL_PREFFIX/delete-star",
+        entity = restTemplate.exchange("$URL_PREFFIX/delete-collect",
                 HttpMethod.POST,
                 new HttpEntity<>(starCollectRequestBody, headers),
                 ResponseEntity
@@ -148,9 +149,10 @@ class StarControllerSpec extends LoggedController {
             body.code == 200
             body.message == "success"
             with(body.data) {
-                star_id != null
+                collect_id != null
                 user_id == 1
                 article_id == 3
+                created_at != null
             }
         }
     }

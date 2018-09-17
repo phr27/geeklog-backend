@@ -1,5 +1,6 @@
 package com.geeklog.service.user;
 
+import com.geeklog.common.exception.StarCollectBaseException;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Article;
@@ -17,8 +18,8 @@ public abstract class StarCollectBaseService {
     @Autowired
     private ArticleMapper articleMapper;
 
-    protected void valid(StarCollectRequestBody starCollectRequestBody) {
-        Validator.validStarCollectRequestBody(starCollectRequestBody);
+    protected void valid(StarCollectRequestBody starCollectRequestBody, StarCollectBaseException starCollectBaseException) {
+        Validator.validStarCollectRequestBody(starCollectRequestBody, starCollectBaseException);
 
         Article article = articleMapper.selectByPrimaryKey(starCollectRequestBody.getArticleId());
         Validator.notNull(article, ValidatorException.ARTICLE_NOT_EXIST);

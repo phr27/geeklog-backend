@@ -1,6 +1,7 @@
 package com.geeklog.service.user.impl;
 
 import com.geeklog.common.exception.RoleException;
+import com.geeklog.common.exception.StarCollectBaseException;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.Converter;
 import com.geeklog.common.util.Validator;
@@ -35,7 +36,7 @@ public class StarServiceImpl extends StarCollectBaseService implements StarServi
      */
     @Transactional
     public Star star(StarCollectRequestBody starCollectRequestBody) {
-        super.valid(starCollectRequestBody);
+        super.valid(starCollectRequestBody, StarCollectBaseException.STAR);
 
         Star star = starMapper.queryByUserIdAndArticleId(starCollectRequestBody.getUserId(), starCollectRequestBody.getArticleId());
         Validator.isNull(star, ValidatorException.ALREADY_STAR);
@@ -57,7 +58,7 @@ public class StarServiceImpl extends StarCollectBaseService implements StarServi
      */
     @Transactional
     public Star unstar(StarCollectRequestBody starCollectRequestBody) {
-        super.valid(starCollectRequestBody);
+        super.valid(starCollectRequestBody, StarCollectBaseException.STAR);
 
         Star star = starMapper.queryByUserIdAndArticleId(starCollectRequestBody.getUserId(), starCollectRequestBody.getArticleId());
         Validator.notNull(star, ValidatorException.ALREADY_UNSTAR);
