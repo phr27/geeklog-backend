@@ -8,7 +8,7 @@ import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Star;
-import com.geeklog.dto.StarRequestBody;
+import com.geeklog.dto.StarCollectRequestBody;
 import com.geeklog.service.user.StarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,13 +34,10 @@ public class StarController {
      * 功能：点赞
      */
     @PostMapping("/add-star")
-    public ResponseEntity<Star> star(@RequestBody StarRequestBody starRequestBody) {
-        Validator.notNull(starRequestBody, ValidatorException.NO_STAR_INFO);
-        Validator.notNull(starRequestBody.getUserId(), ValidatorException.NO_STAR_INFO);
-        Validator.notNull(starRequestBody.getArticleId(), ValidatorException.NO_STAR_INFO);
-        Validator.isCurrentUser(starRequestBody.getUserId(), RoleException.OTHER_USER_STAR);
+    public ResponseEntity<Star> star(@RequestBody StarCollectRequestBody starCollectRequestBody) {
+        Validator.validStarCollectRequestBody(starCollectRequestBody);
 
-        return ResponseEntity.ok("success", starService.star(starRequestBody));
+        return ResponseEntity.ok("success", starService.star(starCollectRequestBody));
     }
 
     /**
@@ -49,12 +46,9 @@ public class StarController {
      * 功能：取消点赞
      */
     @PostMapping("/delete-star")
-    public ResponseEntity<Star> unstar(@RequestBody StarRequestBody starRequestBody) {
-        Validator.notNull(starRequestBody, ValidatorException.NO_STAR_INFO);
-        Validator.notNull(starRequestBody.getUserId(), ValidatorException.NO_STAR_INFO);
-        Validator.notNull(starRequestBody.getArticleId(), ValidatorException.NO_STAR_INFO);
-        Validator.isCurrentUser(starRequestBody.getUserId(), RoleException.OTHER_USER_STAR);
+    public ResponseEntity<Star> unstar(@RequestBody StarCollectRequestBody starCollectRequestBody) {
+        Validator.validStarCollectRequestBody(starCollectRequestBody);
 
-        return ResponseEntity.ok("success", starService.unstar(starRequestBody));
+        return ResponseEntity.ok("success", starService.unstar(starCollectRequestBody));
     }
 }

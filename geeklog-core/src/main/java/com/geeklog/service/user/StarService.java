@@ -1,7 +1,7 @@
 package com.geeklog.service.user;
 
 import com.geeklog.domain.Star;
-import com.geeklog.dto.StarRequestBody;
+import com.geeklog.dto.StarCollectRequestBody;
 
 /**
  * @author 潘浩然
@@ -10,7 +10,7 @@ import com.geeklog.dto.StarRequestBody;
  */
 public interface StarService {
 
-    Star star(StarRequestBody starRequestBody);
+    Star star(StarCollectRequestBody starCollectRequestBody);
 
-    Star unstar(StarRequestBody starRequestBody);
+    Star unstar(StarCollectRequestBody starCollectRequestBody);
 }

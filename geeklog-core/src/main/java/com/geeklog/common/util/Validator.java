@@ -5,8 +5,11 @@ import java.util.regex.Pattern;
 
 import com.geeklog.common.enumeration.Permission;
 import com.geeklog.common.exception.CommonException;
+import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.exception.ValidatorException;
+import com.geeklog.domain.Article;
 import com.geeklog.domain.User;
+import com.geeklog.dto.StarCollectRequestBody;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -185,5 +188,17 @@ public class Validator {
         if (currentUser != null && currentUser.getUserId() != userId) {
             throw commonException;
         }
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/17
+     * 功能：校验点赞（收藏）或取消点赞（收藏）的请求体
+     */
+    public static void validStarCollectRequestBody(StarCollectRequestBody starCollectRequestBody) {
+        Validator.notNull(starCollectRequestBody, ValidatorException.NO_STAR_INFO);
+        Validator.notNull(starCollectRequestBody.getUserId(), ValidatorException.NO_STAR_INFO);
+        Validator.notNull(starCollectRequestBody.getArticleId(), ValidatorException.NO_STAR_INFO);
+        Validator.isCurrentUser(starCollectRequestBody.getUserId(), RoleException.OTHER_USER_STAR);
     }
 }

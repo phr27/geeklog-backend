@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 创建时间 2018/09/15
  * 功能：点赞或取消点赞时的请求体
  */
-public class StarRequestBody {
+public class StarCollectRequestBody {
 
     @JsonProperty("user_id")
     private Integer userId;
