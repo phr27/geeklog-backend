@@ -165,7 +165,7 @@ res:
 }
 ```
 
-- [ ] __7__ GET /articles?page=1&size=30&category_id=1
+- [X] __7__ GET /articles?page=1&size=30&category_id=1
 
 res:
 
@@ -209,7 +209,7 @@ res:
 }
 ```
 
-- [ ] __8__ GET /articles/:article_id
+- [X] __8__ GET /articles/:article_id
 
 res:
 
@@ -234,7 +234,7 @@ res:
 }
 ```
 
-- [ ] __9__ POST /articles
+- [X] __9__ POST /articles
 
 req:
 
@@ -271,7 +271,7 @@ res:
 }
 ```
 
-- [ ] __10__ PUT /articles/:article_id
+- [X] __10__ PUT /articles/:article_id
 
 req:
 
@@ -307,7 +307,7 @@ res:
 }
 ```
 
-- [ ] __11__ DELETE /articles/:article_id
+- [X] __11__ DELETE /articles/:article_id
 
 res:
 
