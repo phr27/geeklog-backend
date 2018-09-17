@@ -21,7 +21,7 @@ import java.util.List;
  * 功能 分类相关实现
  */
 
-@Service
+@Service("admin.CategoryService")
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
@@ -76,7 +76,6 @@ public class CategoryServiceImpl implements CategoryService {
         Validator.notNull(category, ValidatorException.CATEGORY_NOT_EXIST);
 
         List<Article> articleList = articleMapper.queryPaging(article, 0, 5);
-        System.out.println("aaaa"+articleList);
         Validator.isTrue(articleList.isEmpty(), ValidatorException.STILL_HAVE_ARTICLE);
 
         categoryMapper.deleteByPrimaryKey(categoryId);
