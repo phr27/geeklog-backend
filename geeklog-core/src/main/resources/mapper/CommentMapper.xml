@@ -156,5 +156,21 @@
     ORDER BY created_at
     LIMIT #{rowIndex}, #{pageSize}
   </select>
-
+  <select id="queryPagingDESC" resultMap="BaseResultMap">
+    SELECT comment_id, user_id, article_id, content, parent_id, root_id, created_at
+    FROM comment
+    <where>
+      <if test="comment.userId != null">
+        and user_id = #{comment.userId}
+      </if>
+      <if test="comment.articleId != null">
+        and article_id = #{comment.articleId}
+      </if>
+      <if test="comment.content != null">
+        and content like concat('%', #{comment.content}, '%')
+      </if>
+    </where>
+    ORDER BY created_at DESC
+    LIMIT #{rowIndex}, #{pageSize}
+  </select>
 </mapper>

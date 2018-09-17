@@ -117,6 +117,16 @@ public interface CommentMapper {
     List<Comment> queryPagingReply(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
                               @Param("pageSize") int pageSize);
 
-
+    /**
+     * @describe 分页查询评论
+     * @param comment 分页查询条件
+     * @param rowIndex  limit第一个参数 起始位置
+     * @param pageSize  limit第二个参数 每页数量
+     * @return 分页查询的评论集合
+     * @author 朱远飞
+     * @create_time 2018年9月12日09:40:26
+     */
+    List<Comment> queryPagingDESC(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
+                              @Param("pageSize") int pageSize);
 
 }
