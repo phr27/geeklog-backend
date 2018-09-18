@@ -81,7 +81,19 @@ public class ArticleMapperTest {
             System.out.println(articleDto.getUsername());
             System.out.println(articleDto.getNickname());
         }
-
     }
 
+
+    @Test
+    public void queryOneArticle() throws Exception {
+        ArticleDto articleDto = mapper.queryOneArticle(1);
+        System.out.println(articleDto.getUsername());
+        System.out.println(articleDto.getNickname());
+        System.out.println(articleDto.getCategoryName());
+        System.out.println(articleDto.getCollectCount());
+        System.out.println(articleDto.getCommentCount());
+        System.out.println(articleDto.getCount());
+
+
+    }
 }
