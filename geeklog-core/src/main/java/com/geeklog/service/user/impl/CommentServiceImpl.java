@@ -6,10 +6,12 @@ import java.util.List;
 import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.Converter;
+import com.geeklog.common.util.PageUtil;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Article;
 import com.geeklog.domain.Comment;
 import com.geeklog.dto.CommentPublish;
+import com.geeklog.dto.Page;
 import com.geeklog.mapper.ArticleMapper;
 import com.geeklog.mapper.CommentMapper;
 import com.geeklog.service.user.CommentService;
@@ -87,5 +89,29 @@ public class CommentServiceImpl implements CommentService {
         }
 
         return comment;
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/18
+     * 功能：列出文章的所有一级评论
+     */
+    @Transactional
+    public Page<Comment> listCommentsOfArticle(int articleId, int page, int size) {
+        Validator.min(page, 1, ValidatorException.PAGE_OUT_OF_RANGE);
+        Validator.min(size, 1, ValidatorException.SIZE_OUT_OF_RANGE);
+
+        Article article = articleMapper.selectByPrimaryKey(articleId);
+        Validator.notNull(article, ValidatorException.ARTICLE_NOT_EXIST);
+
+        Comment commentQueryByArticleId = new Comment();
+        commentQueryByArticleId.setArticleId(articleId);
+        int total = commentMapper.queryNumOfRoot(commentQueryByArticleId);
+        int totalPage = PageUtil.getTotalPage(total, size);
+        Validator.max(page, totalPage, ValidatorException.PAGE_OUT_OF_RANGE);
+
+        List<Comment> rootComments = commentMapper.queryPagingRoot(commentQueryByArticleId, (page - 1) * size, size);
+
+        return new Page<>(total, rootComments.toArray(new Comment[rootComments.size()]));
     }
 }

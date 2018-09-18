@@ -47,7 +47,7 @@ public class UserMapperTest {
     @Test
     public void updateUser() throws Exception {
         User user = mapper.selectByPrimaryKey(2);
-        user.setAvatar("测试路径222");
+        user.setAvatar(null);
         user.setPassword("123123");
         user.setBio("测试Bio");
         user.setIsAdmin(true);
