@@ -74,4 +74,19 @@ public class CommentController {
 
         return ResponseEntity.ok("success", commentService.listCommentsOfArticle(articleId, page, size));
     }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/18
+     * 功能：列出某一评论的所有子评论
+     */
+    @GetMapping("/comments/{comment_id}/sub_comments")
+    public ResponseEntity<Page<Comment>> listCommentsOfRootComment(@PathVariable("comment_id") int rootId,
+                                                                   @RequestParam int page,
+                                                                   @RequestParam int size) {
+        Validator.min(page, 1, ValidatorException.PAGE_OUT_OF_RANGE);
+        Validator.min(size, 1, ValidatorException.SIZE_OUT_OF_RANGE);
+
+        return ResponseEntity.ok("success", commentService.listCommentsOfRootComment(rootId, page, size));
+    }
 }

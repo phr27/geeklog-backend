@@ -98,7 +98,7 @@
         and content like concat('%', #{content}, '%')
       </if>
       and parent_id IS NOT NULL
-      and root_id = #{comment.rootId}
+      and root_id = #{rootId}
     </where>
   </select>
 

@@ -18,4 +18,6 @@ public interface CommentService {
     Comment publishComment(CommentPublish commentPublish);
 
     Page<Comment> listCommentsOfArticle(int articleId, int page, int size);
+
+    Page<Comment> listCommentsOfRootComment(int rootId, int page, int size);
 }

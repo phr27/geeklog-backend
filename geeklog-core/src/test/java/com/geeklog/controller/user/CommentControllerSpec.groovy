@@ -275,4 +275,56 @@ class CommentControllerSpec extends LoggedController {
             }
         }
     }
+
+    def "GET /comments/{comment_id}/sub_comments"() {
+        when: "评论不存在"
+        def entity = restTemplate.exchange("$URL_PREFFIX/comments/50/sub_comments?page=1&size=2",
+                HttpMethod.GET,
+                new HttpEntity<Object>(headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == ValidatorException.COMMENT_NOT_EXIST.code
+            body.message == ValidatorException.COMMENT_NOT_EXIST.message
+            body.data == null
+        }
+
+        when: "正常获取"
+        entity = restTemplate.exchange("$URL_PREFFIX/comments/5/sub_comments?page=1&size=2",
+                HttpMethod.GET,
+                new HttpEntity<Object>(headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "success"
+            body.data == [
+                    total: 3,
+                    entities: [
+                            [
+                                    comment_id: 6,
+                                    user_id   : 2,
+                                    article_id: 2,
+                                    content   : "感谢感谢，一点自己的心得",
+                                    parent_id : 5,
+                                    root_id   : 5,
+                                    created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 09:59:55").getTime()
+                            ],
+                            [
+                                    comment_id: 7,
+                                    user_id   : 7,
+                                    article_id: 2,
+                                    content   : "写的不错",
+                                    parent_id : 5,
+                                    root_id   : 5,
+                                    created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 10:00:23").getTime()
+                            ]
+                    ]
+            ]
+        }
+    }
 }

@@ -114,4 +114,28 @@ public class CommentServiceImpl implements CommentService {
 
         return new Page<>(total, rootComments.toArray(new Comment[rootComments.size()]));
     }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/18
+     * 功能：列出某一评论的所有子评论
+     */
+    @Transactional
+    public Page<Comment> listCommentsOfRootComment(int rootId, int page, int size) {
+        Validator.min(page, 1, ValidatorException.PAGE_OUT_OF_RANGE);
+        Validator.min(size, 1, ValidatorException.SIZE_OUT_OF_RANGE);
+
+        Comment rootComment = commentMapper.selectByPrimaryKey(rootId);
+        Validator.notNull(rootComment, ValidatorException.COMMENT_NOT_EXIST);
+
+        Comment commentForRootId = new Comment();
+        commentForRootId.setRootId(rootId);
+        int total = commentMapper.queryNumOfReply(commentForRootId);
+        int totalPage = PageUtil.getTotalPage(total, size);
+        Validator.max(page, totalPage, ValidatorException.PAGE_OUT_OF_RANGE);
+
+        List<Comment> subComments = commentMapper.queryPagingReply(commentForRootId, (page - 1) * size, size);
+
+        return new Page<>(total, subComments.toArray(new Comment[subComments.size()]));
+    }
 }
