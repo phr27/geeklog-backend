@@ -51,11 +51,11 @@ class CommentControllerSpec extends LoggedController {
             body.data == [
                     [
                             comment_id: 9,
-                            user_id: 1,
+                            user_id   : 1,
                             article_id: 3,
-                            content: "学习了，学习了",
-                            parent_id: null,
-                            root_id: 9,
+                            content   : "学习了，学习了",
+                            parent_id : null,
+                            root_id   : 9,
                             created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 10:06:01").getTime()
                     ]
             ]
@@ -224,6 +224,55 @@ class CommentControllerSpec extends LoggedController {
                 created_at != null
             }
 
+        }
+    }
+
+    def "GET /articles/{article_id}/comments?page=#page&size=#size"() {
+        when: "文章不存在"
+        def entity = restTemplate.exchange("$URL_PREFFIX/articles/50/comments?page=1&size=2",
+                HttpMethod.GET,
+                new HttpEntity<Object>(headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == ValidatorException.ARTICLE_NOT_EXIST.code
+            body.message == ValidatorException.ARTICLE_NOT_EXIST.message
+            body.data == null
+        }
+        when: "正常获取"
+        entity = restTemplate.exchange("$URL_PREFFIX/articles/2/comments?page=1&size=2",
+                HttpMethod.GET,
+                new HttpEntity<Object>(headers),
+                ResponseEntity
+        )
+        then:
+        with(entity) {
+            statusCodeValue == 200
+            body.code == 200
+            body.message == "success"
+        }
+        with(entity.body.data) {
+            total == 2
+            entities[0] == [
+                    comment_id: 5,
+                    user_id   : 6,
+                    article_id: 2,
+                    content   : "学习前端Vue中，写的不错",
+                    parent_id : null,
+                    root_id   : 5,
+                    created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 09:59:48").getTime()
+            ]
+            with(entities[1]) {
+                comment_id == 12
+                user_id == 3
+                article_id == 2
+                content == "评论内容"
+                parent_id == null
+                root_id == comment_id
+                created_at != null
+            }
         }
     }
 }
