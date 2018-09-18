@@ -167,6 +167,29 @@
     LIMIT #{rowIndex}, #{pageSize}
   </select>
 
-
+  <select id="queryOneArticle" resultMap="articleDto">
+  SELECT  A.article_id, A.title, A.created_at, A.modified_at,
+  A.user_id, A.category_id, A.tags, A.display, A.content,
+  cate.`name` as category_name,
+  u.username, u.nickname,
+  collect_count, comment_count, star_count,
+  ifNull(collect_count,0)+ifNull(comment_count,0)+ifNull(star_count,0) as count
+  from
+  (select a.*, count(co.article_id) as collect_count from article a  left JOIN collect co on a.article_id=co.article_id group by a.article_id)
+  as A
+  LEFT JOIN
+  (select a.article_id, count(c.article_id) as comment_count from article a  left JOIN comment c on a.article_id=c.article_id group by a.article_id)
+  as B
+  on A.article_id = B.article_id
+  LEFT JOIN
+  (select a.article_id, count(s.article_id) as star_count from article a  left JOIN star s on a.article_id=s.article_id group by a.article_id)
+  as C
+  on B.article_id = C.article_id
+  JOIN user u
+  on A.user_id = u.user_id
+  JOIN category cate
+  on A.category_id = cate.category_id
+  WHERE A.article_id = #{articleId}
+  </select>
 
 </mapper>

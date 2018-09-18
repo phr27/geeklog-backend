@@ -89,4 +89,14 @@ public interface ArticleMapper {
     List<ArticleDto> queryPagingOrder(@Param("article") Article article, @Param("rowIndex") int rowIndex,
                                       @Param("pageSize") int pageSize, @Param("orderByTime") boolean orderByTime);
 
+    /**
+     * @describe 根据文章主键查询ArticleDto
+     * @param articleId 文章主键
+     * @return ArticleDto
+     * @author 朱远飞
+     * @create_time 2018年9月18日11:28:04
+     */
+    ArticleDto queryOneArticle(@Param("articleId") Integer articleId);
+
+
 }
