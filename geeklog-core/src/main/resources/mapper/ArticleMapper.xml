@@ -138,28 +138,28 @@
     as C
     on B.article_id = C.article_id
     JOIN user u
-    on a.user_id = u.user_id
+    on A.user_id = u.user_id
     JOIN category cate
-    on a.category_id = cate.category_id
+    on A.category_id = cate.category_id
     <where>
       <if test="article.title != null">
-        and a.title like concat('%', #{article.title}, '%')
+        and A.title like concat('%', #{article.title}, '%')
       </if>
       <if test="article.tags != null">
-        and a.tags like concat('%', #{article.tags}, '%')
+        and A.tags like concat('%', #{article.tags}, '%')
       </if>
       <if test="article.categoryId != null">
-        and a.category_id = #{article.categoryId}
+        and A.category_id = #{article.categoryId}
       </if>
       <if test="article.userId != null">
-        and a.user_id = #{article.userId}
+        and A.user_id = #{article.userId}
       </if>
       <if test="article.display != null">
-        and a.display = #{article.display}
+        and A.display = #{article.display}
       </if>
     </where>
     <if test="orderByTime == true">
-      ORDER BY a.created_at DESC
+      ORDER BY A.created_at DESC
     </if>
     <if test="orderByTime == false">
       ORDER BY `count` DESC
