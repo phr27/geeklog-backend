@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.geeklog.common.util.ResponseEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorController;
@@ -31,6 +33,8 @@ public class GlobalErrorController implements ErrorController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private static final Logger logger = LoggerFactory.getLogger(GlobalErrorController.class);
+
     /**
      * @author 潘浩然
      * 创建时间 2018/09/07
@@ -39,6 +43,9 @@ public class GlobalErrorController implements ErrorController {
     @RequestMapping(PATH)
     public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, Object> attributes = errorAttributes.getErrorAttributes(new ServletRequestAttributes(request), false);
+
+        logger.error(objectMapper.writeValueAsString(attributes));
+
         int code = (int) attributes.get("status");
         String message = (String) attributes.get("error");
 
