@@ -8,7 +8,6 @@ import com.geeklog.common.util.PageUtil;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Article;
 import com.geeklog.domain.Category;
-import com.geeklog.dto.ArticleDto;
 import com.geeklog.dto.Page;
 import com.geeklog.mapper.ArticleMapper;
 import com.geeklog.mapper.CategoryMapper;
@@ -105,10 +104,10 @@ public class ArticleServiceImpl implements ArticleService {
      * 创建时间 2018/09/18
      * 功能：根据文章id获取文章
      */
-    public ArticleDto article(int articleId) {
+    public Article article(int articleId) {
         Article article = articleMapper.selectByPrimaryKey(articleId);
         Validator.notNull(article, ValidatorException.ARTICLE_NOT_EXIST);
 
-        return articleMapper.queryPagingOrder(article, 0, 5, false).get(0);
+        return article;
     }
 }

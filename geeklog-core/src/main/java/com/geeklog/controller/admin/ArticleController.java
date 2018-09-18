@@ -8,7 +8,6 @@ import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Article;
 import com.geeklog.dto.ArticleDisplaySetter;
-import com.geeklog.dto.ArticleDto;
 import com.geeklog.dto.Page;
 import com.geeklog.service.admin.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +71,7 @@ public class ArticleController {
      * 功能：根据文章id获取文章
      */
     @GetMapping("/articles/{article_id}")
-    public ResponseEntity<ArticleDto> article(@PathVariable("article_id") int articleId) {
+    public ResponseEntity<Article> article(@PathVariable("article_id") int articleId) {
 
         return ResponseEntity.ok("success", articleService.article(articleId));
     }

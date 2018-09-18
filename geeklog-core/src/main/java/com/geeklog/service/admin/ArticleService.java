@@ -1,7 +1,6 @@
 package com.geeklog.service.admin;
 
 import com.geeklog.domain.Article;
-import com.geeklog.dto.ArticleDto;
 import com.geeklog.dto.Page;
 
 /**
@@ -18,5 +17,5 @@ public interface ArticleService {
     Article updateArticleDisplay(int articleId, boolean display);
 
 
-    ArticleDto article(int articleId);
+    Article article(int articleId);
 }
