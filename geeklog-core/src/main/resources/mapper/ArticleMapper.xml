@@ -120,8 +120,8 @@
   </select>
 
   <select id="queryPagingOrder" resultMap="articleDto">
-    select  a.article_id, a.title, a.created_at, a.modified_at,
-    a.user_id, a.category_id, a.tags, a.display, a.content,
+    select  A.article_id, A.title, A.created_at, A.modified_at,
+    A.user_id, A.category_id, A.tags, A.display, A.content,
     cate.`name` as category_name,
     u.username, u.nickname,
     collect_count, comment_count, star_count,
