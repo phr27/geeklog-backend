@@ -18,5 +18,5 @@ public interface ArticleService {
     Article updateArticleDisplay(int articleId, boolean display);
 
 
-    ArticleDto article(int articleId);
+    Article article(int articleId);
 }

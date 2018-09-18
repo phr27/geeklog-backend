@@ -72,7 +72,7 @@ public class ArticleController {
      * 功能：根据文章id获取文章
      */
     @GetMapping("/articles/{article_id}")
-    public ResponseEntity<ArticleDto> article(@PathVariable("article_id") int articleId) {
+    public ResponseEntity<Article> article(@PathVariable("article_id") int articleId) {
 
         return ResponseEntity.ok("success", articleService.article(articleId));
     }

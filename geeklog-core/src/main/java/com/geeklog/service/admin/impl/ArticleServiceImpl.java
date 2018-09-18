@@ -105,10 +105,10 @@ public class ArticleServiceImpl implements ArticleService {
      * 创建时间 2018/09/18
      * 功能：根据文章id获取文章
      */
-    public ArticleDto article(int articleId) {
+    public Article article(int articleId) {
         Article article = articleMapper.selectByPrimaryKey(articleId);
         Validator.notNull(article, ValidatorException.ARTICLE_NOT_EXIST);
 
-        return articleMapper.queryPagingOrder(article, 0, 5, false).get(0);
+        return article;
     }
 }

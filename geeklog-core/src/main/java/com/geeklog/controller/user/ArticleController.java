@@ -2,7 +2,9 @@ package com.geeklog.controller.user;
 
 
 import com.geeklog.common.annotation.GeekLogController;
+import com.geeklog.common.annotation.RequirePermission;
 import com.geeklog.common.annotation.RequireRole;
+import com.geeklog.common.enumeration.Permission;
 import com.geeklog.common.enumeration.Role;
 import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.domain.Article;
@@ -50,6 +52,7 @@ public class ArticleController {
     }
 
     @PostMapping("/articles")
+    @RequirePermission(Permission.CAN_WRITE_ARTICLE)
     public ResponseEntity<Article> insertArticle(@RequestBody ArticleInsert articleInsert) {
         return ResponseEntity.ok("success", articleService.insertArticle(articleInsert.getTitle(), articleInsert.getContent(), articleInsert.getUserId(), articleInsert.getCategoryId(), articleInsert.getTags()));
     }
