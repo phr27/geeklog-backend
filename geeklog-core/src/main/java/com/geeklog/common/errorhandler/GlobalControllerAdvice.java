@@ -28,7 +28,7 @@ public class GlobalControllerAdvice {
     @ExceptionHandler(ValidatorException.class)
     public ResponseEntity<Object> handleValidatorException(ValidatorException validatorException) {
         if (validatorException.isInnerError() && logger.isErrorEnabled()) {
-            logger.error(validatorException.getLog());
+            logger.error(validatorException.getLog(), validatorException);
         }
 
         return ResponseEntity.build(validatorException.getCode(), validatorException.getMessage());

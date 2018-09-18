@@ -1,4 +1,4 @@
 #!/bin/bash
 while ! nc -z ${MYSQL_IP} ${MYSQL_PORT}; do sleep 3; done
 echo "${MYSQL_IP}:${MYSQL_PORT}"
-java -jar /GeekLogCore.jar
+java -jar /GeekLogCore.jar 2>&1 | tee /log.txt
