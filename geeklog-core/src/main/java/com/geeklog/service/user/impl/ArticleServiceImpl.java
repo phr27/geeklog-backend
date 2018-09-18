@@ -74,7 +74,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = articleMapper.selectByPrimaryKey(articleId);
         Validator.notNull(article, ValidatorException.ARTICLE_NOT_EXIST);
 
-        return articleMapper.queryPagingOrder(article, 0, 5, false).get(0);
+        return articleMapper.queryOneArticle(articleId);
     }
 
 

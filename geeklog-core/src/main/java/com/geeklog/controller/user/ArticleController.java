@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 @GeekLogController(value = "user.ArticleController")
-@RequireRole(Role.USER)
+
 public class ArticleController {
 
     @Autowired
@@ -52,17 +52,20 @@ public class ArticleController {
     }
 
     @PostMapping("/articles")
+    @RequireRole(Role.USER)
     @RequirePermission(Permission.CAN_WRITE_ARTICLE)
     public ResponseEntity<Article> insertArticle(@RequestBody ArticleInsert articleInsert) {
         return ResponseEntity.ok("success", articleService.insertArticle(articleInsert.getTitle(), articleInsert.getContent(), articleInsert.getUserId(), articleInsert.getCategoryId(), articleInsert.getTags()));
     }
 
     @PutMapping("/articles/{article_id}")
+    @RequireRole(Role.USER)
     public ResponseEntity<Article> updateArticle(@PathVariable("article_id") int articleId, @RequestBody ArticleUpdate articleUpdate){
         return ResponseEntity.ok("success", articleService.updateArticle(articleId, articleUpdate.getTitle(), articleUpdate.getContent(), articleUpdate.getCategoryId(), articleUpdate.getTags()));
     }
 
     @DeleteMapping("/articles/{article_id}")
+    @RequireRole(Role.USER)
     public ResponseEntity<Article> deleteArticle(@PathVariable("article_id") int articleId){
         return ResponseEntity.ok("success", articleService.deleteArticle(articleId));
     }
