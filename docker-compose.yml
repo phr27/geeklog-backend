@@ -14,7 +14,10 @@ services:
 
   geeklog-ftp:
     container_name: geeklog-ftp-0
-    image: geeklog/pure-ftp
+    build:
+      context: .
+      dockerfile: ./docker/ftp/Dockerfile
+    image: geeklog-ftp
     # restart: always
     ports:
       - 21:21

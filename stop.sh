@@ -18,6 +18,7 @@ docker rm geeklog-app-0
 docker rm geeklog-db-0
 docker rm geeklog-nginx-0
 
+docker rmi geeklog-ftp
 docker rmi geeklog-app
 docker rmi geeklog-db
 docker rmi geeklog-nginx

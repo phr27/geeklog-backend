@@ -481,7 +481,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'a123456', '2eab177452a783b2ae54ee6e2af426bc701399', '小啊', null, null, '');
 INSERT INTO `user` VALUES ('2', 'b1234567', 'dd1bbcd4542098e0b53dbc181acb5defe7f64e', '测试Nickname', null, '测试Bio', '');
-INSERT INTO `user` VALUES ('3', 'c123456', '43ab3ad45e64a41afd41c3750b0b401d572016', '小菜1', null, null, '\0');
+INSERT INTO `user` VALUES ('3', 'c123456', '43ab3ad45e64a41afd41c3750b0b401d572016', '小菜1', "http://47.106.158.254/static/docker.jpeg", null, '\0');
 INSERT INTO `user` VALUES ('4', 'd123456', '61dabd7f9bb66ac6fd5897f1e231bad47b80c7', '小代1', null, null, '\0');
 INSERT INTO `user` VALUES ('5', 'e123456', 'af6915f65a842f478a93fefaa8a07f945ac29f', '小哦', null, null, '\0');
 INSERT INTO `user` VALUES ('6', 'f123456', 'ac002a94355da21b9a2ee00e8ad7036a6d9cd8', '小付', null, null, '\0');
