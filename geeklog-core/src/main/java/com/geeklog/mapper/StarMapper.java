@@ -64,4 +64,14 @@ public interface StarMapper {
      */
     Star queryByUserIdAndArticleId(@Param("userId") int userId, @Param("articleId") int articleId);
 
+
+    /**
+     * @describe 以一个条件来查询某个点赞数量
+     * @param star 查询条件
+     * @return 点赞数量
+     * @author 午康俊
+     * @create_time 2018年9/19
+     */
+    int queryNumOfStars(Star star);
+
 }

@@ -4,14 +4,10 @@ import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.PageUtil;
 import com.geeklog.common.util.Validator;
-import com.geeklog.domain.Article;
-import com.geeklog.domain.Comment;
-import com.geeklog.domain.User;
+import com.geeklog.domain.*;
 import com.geeklog.dto.ArticleDto;
 import com.geeklog.dto.Page;
-import com.geeklog.mapper.ArticleMapper;
-import com.geeklog.mapper.CommentMapper;
-import com.geeklog.mapper.UserMapper;
+import com.geeklog.mapper.*;
 import com.geeklog.service.user.RelateToUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +26,12 @@ public class RelateToUserServiceImpl implements RelateToUserService {
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private StarMapper starMapper;
+
+    @Autowired
+    private CollectMapper collectMapper;
 
 
     public Page<ArticleDto> getWroteArticles(int page, int size, int userId) {
@@ -60,11 +62,51 @@ public class RelateToUserServiceImpl implements RelateToUserService {
     }
 
     public Page<ArticleDto> getStarredArticles(int page, int size, int userId) {
-        return null;
+        Validator.isCurrentUser(userId, RoleException.OTHER_USER_ARTICLE);
+
+        User user = userMapper.selectByPrimaryKey(userId);
+        Validator.notNull(user, RoleException.USER_NOT_EXIST);
+
+        Star star = new Star();
+        star.setUserId(userId);
+
+        Validator.min(page, 1, ValidatorException.PAGE_OUT_OF_RANGE);
+        Validator.min(size, 1, ValidatorException.SIZE_OUT_OF_RANGE);
+
+        int total = starMapper.queryNumOfStars(star);
+        int totalPage = PageUtil.getTotalPage(total, size);
+        Validator.max(page, totalPage, ValidatorException.PAGE_OUT_OF_RANGE);
+
+
+        List<ArticleDto> articleList = articleMapper.queryPagingByUser(userId, (page - 1) * size, size, "star");
+        ArticleDto[] articleDtos = new ArticleDto[articleList.size()];
+        articleList.toArray(articleDtos);
+
+        return new Page<>(total,articleDtos);
     }
 
     public Page<ArticleDto> getCollectedArticles(int page, int size, int userId) {
-        return null;
+        Validator.isCurrentUser(userId, RoleException.OTHER_USER_ARTICLE);
+
+        User user = userMapper.selectByPrimaryKey(userId);
+        Validator.notNull(user, RoleException.USER_NOT_EXIST);
+
+        Collect collect = new Collect();
+        collect.setUserId(userId);
+
+        Validator.min(page, 1, ValidatorException.PAGE_OUT_OF_RANGE);
+        Validator.min(size, 1, ValidatorException.SIZE_OUT_OF_RANGE);
+
+        int total = collectMapper.queryNumOfCollects(collect);
+        int totalPage = PageUtil.getTotalPage(total, size);
+        Validator.max(page, totalPage, ValidatorException.PAGE_OUT_OF_RANGE);
+
+
+        List<ArticleDto> articleList = articleMapper.queryPagingByUser(userId, (page - 1) * size, size, "collect");
+        ArticleDto[] articleDtos = new ArticleDto[articleList.size()];
+        articleList.toArray(articleDtos);
+
+        return new Page<>(total,articleDtos);
     }
 
     public Page<Comment> getComments(int page, int size, int userId) {

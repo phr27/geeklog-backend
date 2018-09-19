@@ -48,5 +48,17 @@
     from collect
     where user_id = #{userId} and article_id = #{articleId}
   </select>
+  <select id="queryNumOfCollects" resultType="int">
+    SELECT count(1)
+    FROM collect
+    <where>
+      <if test="userId != null">
+        and user_id = #{userId}
+      </if>
+      <if test="articleId != null">
+        and article_id = #{articleId}
+      </if>
+    </where>
+  </select>
 
 </mapper>
