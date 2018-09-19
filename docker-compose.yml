@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   geeklog-db:
     build:
       context: .
@@ -10,17 +11,50 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     container_name: geeklog-db-0
+
+  geeklog-ftp:
+    container_name: geeklog-ftp-0
+    image: geeklog/pure-ftp
+    # restart: always
+    ports:
+      - 21:21
+      - 20000-20200:20000-20200
+      - 30000-30200:30000-30200
+    volumes:
+      - ${HOME}/ftpfile:/home/ftpfile
+    environment:
+      PUBLICHOST: localhost
+
+  geeklog-nginx:
+    container_name: geeklog-nginx-0
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    image: geeklog-nginx
+    ports:
+      - 80:80
+    links:
+      - geeklog-ftp
+      - geeklog-app
+    depends_on:
+      - geeklog-ftp
+      - geeklog-app
+    volumes:
+      - ${HOME}/ftpfile:/home/ftpfile
+
   geeklog-app:
     build:
       context: .
       dockerfile: ./docker/java/Dockerfile
     image: geeklog-app
     ports:
-      - 80:8080
+      - 8080:8080
     links:
       - geeklog-db
+      - geeklog-ftp
     depends_on:
       - geeklog-db
+      - geeklog-ftp
     environment:
       MYSQL_IP: geeklog-db-0
       MYSQL_PORT: 3306
