@@ -6,7 +6,9 @@ import com.geeklog.common.annotation.RequirePermission;
 import com.geeklog.common.annotation.RequireRole;
 import com.geeklog.common.enumeration.Permission;
 import com.geeklog.common.enumeration.Role;
+import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.util.ResponseEntity;
+import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Article;
 import com.geeklog.dto.ArticleDto;
 import com.geeklog.dto.ArticleInsert;
@@ -55,12 +57,14 @@ public class ArticleController {
     @RequireRole(Role.USER)
     @RequirePermission(Permission.CAN_WRITE_ARTICLE)
     public ResponseEntity<Article> insertArticle(@RequestBody ArticleInsert articleInsert) {
+
         return ResponseEntity.ok("success", articleService.insertArticle(articleInsert.getTitle(), articleInsert.getContent(), articleInsert.getUserId(), articleInsert.getCategoryId(), articleInsert.getTags()));
     }
 
     @PutMapping("/articles/{article_id}")
     @RequireRole(Role.USER)
     public ResponseEntity<Article> updateArticle(@PathVariable("article_id") int articleId, @RequestBody ArticleUpdate articleUpdate){
+
         return ResponseEntity.ok("success", articleService.updateArticle(articleId, articleUpdate.getTitle(), articleUpdate.getContent(), articleUpdate.getCategoryId(), articleUpdate.getTags()));
     }
 
