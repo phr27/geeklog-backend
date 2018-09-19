@@ -93,7 +93,25 @@ public class ArticleMapperTest {
         System.out.println(articleDto.getCollectCount());
         System.out.println(articleDto.getCommentCount());
         System.out.println(articleDto.getCount());
+    }
 
+    @Test
+    public void queryPagingByUser() throws Exception {
+        List<ArticleDto> articleDtos = mapper.queryPagingByUser(8, 0, 6, "collect");
+        for (ArticleDto articleDto : articleDtos) {
+            System.out.println(articleDto.getTitle());
+            System.out.println(articleDto.getUsername());
+            System.out.println(articleDto.getNickname());
+            System.out.println(articleDto.getCategoryName());
+            System.out.println(articleDto.getCollectCount());
+            System.out.println(articleDto.getCommentCount());
+            System.out.println(articleDto.getCount());
+            System.out.println(articleDto.getCreatedAt());
+            System.out.println("--------------------------");
+        }
 
     }
+
+
+
 }
