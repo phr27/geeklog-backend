@@ -86,6 +86,8 @@ public class ArticleServiceImpl implements ArticleService {
         User user = userMapper.selectByPrimaryKey(userId);
         Validator.notNull(user, RoleException.USER_NOT_EXIST);
 
+        Validator.isCurrentUser(userId, RoleException.OTHER_USER_ARTICLE);
+
         Article article = new Article();
         article.setTitle(title);
         article.setContent(content);
@@ -108,6 +110,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = articleMapper.selectByPrimaryKey(articleId);
         Validator.notNull(article, ValidatorException.ARTICLE_NOT_EXIST);
 
+        Validator.isCurrentUser(article.getUserId(), RoleException.OTHER_USER_ARTICLE);
         article.setTitle(title);
         article.setContent(content);
         article.setCategoryId(categoryId);
@@ -121,8 +124,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Article deleteArticle(int articleId) {
         Article article = articleMapper.selectByPrimaryKey(articleId);
         Validator.notNull(article, ValidatorException.ARTICLE_NOT_EXIST);
-        articleMapper.deleteByPrimaryKey(articleId);
+        Validator.isCurrentUser(article.getUserId(), RoleException.OTHER_USER_ARTICLE);
 
+        articleMapper.deleteByPrimaryKey(articleId);
         return article;
     }
 }

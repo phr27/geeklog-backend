@@ -24,4 +24,6 @@ public class RoleException extends CommonException {
 
     public static final RoleException OTHER_USER_COMMENT = new RoleException(648, "不能替其他用户发布评论");
 
+    public static final RoleException OTHER_USER_ARTICLE = new RoleException(649, "不能更改其他用户的文章");
+
 }
