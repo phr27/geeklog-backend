@@ -99,4 +99,19 @@ public interface ArticleMapper {
     ArticleDto queryOneArticle(@Param("articleId") Integer articleId);
 
 
+    /**
+     * @describe 分页排序查询(时间降序)  查询用户点赞过或者收藏过的文章
+     * @param userId 用户id
+     * @param rowIndex  limit第一个参数 起始位置
+     * @param pageSize  limit第二个参数 每页数量
+     * @param tableName 要查询的表名称，只有star点赞表和collect收藏表
+     * @return 分页查询的文章集合
+     * @author 朱远飞
+     * @create_time 2018年9月19日09:50:41
+     */
+    List<ArticleDto> queryPagingByUser(@Param("userId") Integer userId, @Param("rowIndex") int rowIndex,
+                                      @Param("pageSize") int pageSize, @Param("tableName") String tableName);
+
+
+
 }
