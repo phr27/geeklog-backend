@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.geeklog.domain.Comment;
 import com.geeklog.dto.CommentPublish;
+import com.geeklog.dto.Page;
 
 /**
  * @author 潘浩然
@@ -15,4 +16,8 @@ public interface CommentService {
     List<Comment> listLatestComment(int count);
 
     Comment publishComment(CommentPublish commentPublish);
+
+    Page<Comment> listCommentsOfArticle(int articleId, int page, int size);
+
+    Page<Comment> listCommentsOfRootComment(int rootId, int page, int size);
 }

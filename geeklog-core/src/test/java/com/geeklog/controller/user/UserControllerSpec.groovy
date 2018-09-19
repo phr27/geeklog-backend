@@ -100,7 +100,7 @@ class UserControllerSpec extends LoggedController {
                     user_id: 2,
                     username: "b1234567",
                     nickname: "测试Nickname",
-                    avatar: "测试路径222",
+                    avatar: null,
                     bio: "测试Bio",
                     is_admin: true,
                     can_write_article: true,

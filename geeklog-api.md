@@ -583,7 +583,7 @@ res:
 
 ### 根据article_id获取该文章的所有评论
 
-- [ ] __18__ GET /articles/:article_id/comments (返回该文章所有一级评论)
+- [X] __18__ GET /articles/:article_id/comments (返回该文章所有一级评论)
 
 res:
 
@@ -612,7 +612,7 @@ res:
 }
 ```
 
-- [ ] __19__ GET /comments/:comment_id/sub_comments (返回该评论的所有自评论)
+- [X] __19__ GET /comments/:comment_id/sub_comments (返回该评论的所有自评论)
 
 res:
 
