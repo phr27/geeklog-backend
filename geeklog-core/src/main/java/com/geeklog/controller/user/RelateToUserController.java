@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @GeekLogController(value = "user.RelateToUserController")
-//@RequireRole(Role.USER)
+@RequireRole(Role.USER)
 public class RelateToUserController {
 
     @Autowired
@@ -37,6 +37,11 @@ public class RelateToUserController {
     @GetMapping("/users/{user_id}/star/articles")
     public ResponseEntity<Page<ArticleDto>> starArticles(@RequestParam("page") int page, @RequestParam("size") int size,@PathVariable("user_id") int userId){
         return ResponseEntity.ok("success", relateToUserService.getStarredArticles(page, size, userId));
+    }
+
+    @GetMapping("/users/{user_id}/collect/articles")
+    public ResponseEntity<Page<ArticleDto>> collectArticles(@RequestParam("page") int page, @RequestParam("size") int size,@PathVariable("user_id") int userId){
+        return ResponseEntity.ok("success", relateToUserService.getCollectedArticles(page, size, userId));
     }
 
     @GetMapping("/users/{user_id}/comments")

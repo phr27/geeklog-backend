@@ -73,4 +73,14 @@ public interface CollectMapper {
      */
     Collect queryByUserIdAndArticleId(@Param("userId") int userId, @Param("articleId" ) int articleId);
 
+
+    /**
+     * @describe 以一个条件来查询某个收藏数量
+     * @param collect 查询条件
+     * @return 收藏数量
+     * @author 午康俊
+     * @create_time 2018年9/19
+     */
+    int queryNumOfCollects(Collect collect);
+
 }

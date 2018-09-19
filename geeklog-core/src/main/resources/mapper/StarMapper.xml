@@ -43,4 +43,16 @@
     WHERE user_id = #{userId}
     AND article_id = #{articleId}
   </select>
+  <select id="queryNumOfStars" resultType="int">
+    SELECT count(1)
+    FROM star
+    <where>
+      <if test="userId != null">
+        and user_id = #{userId}
+      </if>
+      <if test="articleId != null">
+        and article_id = #{articleId}
+      </if>
+    </where>
+  </select>
 </mapper>
