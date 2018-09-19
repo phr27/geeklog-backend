@@ -1,2 +1,2 @@
 FROM geeklog/pure-ftp
-COPY ./docker.jpeg /home/ftpfile/
+COPY ./docker/ftp/docker.jpeg /home/ftpfile/
