@@ -9,6 +9,7 @@ import com.geeklog.common.exception.FTPException;
 import com.geeklog.common.exception.RoleException;
 import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.Converter;
+import com.geeklog.common.util.FileHeaderUtil;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Forbidden;
 import com.geeklog.domain.User;
@@ -62,6 +63,8 @@ public class AvatarServiceImpl implements AvatarService {
 
         Validator.isCurrentUser(userId, RoleException.OTHER_USER_AVATAR);
 
+        String filename = userId + "." + FileHeaderUtil.getFileType(avatarFile);
+
         FTPClient ftpClient = new FTPClient();
         try {
             InputStream inputStream = avatarFile.getInputStream();
@@ -71,7 +74,7 @@ public class AvatarServiceImpl implements AvatarService {
             Validator.isTrue(ftpClient.changeWorkingDirectory("/"),
                     FTPException.unexpected("ftpClient.changeWorkingDirectory(..) == false"));
             Validator.isTrue(ftpClient.setFileType(FTP.BINARY_FILE_TYPE), FTPException.unexpected("ftpClient.setFileType(..) == false"));
-            Validator.isTrue(ftpClient.storeFile(userId + "", inputStream),
+            Validator.isTrue(ftpClient.storeFile(filename, inputStream),
                     FTPException.unexpected("ftpClient.storeFile(..) == false"));
         } catch (IOException e) {
             throw FTPException.unexpected(e);
@@ -85,7 +88,7 @@ public class AvatarServiceImpl implements AvatarService {
 
         User userForUpdateAvatar = new User();
         userForUpdateAvatar.setUserId(userId);
-        userForUpdateAvatar.setAvatar(AVATAR_URL_PREFIX + userId);
+        userForUpdateAvatar.setAvatar(AVATAR_URL_PREFIX + filename);
         int effectRow = userMapper.updateByPrimaryKey(userForUpdateAvatar);
         Validator.equals(effectRow, 1,
                 ValidatorException.unexpected("AvatarServiceImpl.uploadAvatar(..) 数据库更新用户头像 URL 失败，未知错误"));

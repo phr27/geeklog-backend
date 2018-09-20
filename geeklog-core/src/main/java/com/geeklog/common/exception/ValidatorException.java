@@ -109,4 +109,6 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException NO_MULTIPART_FILE = new ValidatorException(627, "上传头像不能为空");
 
+    public static final ValidatorException FILE_TYPE_INVALID = new ValidatorException(628, "上传文件类型只能是 .jpeg .jpg .png");
+
 }
