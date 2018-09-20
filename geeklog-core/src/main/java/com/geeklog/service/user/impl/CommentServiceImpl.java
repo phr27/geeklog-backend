@@ -10,10 +10,12 @@ import com.geeklog.common.util.PageUtil;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Article;
 import com.geeklog.domain.Comment;
+import com.geeklog.domain.User;
 import com.geeklog.dto.CommentPublish;
 import com.geeklog.dto.Page;
 import com.geeklog.mapper.ArticleMapper;
 import com.geeklog.mapper.CommentMapper;
+import com.geeklog.mapper.UserMapper;
 import com.geeklog.service.user.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * @author 潘浩然
@@ -54,6 +59,10 @@ public class CommentServiceImpl implements CommentService {
         Validator.notNull(commentPublish, ValidatorException.NO_COMMENT_PUBLISH_INFO);
         Validator.notNull(commentPublish.getUserId(), ValidatorException.NO_COMMENT_PUBLISH_INFO);
         Validator.notBlank(commentPublish.getContent(), ValidatorException.COMMENT_CONTENT_BLANK);
+
+        User user = userMapper.selectByPrimaryKey(commentPublish.getUserId());
+        Validator.notNull(user, RoleException.USER_NOT_EXIST);
+
         Validator.isCurrentUser(commentPublish.getUserId(), RoleException.OTHER_USER_COMMENT);
 
         Comment comment = Converter.convert(commentPublish, Comment.class);

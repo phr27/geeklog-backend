@@ -95,4 +95,11 @@ public interface UserMapper {
      */
     User queryUsername(String username);
 
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/20
+     * 功能：将指定用户的 avatar 设为 null
+     */
+    int updateAvatarNull(@Param("userId") int userId);
+
 }

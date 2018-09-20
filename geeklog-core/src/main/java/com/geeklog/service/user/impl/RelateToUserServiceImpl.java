@@ -36,7 +36,6 @@ public class RelateToUserServiceImpl implements RelateToUserService {
 
     public Page<ArticleDto> getWroteArticles(int page, int size, int userId) {
 
-        Validator.isCurrentUser(userId, RoleException.OTHER_USER_ARTICLE);
 
         User user = userMapper.selectByPrimaryKey(userId);
         Validator.notNull(user, RoleException.USER_NOT_EXIST);
@@ -62,7 +61,7 @@ public class RelateToUserServiceImpl implements RelateToUserService {
     }
 
     public Page<ArticleDto> getStarredArticles(int page, int size, int userId) {
-        Validator.isCurrentUser(userId, RoleException.OTHER_USER_ARTICLE);
+
 
         User user = userMapper.selectByPrimaryKey(userId);
         Validator.notNull(user, RoleException.USER_NOT_EXIST);
@@ -86,7 +85,7 @@ public class RelateToUserServiceImpl implements RelateToUserService {
     }
 
     public Page<ArticleDto> getCollectedArticles(int page, int size, int userId) {
-        Validator.isCurrentUser(userId, RoleException.OTHER_USER_ARTICLE);
+
 
         User user = userMapper.selectByPrimaryKey(userId);
         Validator.notNull(user, RoleException.USER_NOT_EXIST);
@@ -110,7 +109,7 @@ public class RelateToUserServiceImpl implements RelateToUserService {
     }
 
     public Page<Comment> getComments(int page, int size, int userId) {
-        Validator.isCurrentUser(userId, RoleException.OTHER_USER_ARTICLE);
+
 
         User user = userMapper.selectByPrimaryKey(userId);
         Validator.notNull(user, RoleException.USER_NOT_EXIST);

@@ -34,7 +34,6 @@ public class UserController {
      * 功能：根据 userId 查找用户
      */
     @GetMapping("/users/{user_id}")
-    @RequireRole(Role.USER)
     public ResponseEntity<UserWithPermissionBio> findUserById(@PathVariable("user_id") int userId) {
         return ResponseEntity.ok("success", userService.findUserById(userId));
     }

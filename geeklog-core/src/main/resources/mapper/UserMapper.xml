@@ -43,6 +43,9 @@
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
+  <update id="updateAvatarNull" parameterType="int">
+    update user set avatar = null where user_id = #{userId}
+  </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select user_id, username, password, nickname, avatar, bio, is_admin
     from user

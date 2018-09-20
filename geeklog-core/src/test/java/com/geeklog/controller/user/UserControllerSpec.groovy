@@ -3,7 +3,6 @@ package com.geeklog.controller.user
 import com.geeklog.common.exception.RoleException
 import com.geeklog.common.exception.ValidatorException
 import com.geeklog.common.util.ResponseEntity
-import com.geeklog.common.util.Validator
 import com.geeklog.controller.LoggedController
 import com.geeklog.dto.AuthToken
 import com.geeklog.dto.PasswordUpdate
@@ -11,7 +10,6 @@ import com.geeklog.dto.UserInfoUpdate
 import com.geeklog.dto.UserRegistry
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
-import spock.lang.Ignore
 
 /**
  * @author 潘浩然
@@ -21,7 +19,6 @@ import spock.lang.Ignore
 class UserControllerSpec extends LoggedController {
 
     def "GET /users/{user_id}"() {
-        getAuthorization()
 
         when: "用户不存在"
         def entity = restTemplate.exchange("$URL_PREFFIX/users/60",
@@ -76,7 +73,7 @@ class UserControllerSpec extends LoggedController {
                     user_id: 3,
                     username: "c123456",
                     nickname: "小菜1",
-                    avatar: null,
+                    avatar: "http://47.106.158.254/static/docker.jpeg",
                     bio: null,
                     is_admin: false,
                     can_write_article: true,
@@ -110,7 +107,6 @@ class UserControllerSpec extends LoggedController {
 
     }
 
-//    @Ignore
     def "POST /users"() {
         UserRegistry newUser = new UserRegistry()
         newUser.username = "c123456"

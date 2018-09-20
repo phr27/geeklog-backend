@@ -26,4 +26,7 @@ public class RoleException extends CommonException {
 
     public static final RoleException OTHER_USER_ARTICLE = new RoleException(649, "不能更改其他用户的文章");
 
+    public static final RoleException OTHER_USER_AVATAR = new RoleException(650, "不能更改其他用户的头像");
+
+
 }

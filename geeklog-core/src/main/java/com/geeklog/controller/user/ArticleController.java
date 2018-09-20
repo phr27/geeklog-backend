@@ -15,7 +15,6 @@ import com.geeklog.dto.ArticleInsert;
 import com.geeklog.dto.ArticleUpdate;
 import com.geeklog.dto.Page;
 import com.geeklog.service.user.ArticleService;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +41,7 @@ public class ArticleController {
         return ResponseEntity.ok("success", articleService.hotArticles(count));
     }
     @GetMapping("/articles")
-    public ResponseEntity<Page<ArticleDto>> categoryArticles(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("category_id") int categoryId){
+    public ResponseEntity<Page<ArticleDto>> categoryArticles(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam(value = "category_id", required = false) Integer categoryId){
 
         return ResponseEntity.ok("success", articleService.categoryArticles(page, size, categoryId));
     }

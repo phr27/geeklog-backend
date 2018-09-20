@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.geeklog.common.exception.FTPException;
 import com.geeklog.common.util.ResponseEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,10 @@ public class GlobalErrorController implements ErrorController {
     @RequestMapping(PATH)
     public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, Object> attributes = errorAttributes.getErrorAttributes(new ServletRequestAttributes(request), false);
+
+        if (StringUtils.contains((String) attributes.get("message"), "FileTooLargeException")) {
+            throw FTPException.FILE_SIZE_LIMIT;
+        }
 
         logger.error(objectMapper.writeValueAsString(attributes));
 
