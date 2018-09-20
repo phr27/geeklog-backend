@@ -92,13 +92,8 @@ public class GlobalControllerAdvice {
      */
     @ExceptionHandler(FTPException.class)
     public ResponseEntity<Object> handleFTPException(FTPException ftpException) {
-        if (logger.isErrorEnabled()) {
-            if (ftpException.getLog() != null) {
-                logger.error(ftpException.getLog());
-            }
-            if (ftpException.getCause() != null) {
-                logger.error("Unknown FTPException", ftpException.getCause());
-            }
+        if (ftpException.getCause() != null && logger.isErrorEnabled()) {
+            logger.error("Unknown FTPException", ftpException.getCause());
         }
 
         return ResponseEntity.build(ftpException.getCode(), ftpException.getMessage());

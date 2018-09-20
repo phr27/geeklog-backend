@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class FileHeaderUtil {
 
-    public static final Map<String, String> fileTypes = new HashMap<>();
+    private static final Map<String, String> fileTypes = new HashMap<>();
 
     /**
      * @author 潘浩然
@@ -27,6 +27,11 @@ public class FileHeaderUtil {
         fileTypes.put("89504E47", "png");
     }
 
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/20
+     * 功能：根据文件的前几个字节判断文件类型为 jp(e)g 或 png，若都不是，抛出文件类型异常
+     */
     public static String getFileType(MultipartFile file) {
         String header = getFileHeader(file);
         for (String fileHeader : fileTypes.keySet()) {
@@ -43,24 +48,14 @@ public class FileHeaderUtil {
      * 创建时间 2018/09/20
      * 功能：获取文件的前 8 个字节
      */
-    public static String getFileHeader(MultipartFile file) {
-        InputStream is = null;
+    private static String getFileHeader(MultipartFile file) {
         String value;
-        try {
-            is = file.getInputStream();
+        try (InputStream inputStream = file.getInputStream()) {
             byte[] b = new byte[8];
-            is.read(b, 0, b.length);
+            inputStream.read(b, 0, b.length);
             value = bytesToHexString(b);
-        } catch (Throwable e) {
+        } catch (IOException e) {
             throw ValidatorException.unexpected("FileHeaderUtil.getFileHeader(..) 读取流错误");
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    throw ValidatorException.unexpected("FileHeaderUtil.getFileHeader(..) 关闭流错误");
-                }
-            }
         }
         return value;
     }

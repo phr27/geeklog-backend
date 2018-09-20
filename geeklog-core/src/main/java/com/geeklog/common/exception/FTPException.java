@@ -7,8 +7,6 @@ package com.geeklog.common.exception;
  */
 public class FTPException extends CommonException {
 
-    private String log;
-
     private FTPException(int code, String message) {
         super(code, message);
     }
@@ -18,22 +16,10 @@ public class FTPException extends CommonException {
         super.initCause(cause);
     }
 
-    private FTPException(int code, String message, String log) {
-        super(code, message);
-        this.log = log;
-    }
-
-    public String getLog() {
-        return log;
-    }
-
     public static final FTPException FILE_SIZE_LIMIT = new FTPException(691, "文件过大，最大允许 2 MB");
 
     public static FTPException unexpected(Throwable cause) {
         return new FTPException(690, "头像服务异常，请联系管理员", cause);
     }
 
-    public static FTPException unexpected(String log) {
-        return new FTPException(690, "头像服务异常，请联系管理员", log);
-    }
 }
