@@ -75,9 +75,11 @@ public class AvatarServiceImpl implements AvatarService {
                     FTPException.unexpected("ftpClient.changeWorkingDirectory(..) == false"));
             Validator.isTrue(ftpClient.setFileType(FTP.BINARY_FILE_TYPE), FTPException.unexpected("ftpClient.setFileType(..) == false"));
             Validator.isTrue(ftpClient.storeFile(filename, inputStream),
-                    FTPException.unexpected("ftpClient.storeFile(..) == false"));
+                    FTPException.unexpected("ftpClient.storeFile(..) == false, " + ftpClient.getReplyCode()));
         } catch (IOException e) {
             throw FTPException.unexpected(e);
+        } catch (FTPException e) {
+            throw e;
         } finally {
             try {
                 Validator.isTrue(ftpClient.logout(), FTPException.unexpected("ftpClient.logout() == false"));
@@ -95,6 +97,53 @@ public class AvatarServiceImpl implements AvatarService {
 
         UserWithPermissionBio userWithPermissionBio = Converter.convert(user, UserWithPermissionBio.class);
         userWithPermissionBio.setAvatar(userForUpdateAvatar.getAvatar());
+        List<Forbidden> forbiddens = forbiddenMapper.queryByUserId(userId);
+        userWithPermissionBio.setPermissions(forbiddens);
+
+        return userWithPermissionBio;
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/20
+     * 功能：删除头像
+     */
+    public UserWithPermissionBio deleteAvatar(int userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        Validator.notNull(user, RoleException.USER_NOT_EXIST);
+
+        Validator.isCurrentUser(userId, RoleException.OTHER_USER_AVATAR);
+
+        String avatarURL = user.getAvatar();
+        if (avatarURL != null) {
+            FTPClient ftpClient = new FTPClient();
+            String avatarFilename = avatarURL.substring(AVATAR_URL_PREFIX.length());
+            try {
+                ftpClient.connect(IP, PORT);
+                Validator.isTrue(ftpClient.login(USERNAME, PASSWORD), FTPException.unexpected("ftpClient.login(..) == false"));
+
+                Validator.isTrue(ftpClient.changeWorkingDirectory("/"),
+                        FTPException.unexpected("ftpClient.changeWorkingDirectory(..) == false"));
+                Validator.isTrue(ftpClient.deleteFile(avatarFilename), FTPException.unexpected("ftpClient.deleteFile(..) == false"));
+            } catch (IOException e) {
+                throw FTPException.unexpected(e);
+            } finally {
+                try {
+                    Validator.isTrue(ftpClient.logout(), FTPException.unexpected("ftpClient.logout() == false"));
+                } catch (IOException e) {
+                    throw FTPException.unexpected(e);
+                }
+            }
+        }
+
+        User userForUpdateAvatar = new User();
+        userForUpdateAvatar.setUserId(userId);
+        int effectRow = userMapper.updateByPrimaryKey(userForUpdateAvatar);
+        Validator.equals(effectRow, 1,
+                ValidatorException.unexpected("AvatarServiceImpl.deleteAvatar(..) 数据库删除用户头像 URL 失败，未知错误"));
+
+        UserWithPermissionBio userWithPermissionBio = Converter.convert(user, UserWithPermissionBio.class);
+        userWithPermissionBio.setAvatar(null);
         List<Forbidden> forbiddens = forbiddenMapper.queryByUserId(userId);
         userWithPermissionBio.setPermissions(forbiddens);
 

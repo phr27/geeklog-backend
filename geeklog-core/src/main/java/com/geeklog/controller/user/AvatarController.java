@@ -11,6 +11,7 @@ import com.geeklog.dto.UserWithPermissionBio;
 import com.geeklog.service.common.AvatarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,5 +36,12 @@ public class AvatarController {
         Validator.isCurrentUser(userId, RoleException.OTHER_USER_AVATAR);
 
         return ResponseEntity.ok("success", avatarService.uploadAvatar(userId, avatar));
+    }
+
+    @DeleteMapping("/{user_id}")
+    public ResponseEntity<UserWithPermissionBio> deleteAvatar(@PathVariable("user_id") int userId) {
+        Validator.isCurrentUser(userId, RoleException.OTHER_USER_AVATAR);
+
+        return ResponseEntity.ok("success", avatarService.deleteAvatar(userId));
     }
 }
