@@ -107,4 +107,6 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException COMMENT_CONTENT_BLANK = new ValidatorException(626, "评论内容不能为空");
 
+    public static final ValidatorException NO_MULTIPART_FILE = new ValidatorException(627, "上传头像不能为空");
+
 }

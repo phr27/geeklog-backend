@@ -61,5 +61,9 @@ services:
       MYSQL_USER: root
       MYSQL_PWD: 123456
       DB_NAME: geeklog
+      FTP_IP: geeklog-ftp-0
+      FTP_PORT: 21
+      FTP_USER: glftp
+      FTP_PWD: geeklogftp
     container_name: geeklog-app-0
 

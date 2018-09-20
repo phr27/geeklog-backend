@@ -5,6 +5,9 @@ spring:
       password: ${MYSQL_PWD:admin}
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://${MYSQL_IP:localhost}:${MYSQL_PORT:3306}/${DB_NAME:geeklog}?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+  http:
+    multipart:
+      max-file-size: 100KB
 logging:
   level:
     com.geeklog.mapper: debug
