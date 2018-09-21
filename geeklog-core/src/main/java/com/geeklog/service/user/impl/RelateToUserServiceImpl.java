@@ -14,6 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author 午康俊
+ * 创建时间 2018/9/18
+ * 功能 用户相关级联查询服务实现
+ */
+
 
 @Service("user.RelateToUserService")
 public class RelateToUserServiceImpl implements RelateToUserService {
@@ -133,5 +139,21 @@ public class RelateToUserServiceImpl implements RelateToUserService {
         return new Page<>(total,comments);
 
 
+    }
+
+    public Boolean isStarred(int userId, int articleId) {
+        Star star = starMapper.queryByUserIdAndArticleId(userId, articleId);
+        if(null == star){
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean isCollected(int usrId, int articleId) {
+        Collect collect = collectMapper.queryByUserIdAndArticleId(usrId, articleId);
+        if(null == collect){
+            return false;
+        }
+        return true;
     }
 }
