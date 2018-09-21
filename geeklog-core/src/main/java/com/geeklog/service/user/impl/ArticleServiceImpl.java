@@ -46,9 +46,11 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.queryPagingOrder(new Article(), 0, count, false);
     }
 
-    public Page<ArticleDto> categoryArticles(int page, int size, int categoryId) {
-        Category category = categoryMapper.selectByPrimaryKey(categoryId);
-        Validator.notNull(category, ValidatorException.CATEGORY_NOT_EXIST);
+    public Page<ArticleDto> categoryArticles(int page, int size, Integer categoryId) {
+        if(categoryId != null){
+            Category category = categoryMapper.selectByPrimaryKey(categoryId);
+            Validator.notNull(category, ValidatorException.CATEGORY_NOT_EXIST);
+        }
 
         Article article = new Article();
         article.setCategoryId(categoryId);

@@ -15,7 +15,7 @@ import java.util.List;
 public interface ArticleService {
     List<ArticleDto> hotArticles(int count);
 
-    Page<ArticleDto> categoryArticles(int page, int size, int categoryId);
+    Page<ArticleDto> categoryArticles(int page, int size, Integer categoryId);
 
     ArticleDto article(int articleId);
 
