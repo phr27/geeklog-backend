@@ -53,5 +53,17 @@ public class RelateToUserController {
         return ResponseEntity.ok("success", relateToUserService.getComments(page, size, userId));
     }
 
+    @GetMapping("/is-starred/{user_id}/{article_id}")
+    public ResponseEntity isStarred(@PathVariable("user_id") int userId, @PathVariable("article_id") int articleId){
+        return ResponseEntity.ok("success", relateToUserService.isStarred(userId, articleId));
+
+    }
+
+    @GetMapping("/is-collected/{user_id}/{article_id}")
+    public ResponseEntity isCollected(@PathVariable("user_id") int userId, @PathVariable("article_id") int articleId){
+        return ResponseEntity.ok("success", relateToUserService.isCollected(userId, articleId));
+
+    }
+
 
 }
