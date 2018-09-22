@@ -11,6 +11,7 @@ import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Article;
 import com.geeklog.domain.Comment;
 import com.geeklog.domain.User;
+import com.geeklog.dto.CommentDto;
 import com.geeklog.dto.CommentPublish;
 import com.geeklog.dto.Page;
 import com.geeklog.mapper.ArticleMapper;
@@ -119,7 +120,7 @@ public class CommentServiceImpl implements CommentService {
         int totalPage = PageUtil.getTotalPage(total, size);
         Validator.max(page, totalPage, ValidatorException.PAGE_OUT_OF_RANGE);
 
-        List<Comment> rootComments = commentMapper.queryPagingRoot(commentQueryByArticleId, (page - 1) * size, size);
+        List<CommentDto> rootComments = commentMapper.queryPagingRoot(commentQueryByArticleId, (page - 1) * size, size);
 
         return new Page<>(total, rootComments.toArray(new Comment[rootComments.size()]));
     }
@@ -143,7 +144,7 @@ public class CommentServiceImpl implements CommentService {
         int totalPage = PageUtil.getTotalPage(total, size);
         Validator.max(page, totalPage, ValidatorException.PAGE_OUT_OF_RANGE);
 
-        List<Comment> subComments = commentMapper.queryPagingReply(commentForRootId, (page - 1) * size, size);
+        List<CommentDto> subComments = commentMapper.queryPagingReply(commentForRootId, (page - 1) * size, size);
 
         return new Page<>(total, subComments.toArray(new Comment[subComments.size()]));
     }

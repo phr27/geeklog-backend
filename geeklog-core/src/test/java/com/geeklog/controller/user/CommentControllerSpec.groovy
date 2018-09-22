@@ -262,7 +262,12 @@ class CommentControllerSpec extends LoggedController {
                     content   : "学习前端Vue中，写的不错",
                     parent_id : null,
                     root_id   : 5,
-                    created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 09:59:48").getTime()
+                    created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 09:59:48").getTime(),
+                    from_user_nickname: "小付",
+                    to_user_nickname: null,
+                    article_title: "Vue总结",
+                    from_user_avatar: null,
+                    to_user_avatar: null
             ]
             with(entities[1]) {
                 comment_id == 12
@@ -272,6 +277,11 @@ class CommentControllerSpec extends LoggedController {
                 parent_id == null
                 root_id == comment_id
                 created_at != null
+                from_user_nickname == "小菜1"
+                to_user_nickname == null
+                article_title == "Vue总结"
+                from_user_avatar == "http://47.106.158.254/static/docker.jpeg"
+                to_user_avatar == null
             }
         }
     }
@@ -312,7 +322,12 @@ class CommentControllerSpec extends LoggedController {
                                     content   : "感谢感谢，一点自己的心得",
                                     parent_id : 5,
                                     root_id   : 5,
-                                    created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 09:59:55").getTime()
+                                    created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 09:59:55").getTime(),
+                                    from_user_nickname: "测试Nickname",
+                                    to_user_nickname: "小付",
+                                    article_title: "Vue总结",
+                                    from_user_avatar: null,
+                                    to_user_avatar: null
                             ],
                             [
                                     comment_id: 7,
@@ -321,7 +336,12 @@ class CommentControllerSpec extends LoggedController {
                                     content   : "写的不错",
                                     parent_id : 5,
                                     root_id   : 5,
-                                    created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 10:00:23").getTime()
+                                    created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 10:00:23").getTime(),
+                                    from_user_nickname: "小高",
+                                    to_user_nickname: "小付",
+                                    article_title: "Vue总结",
+                                    from_user_avatar: null,
+                                    to_user_avatar: null
                             ]
                     ]
             ]

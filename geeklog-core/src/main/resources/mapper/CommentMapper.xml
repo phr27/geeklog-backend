@@ -129,7 +129,7 @@
   <select id="queryPagingRoot" resultMap="CommentDtoMap">
     SELECT A.comment_id, A.user_id, A.article_id, A.content, A.parent_id, A.root_id, A.created_at,
     A.nickname as from_user_nickname, A.avatar as from_user_avatar,
-    u2.nickname as to_user_nickname, u2.avatar as to_user_avatar, a.title
+    u2.nickname as to_user_nickname, u2.avatar as to_user_avatar, A.title
     FROM
     (SELECT c.comment_id, c.user_id, c.article_id, c.content, c.parent_id, c.root_id, c.created_at,
     u1.nickname, u1.avatar,a.title
@@ -160,7 +160,7 @@
   <select id="queryPagingReply" resultMap="CommentDtoMap">
     SELECT A.comment_id, A.user_id, A.article_id, A.content, A.parent_id, A.root_id, A.created_at,
     A.nickname as from_user_nickname, A.avatar as from_user_avatar,
-    u2.nickname as to_user_nickname, u2.avatar as to_user_avatar, a.title
+    u2.nickname as to_user_nickname, u2.avatar as to_user_avatar, A.title
     FROM
     (SELECT c.comment_id, c.user_id, c.article_id, c.content, c.parent_id, c.root_id, c.created_at,
     u1.nickname, u1.avatar,a.title
