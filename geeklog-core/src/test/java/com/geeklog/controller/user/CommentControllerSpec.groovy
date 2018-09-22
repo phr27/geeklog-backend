@@ -56,7 +56,12 @@ class CommentControllerSpec extends LoggedController {
                             content   : "学习了，学习了",
                             parent_id : null,
                             root_id   : 9,
-                            created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 10:06:01").getTime()
+                            created_at: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2018-09-06 10:06:01").getTime(),
+                            from_user_nickname: "小啊",
+                            to_user_nickname: null,
+                            article_title: "JavaScript技巧",
+                            from_user_avatar: null,
+                            to_user_avatar: null
                     ]
             ]
         }

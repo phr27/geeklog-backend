@@ -6,6 +6,7 @@ import com.geeklog.common.util.PageUtil;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.*;
 import com.geeklog.dto.ArticleDto;
+import com.geeklog.dto.CommentDto;
 import com.geeklog.dto.Page;
 import com.geeklog.mapper.*;
 import com.geeklog.service.user.RelateToUserService;
@@ -131,7 +132,7 @@ public class RelateToUserServiceImpl implements RelateToUserService {
         int totalPage = PageUtil.getTotalPage(total, size);
         Validator.max(page, totalPage, ValidatorException.PAGE_OUT_OF_RANGE);
 
-        List<Comment> commentList = commentMapper.queryPagingDESC(comment, (page - 1) * size, size);
+        List<CommentDto> commentList = commentMapper.queryPagingDESC(comment, (page - 1) * size, size);
         Comment[] comments = new Comment[commentList.size()];
         commentList.toArray(comments);
 

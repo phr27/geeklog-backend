@@ -3,6 +3,7 @@ package com.geeklog.service.user;
 import java.util.List;
 
 import com.geeklog.domain.Comment;
+import com.geeklog.dto.CommentDto;
 import com.geeklog.dto.CommentPublish;
 import com.geeklog.dto.Page;
 
@@ -13,7 +14,7 @@ import com.geeklog.dto.Page;
  */
 public interface CommentService {
 
-    List<Comment> listLatestComment(int count);
+    List<CommentDto> listLatestComment(int count);
 
     Comment publishComment(CommentPublish commentPublish);
 
