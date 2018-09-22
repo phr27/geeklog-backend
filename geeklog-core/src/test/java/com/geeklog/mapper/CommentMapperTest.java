@@ -1,6 +1,7 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.Comment;
+import com.geeklog.dto.CommentDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,16 +61,31 @@ public class CommentMapperTest {
     public void queryPagingRoot() throws Exception {
         Comment comment = new Comment();
         comment.setArticleId(1);
-        List<Comment> comments = mapper.queryPagingRoot(comment, 0, 15);
-        assertEquals(2, comments.size());
+        List<CommentDto> comments = mapper.queryPagingRoot(comment, 0, 15);
+        for (CommentDto commentDto : comments) {
+            System.out.println(commentDto.getArticleTitle());
+            System.out.println(commentDto.getFromUserNickname());
+            System.out.println(commentDto.getFromUserAvatar());
+            System.out.println(commentDto.getToUserNickname());
+            System.out.println(commentDto.getToUserAvatar());
+
+        }
     }
 
     @Test
     public void queryPagingReply() throws Exception {
         Comment comment = new Comment();
         comment.setRootId(1);
-        List<Comment> comments = mapper.queryPagingReply(comment, 0, 15);
-        assertEquals(3, comments.size());
+        comment.setArticleId(1);
+        List<CommentDto> comments = mapper.queryPagingReply(comment, 0, 15);
+        for (CommentDto commentDto : comments) {
+            System.out.println(commentDto.getArticleTitle());
+            System.out.println(commentDto.getFromUserNickname());
+            System.out.println(commentDto.getFromUserAvatar());
+            System.out.println(commentDto.getToUserNickname());
+            System.out.println(commentDto.getToUserAvatar());
+
+        }
     }
 
 }
