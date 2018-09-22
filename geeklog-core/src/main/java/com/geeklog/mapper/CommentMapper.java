@@ -1,6 +1,7 @@
 package com.geeklog.mapper;
 
 import com.geeklog.domain.Comment;
+import com.geeklog.dto.CommentDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -102,8 +103,8 @@ public interface CommentMapper {
      * @author 朱远飞
      * @create_time 2018年9月12日09:40:26
      */
-    List<Comment> queryPagingRoot(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
-                           @Param("pageSize") int pageSize);
+    List<CommentDto> queryPagingRoot(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
+                                     @Param("pageSize") int pageSize);
 
     /**
      * @describe 分页查询首评论的回复（即rootId = 某一个评论的Id，升序，最新的放在最后）
@@ -114,7 +115,7 @@ public interface CommentMapper {
      * @author 朱远飞
      * @create_time 2018年9月12日09:40:26
      */
-    List<Comment> queryPagingReply(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
+    List<CommentDto> queryPagingReply(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
                               @Param("pageSize") int pageSize);
 
     /**
