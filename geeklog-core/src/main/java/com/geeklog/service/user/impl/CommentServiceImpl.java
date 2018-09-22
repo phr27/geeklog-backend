@@ -9,6 +9,7 @@ import com.geeklog.common.util.Converter;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Article;
 import com.geeklog.domain.Comment;
+import com.geeklog.dto.CommentDto;
 import com.geeklog.dto.CommentPublish;
 import com.geeklog.mapper.ArticleMapper;
 import com.geeklog.mapper.CommentMapper;
@@ -36,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
      * 创建时间 2018/09/17
      * 功能：列出最新的 count 条评论
      */
-    public List<Comment> listLatestComment(int count) {
+    public List<CommentDto> listLatestComment(int count) {
         Validator.min(count, 1, ValidatorException.LATEST_COMMENT_COUNT_OUT_OF_RANGE);
 
         return commentMapper.queryPagingDESC(new Comment(), 0, count);

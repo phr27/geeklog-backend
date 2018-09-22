@@ -127,7 +127,7 @@ public interface CommentMapper {
      * @author 朱远飞
      * @create_time 2018年9月12日09:40:26
      */
-    List<Comment> queryPagingDESC(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
+    List<CommentDto> queryPagingDESC(@Param("comment") Comment comment, @Param("rowIndex") int rowIndex,
                               @Param("pageSize") int pageSize);
 
 }

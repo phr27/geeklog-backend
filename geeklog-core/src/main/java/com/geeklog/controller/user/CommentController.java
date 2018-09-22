@@ -12,6 +12,7 @@ import com.geeklog.common.exception.ValidatorException;
 import com.geeklog.common.util.ResponseEntity;
 import com.geeklog.common.util.Validator;
 import com.geeklog.domain.Comment;
+import com.geeklog.dto.CommentDto;
 import com.geeklog.dto.CommentPublish;
 import com.geeklog.service.user.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class CommentController {
      * 功能：列出最新的 count 条评论
      */
     @GetMapping("/latest/{count}")
-    public ResponseEntity<List<Comment>> listLatestComment(@PathVariable int count) {
+    public ResponseEntity<List<CommentDto>> listLatestComment(@PathVariable int count) {
         Validator.min(count, 1, ValidatorException.LATEST_COMMENT_COUNT_OUT_OF_RANGE);
 
         return ResponseEntity.ok("success", commentService.listLatestComment(count));

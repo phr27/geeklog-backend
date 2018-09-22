@@ -53,8 +53,16 @@ public class CommentMapperTest {
     public void queryPaging() throws Exception {
         Comment comment = new Comment();
         comment.setArticleId(2);
-        List<Comment> comments = mapper.queryPaging(comment, 0, 15);
-        assertEquals(4, comments.size());
+        List<CommentDto> comments = mapper.queryPagingDESC(comment, 0, 15);
+        for (CommentDto commentDto : comments) {
+            System.out.println(commentDto.getArticleTitle());
+            System.out.println(commentDto.getFromUserNickname());
+            System.out.println(commentDto.getFromUserAvatar());
+            System.out.println(commentDto.getToUserNickname());
+            System.out.println(commentDto.getToUserAvatar());
+            System.out.println(commentDto.getCreatedAt());
+            System.out.println("----------");
+        }
     }
 
     @Test

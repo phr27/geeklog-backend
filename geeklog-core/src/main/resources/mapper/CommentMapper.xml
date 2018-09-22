@@ -190,20 +190,34 @@
     ORDER BY created_at
     LIMIT #{rowIndex}, #{pageSize}
   </select>
-  <select id="queryPagingDESC" resultMap="BaseResultMap">
-    SELECT comment_id, user_id, article_id, content, parent_id, root_id, created_at
-    FROM comment
+  <select id="queryPagingDESC" resultMap="CommentDtoMap">
+    SELECT A.comment_id, A.user_id, A.article_id, A.content, A.parent_id, A.root_id, A.created_at,
+    A.nickname as from_user_nickname, A.avatar as from_user_avatar,
+    u2.nickname as to_user_nickname, u2.avatar as to_user_avatar, a.title
+    FROM
+    (SELECT c.comment_id, c.user_id, c.article_id, c.content, c.parent_id, c.root_id, c.created_at,
+    u1.nickname, u1.avatar,a.title
+    FROM comment c
+    JOIN user u1
+    on u1.user_id = c.user_id
+    join article a
+    on c.article_id = a.article_id
     <where>
       <if test="comment.userId != null">
-        and user_id = #{comment.userId}
+        and c.user_id = #{comment.userId}
       </if>
       <if test="comment.articleId != null">
-        and article_id = #{comment.articleId}
+        and c.article_id = #{comment.articleId}
       </if>
       <if test="comment.content != null">
-        and content like concat('%', #{comment.content}, '%')
+        and c.content like concat('%', #{comment.content}, '%')
       </if>
     </where>
+    ) AS A
+    left join comment c2
+    ON c2.comment_id= A.parent_id
+    left join user u2
+    on u2.user_id = c2.user_id
     ORDER BY created_at DESC
     LIMIT #{rowIndex}, #{pageSize}
   </select>
