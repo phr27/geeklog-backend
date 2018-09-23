@@ -35,6 +35,13 @@ public class Validator {
 
     /**
      * @author 潘浩然
+     * 创建时间 2018/09/23
+     * 功能：文章标签格式
+     */
+    private static final String TAGS_PATTERN = "[^\\s,]{1,15}(?:,[^\\s,]{1,15}){0,7}";
+
+    /**
+     * @author 潘浩然
      * 创建时间 2018/09/09
      * 功能：断言 @param object 不为 null，断言失败就抛出异常
      */
@@ -201,5 +208,38 @@ public class Validator {
         Validator.notNull(starCollectRequestBody.getUserId(), starCollectBaseException.getValidatorException());
         Validator.notNull(starCollectRequestBody.getArticleId(), starCollectBaseException.getValidatorException());
         Validator.isCurrentUser(starCollectRequestBody.getUserId(), starCollectBaseException.getRoleException());
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/23
+     * 功能：校验文章标题
+     */
+    public static void articleTitle(String title) {
+        if (StringUtils.isBlank(title) || title.length() > 50) {
+            throw ValidatorException.ARTICLE_TITLE_INVALID;
+        }
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/23
+     * 功能：校验评论正文内容
+     */
+    public static void comment(String commentContent) {
+        if (StringUtils.isBlank(commentContent) || commentContent.length() > 255 || commentContent.length() < 5) {
+            throw ValidatorException.COMMENT_CONTENT_INVALID;
+        }
+    }
+
+    /**
+     * @author 潘浩然
+     * 创建时间 2018/09/23
+     * 功能：校验标签
+     */
+    public static void tags(String tags) {
+        if (tags != null && !Pattern.matches(TAGS_PATTERN, tags)) {
+            throw ValidatorException.ARTICLE_TAGS_INVALID;
+        }
     }
 }

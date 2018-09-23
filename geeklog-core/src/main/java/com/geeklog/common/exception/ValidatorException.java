@@ -51,6 +51,8 @@ public class ValidatorException extends CommonException {
         return new ValidatorException(500, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), log, true);
     }
 
+    public static final ValidatorException ARTICLE_TAGS_INVALID = new ValidatorException(600, "单个标签不能包含空白字符，最多 15 个字符，标签最多有 8 个");
+
     public static final ValidatorException USERNAME_INVALID = new ValidatorException(601, "用户名最少 6 个字符，最多 20 个字符，由字母数字下划线组成");
 
     public static final ValidatorException PWD_INVALID = new ValidatorException(602,
@@ -105,10 +107,12 @@ public class ValidatorException extends CommonException {
 
     public static final ValidatorException PARENT_COMMENT_NOT_EXIST = new ValidatorException(625, "父评论不存在");
 
-    public static final ValidatorException COMMENT_CONTENT_BLANK = new ValidatorException(626, "评论内容不能为空");
+    public static final ValidatorException COMMENT_CONTENT_INVALID = new ValidatorException(626, "评论内容不能为空，长度在 5 到 255 个字符之间");
 
     public static final ValidatorException NO_MULTIPART_FILE = new ValidatorException(627, "上传头像不能为空");
 
     public static final ValidatorException FILE_TYPE_INVALID = new ValidatorException(628, "上传文件类型只能是 .jpeg .jpg .png");
+
+    public static final ValidatorException ARTICLE_TITLE_INVALID = new ValidatorException(629, "文章标题不能为空，最大长度不超过 50 个字符");
 
 }

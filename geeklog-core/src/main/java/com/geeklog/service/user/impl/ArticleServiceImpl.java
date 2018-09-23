@@ -24,6 +24,8 @@ import java.util.List;
  * @author 午康俊
  * 创建时间 2018/9/17
  * 功能 文章相关服务实现
+ * 修改人 潘浩然
+ * 修改时间 2018/09/23
  */
 
 
@@ -82,6 +84,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Transactional
     public Article insertArticle(String title, String content, int userId, int categoryId, String tags) {
+        Validator.articleTitle(title);
+        Validator.tags(tags);
+
         Category category = categoryMapper.selectByPrimaryKey(categoryId);
         Validator.notNull(category, ValidatorException.CATEGORY_NOT_EXIST);
 
@@ -106,6 +111,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Transactional
     public Article updateArticle(int articleId, String title, String content, int categoryId, String tags) {
+        Validator.articleTitle(title);
+        Validator.tags(tags);
+
         Category category = categoryMapper.selectByPrimaryKey(categoryId);
         Validator.notNull(category, ValidatorException.CATEGORY_NOT_EXIST);
 

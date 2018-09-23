@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment publishComment(CommentPublish commentPublish) {
         Validator.notNull(commentPublish, ValidatorException.NO_COMMENT_PUBLISH_INFO);
         Validator.notNull(commentPublish.getUserId(), ValidatorException.NO_COMMENT_PUBLISH_INFO);
-        Validator.notBlank(commentPublish.getContent(), ValidatorException.COMMENT_CONTENT_BLANK);
+        Validator.comment(commentPublish.getContent());
 
         User user = userMapper.selectByPrimaryKey(commentPublish.getUserId());
         Validator.notNull(user, RoleException.USER_NOT_EXIST);

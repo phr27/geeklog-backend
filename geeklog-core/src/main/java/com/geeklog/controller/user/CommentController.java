@@ -55,7 +55,6 @@ public class CommentController {
     public ResponseEntity<Comment> publishComment(@RequestBody CommentPublish commentPublish) {
         Validator.notNull(commentPublish, ValidatorException.NO_COMMENT_PUBLISH_INFO);
         Validator.notNull(commentPublish.getUserId(), ValidatorException.NO_COMMENT_PUBLISH_INFO);
-        Validator.notBlank(commentPublish.getContent(), ValidatorException.COMMENT_CONTENT_BLANK);
         Validator.isCurrentUser(commentPublish.getUserId(), RoleException.OTHER_USER_COMMENT);
 
         return ResponseEntity.ok("success", commentService.publishComment(commentPublish));
